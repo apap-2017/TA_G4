@@ -9,17 +9,18 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 
-//@Configuration
-//@EnableWebSecurity
+@Configuration
+@EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 {
-    /*@Override
+    @Override
     protected void configure(HttpSecurity http) throws Exception
     {
         http
                 .authorizeRequests()
-                .antMatchers("/mahasiswa/**").hasRole("MAHASISWA")
+                .antMatchers("/css/**", "/js/**", "/img/**").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/mahasiswa/**").hasAnyRole("ADMIN","USER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -29,6 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
                 .logout().permitAll();
     }
 
+    /*
 	@Autowired
 	public void configureGlobal (AuthenticationManagerBuilder auth) throws Exception
 	{
@@ -37,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 
 		auth.inMemoryAuthentication()
 		.withUser("admin").password("admin").roles("ADMIN");
-	}
+	}*/
 
     @Autowired
     DataSource dataSource;
@@ -47,11 +49,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
     {
         auth.jdbcAuthentication().dataSource(dataSource)
                 .usersByUsernameQuery(
-                        "select username, password, enabled from mahasiswa "
-                                + "where username=?")
+                        "select username, password, enabled from user where username=?")
                 .authoritiesByUsernameQuery(
-                        "select username, role from user_roles "
-                                + "where username=?");
+                        "select username, role from user_role where username=?");
     }
-    */
 }
