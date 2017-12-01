@@ -5,16 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.util.List;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class JadwalModel {
-
-    @JsonProperty("matkulList")
-    private List<MatakuliahModel> matkul;
-    @JsonProperty("term")
-    private TermModel term;
-
+public class DosenPengajarModel {
+//    private int id;
+    @JsonProperty("nama")
+    private String nama;
+//    private String nidn;
 }
