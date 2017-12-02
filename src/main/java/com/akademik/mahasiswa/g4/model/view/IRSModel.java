@@ -1,6 +1,7 @@
 package com.akademik.mahasiswa.g4.model.view;
 
 import com.akademik.mahasiswa.g4.model.db.MahasiswaDBModel;
+import com.akademik.mahasiswa.g4.model.db.RiwayatPerkuliahanModel;
 import lombok.*;
 
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
 public class IRSModel {
 
     private MahasiswaDBModel mahasiswa;
-    private RiwayatViewModel riwayatPadaIRS;
+    private RiwayatPerkuliahanModel riwayatPadaIRS;
     private List<String> error;
     private String sksMaksimum;
     private String ipTerakhir;

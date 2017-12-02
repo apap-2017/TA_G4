@@ -13,6 +13,7 @@ import java.util.List;
 @Setter
 @ToString
 public class KelasModel {
+    private String namaMK;
     private int idKelas;
     private int idRiwayatPerkuliahan;
     private Date tanggalPengisian;
