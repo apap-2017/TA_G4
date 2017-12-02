@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 30, 2017 at 08:46 AM
+-- Generation Time: Dec 02, 2017 at 09:57 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -25,6 +25,23 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `kelas`
+--
+
+CREATE TABLE `kelas` (
+  `id_riwayat_perkuliahan` int(11) NOT NULL,
+  `tanggal_pengisian` date NOT NULL,
+  `kode_mata_kuliah` varchar(50) NOT NULL,
+  `kode_kurikulum` varchar(50) NOT NULL,
+  `id_kelas` int(11) NOT NULL,
+  `nama_mata_kuliah` varchar(250) NOT NULL,
+  `nama_kelas` varchar(50) NOT NULL,
+  `sks` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `mahasiswa`
 --
 
@@ -36,20 +53,6 @@ CREATE TABLE `mahasiswa` (
   `id_fakultas` int(6) NOT NULL,
   `id_prodi` int(6) NOT NULL,
   `angkatan` int(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `kelas`
---
-
-CREATE TABLE `kelas` (
-  `id_riwayat_perkuliahan` int(11) NOT NULL,
-  `tanggal_pengisian` date NOT NULL,
-  `kode_mata_kuliah` varchar(50) NOT NULL,
-  `kode_kurikulum` varchar(50) NOT NULL,
-  `id_kelas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -93,18 +96,18 @@ CREATE TABLE `user_role` (
 --
 
 --
--- Indexes for table `mahasiswa`
---
-ALTER TABLE `mahasiswa`
-  ADD PRIMARY KEY (`npm`),
-  ADD KEY `mahasiswa_username_idx` (`username`);
-
---
 -- Indexes for table `kelas`
 --
 ALTER TABLE `kelas`
   ADD PRIMARY KEY (`id_kelas`),
   ADD KEY `id_riwayat_perkuliahan` (`id_riwayat_perkuliahan`);
+
+--
+-- Indexes for table `mahasiswa`
+--
+ALTER TABLE `mahasiswa`
+  ADD PRIMARY KEY (`npm`),
+  ADD KEY `mahasiswa_username_idx` (`username`);
 
 --
 -- Indexes for table `riwayat_perkuliahan`
@@ -130,16 +133,16 @@ ALTER TABLE `user_role`
 --
 
 --
--- Constraints for table `mahasiswa`
---
-ALTER TABLE `mahasiswa`
-  ADD CONSTRAINT `mahasiswa_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `kelas`
 --
 ALTER TABLE `kelas`
   ADD CONSTRAINT `kelas_ibfk_1` FOREIGN KEY (`id_riwayat_perkuliahan`) REFERENCES `riwayat_perkuliahan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `mahasiswa`
+--
+ALTER TABLE `mahasiswa`
+  ADD CONSTRAINT `mahasiswa_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `riwayat_perkuliahan`
