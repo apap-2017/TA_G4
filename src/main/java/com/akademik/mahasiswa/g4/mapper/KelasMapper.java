@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 @Mapper
-public interface RiwayatMatakuliahMapper {
+public interface KelasMapper {
 
     @Select("select count(*) from mahasiswa m, matakuliah_yg_diambil_mahasiswa mydm, riwayat_perkuliahan rp \n" +
             "where rp.id = mydm.id_riwayat_perkuliahan \n" +
@@ -22,6 +22,15 @@ public interface RiwayatMatakuliahMapper {
                                   @Param("term") int term);
 
 
-    List<Integer> getIdKelasIRSMahasiswa();
+    @Select("select k.id_kelas \n" +
+            "from kelas k, riwayat_perkuliahan rp, mahasiswa m \n" +
+            "where k.id_riwayat_perkuliahan = rp.id \n" +
+            "and rp.npm = m.npm \n" +
+            "and rp.tahun_ajar = #tahunAjar \n" +
+            "and rp.term = #term \n" +
+            "and m.npm = #npm;")
+    List<Integer> getIdKelasYangDiambilMahasiswa(@Param("tahunAjar") String tahunAjar,
+                                         @Param("term") int term,
+                                         @Param("npm") String npm);
 
 }

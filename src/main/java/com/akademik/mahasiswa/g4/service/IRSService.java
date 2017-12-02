@@ -1,18 +1,20 @@
 package com.akademik.mahasiswa.g4.service;
 
 import com.akademik.mahasiswa.g4.dao.JadwalDAO;
-import com.akademik.mahasiswa.g4.mapper.RiwayatMatakuliahMapper;
+import com.akademik.mahasiswa.g4.mapper.KelasMapper;
 import com.akademik.mahasiswa.g4.model.rest.JadwalModel;
 import com.akademik.mahasiswa.g4.model.rest.KelasModel;
 import com.akademik.mahasiswa.g4.model.rest.MatakuliahModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class IRSService {
 
     @Autowired
-    private RiwayatMatakuliahMapper riwayatMatakuliahMapper;
+    private KelasMapper kelasMapper;
     @Autowired
     private JadwalDAO jadwalDAO;
 
@@ -25,7 +27,7 @@ public class IRSService {
         JadwalModel jadwalModel = jadwalDAO.getJadwalNow(1, 2, 3).getResult();
         for(MatakuliahModel matakuliah : jadwalModel.getMatkul()){
             for(KelasModel kelas : matakuliah.getKelas()){
-                int jumlahMhsInKelas = riwayatMatakuliahMapper
+                int jumlahMhsInKelas = kelasMapper
                         .getJumlahMahasiswa(kelas.getIdKelas(), matakuliah.getKodeMK(),
                                 jadwalModel.getTerm().getTahunAjar(),
                                 jadwalModel.getTerm().getNomor());
@@ -33,6 +35,13 @@ public class IRSService {
             }
         }
         return jadwalModel;
+    }
+
+    public List<Integer> getIdKelasPadaIRSMahasiswa(String npm){
+        String tahunAjar = ""; //TODO change this with Tahun Ajar IRS
+        int term = 0; //TODO change this with Term IRS
+        List<Integer> idKelas = kelasMapper.getIdKelasYangDiambilMahasiswa(tahunAjar, term, npm);
+        return idKelas;
     }
 
 }

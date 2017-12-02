@@ -41,10 +41,10 @@ CREATE TABLE `mahasiswa` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `matakuliah_yg_diambil_mahasiswa`
+-- Table structure for table `kelas`
 --
 
-CREATE TABLE `matakuliah_yg_diambil_mahasiswa` (
+CREATE TABLE `kelas` (
   `id_riwayat_perkuliahan` int(11) NOT NULL,
   `tanggal_pengisian` date NOT NULL,
   `kode_mata_kuliah` varchar(50) NOT NULL,
@@ -100,9 +100,9 @@ ALTER TABLE `mahasiswa`
   ADD KEY `mahasiswa_username_idx` (`username`);
 
 --
--- Indexes for table `matakuliah_yg_diambil_mahasiswa`
+-- Indexes for table `kelas`
 --
-ALTER TABLE `matakuliah_yg_diambil_mahasiswa`
+ALTER TABLE `kelas`
   ADD PRIMARY KEY (`id_kelas`),
   ADD KEY `id_riwayat_perkuliahan` (`id_riwayat_perkuliahan`);
 
@@ -136,10 +136,10 @@ ALTER TABLE `mahasiswa`
   ADD CONSTRAINT `mahasiswa_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `matakuliah_yg_diambil_mahasiswa`
+-- Constraints for table `kelas`
 --
-ALTER TABLE `matakuliah_yg_diambil_mahasiswa`
-  ADD CONSTRAINT `matakuliah_yg_diambil_mahasiswa_ibfk_1` FOREIGN KEY (`id_riwayat_perkuliahan`) REFERENCES `riwayat_perkuliahan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `kelas`
+  ADD CONSTRAINT `kelas_ibfk_1` FOREIGN KEY (`id_riwayat_perkuliahan`) REFERENCES `riwayat_perkuliahan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `riwayat_perkuliahan`

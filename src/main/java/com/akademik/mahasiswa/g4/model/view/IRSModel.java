@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class IRSViewModel {
+public class IRSModel {
 
     private MahasiswaDBModel mahasiswa;
     private RiwayatViewModel riwayatPadaIRS;
