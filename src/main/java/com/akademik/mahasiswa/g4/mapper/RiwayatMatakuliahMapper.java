@@ -4,6 +4,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 @Mapper
 public interface RiwayatMatakuliahMapper {
 
@@ -18,5 +20,8 @@ public interface RiwayatMatakuliahMapper {
                            @Param("kodeMK") String kodeMK,
                                   @Param("tahunAjar") String tahunAjar,
                                   @Param("term") int term);
+
+
+    List<Integer> getIdKelasIRSMahasiswa();
 
 }
