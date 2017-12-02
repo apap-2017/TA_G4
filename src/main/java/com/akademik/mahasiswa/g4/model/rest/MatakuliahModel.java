@@ -23,6 +23,4 @@ public class MatakuliahModel {
     private boolean wajib;
     @JsonProperty("kelasList")
     private List<KelasModel> kelas;
-    private double nilaiAkhir;
-    private String nilaiHuruf;
 }

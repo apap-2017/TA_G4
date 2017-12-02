@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -12,22 +13,17 @@ import java.util.List;
 @Setter
 @ToString
 public class KelasModel {
-    @JsonProperty("id")
-    private int id;
-    @JsonProperty("nama")
-    private String nama;
-    @JsonProperty("max_kapasitas")
+    private int idKelas;
+    private int idRiwayatPerkuliahan;
+    private Date tanggalPengisian;
+    private String namaKelas;
     private int kapasitas;
-    @JsonIgnore
     private int mahasiswaSaatIni;
-//    private int idUniv;
-//    private int idFakultas;
-//    private int idProdi;
-    @JsonProperty("kode_mata_kuliah")
     private String kodeMK;
-//    private int idTerm;
-    @JsonProperty("jadwalList")
     private List<JadwalKelasModel> waktu;
-
-
+    private String kurikulum;
+    private int sks;
+    private double nilaiAkhir;
+    private String nilaiHuruf;
+    private List<DosenPengajarModel> pengajar;
 }

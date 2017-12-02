@@ -26,7 +26,7 @@ public class IRSService {
         for(MatakuliahModel matakuliah : jadwalModel.getMatkul()){
             for(KelasModel kelas : matakuliah.getKelas()){
                 int jumlahMhsInKelas = riwayatMatakuliahMapper
-                        .getJumlahMahasiswa(kelas.getId(), matakuliah.getKodeMK(),
+                        .getJumlahMahasiswa(kelas.getIdKelas(), matakuliah.getKodeMK(),
                                 jadwalModel.getTerm().getTahunAjar(),
                                 jadwalModel.getTerm().getNomor());
                 kelas.setMahasiswaSaatIni(jumlahMhsInKelas);
