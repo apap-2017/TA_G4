@@ -37,10 +37,10 @@ public class IRSService {
         return jadwalModel;
     }
 
-    public List<Integer> getIdKelasPadaIRSMahasiswa(String npm){
+    public List<KelasModel> getKelasPadaIRSMahasiswa(String npm){
         String tahunAjar = ""; //TODO change this with Tahun Ajar IRS
         int term = 0; //TODO change this with Term IRS
-        List<Integer> idKelas = kelasMapper.getIdKelasYangDiambilMahasiswa(tahunAjar, term, npm);
+        List<KelasModel> idKelas = kelasMapper.getKelasYangDiambilMahasiswa(tahunAjar, term, npm);
         return idKelas;
     }
 
