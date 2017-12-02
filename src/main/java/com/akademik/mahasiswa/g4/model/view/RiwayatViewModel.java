@@ -1,8 +1,7 @@
 package com.akademik.mahasiswa.g4.model.view;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.akademik.mahasiswa.g4.model.rest.MatakuliahModel;
+import lombok.*;
 
 import java.util.List;
 
@@ -15,11 +14,13 @@ import java.util.List;
  */
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @ToString
 public class RiwayatViewModel {
 
     private String tahunAjaran;
     private int term;
-    private List<MatakuliahViewModel> matakuliah;
+    private List<MatakuliahModel> matakuliah;
 
 }

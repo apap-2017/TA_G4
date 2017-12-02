@@ -1,14 +1,14 @@
 package com.akademik.mahasiswa.g4.model.view;
 
 import com.akademik.mahasiswa.g4.model.db.MahasiswaDBModel;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @ToString
 public class IRSViewModel {
 

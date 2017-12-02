@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class WaktuModel {
+public class JadwalKelasModel {
 
     @JsonProperty("id")
     private int id;

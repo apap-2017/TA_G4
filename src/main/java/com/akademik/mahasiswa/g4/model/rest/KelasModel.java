@@ -27,7 +27,7 @@ public class KelasModel {
     private String kodeMK;
 //    private int idTerm;
     @JsonProperty("jadwalList")
-    private List<WaktuModel> waktu;
+    private List<JadwalKelasModel> waktu;
 
 
 }
