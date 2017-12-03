@@ -2,6 +2,7 @@ package com.akademik.mahasiswa.g4.service;
 
 import com.akademik.mahasiswa.g4.dao.JadwalDAO;
 import com.akademik.mahasiswa.g4.mapper.KelasMapper;
+import com.akademik.mahasiswa.g4.mapper.RiwayatMapper;
 import com.akademik.mahasiswa.g4.model.rest.JadwalModel;
 import com.akademik.mahasiswa.g4.model.rest.KelasModel;
 import com.akademik.mahasiswa.g4.model.rest.MatakuliahModel;
@@ -18,6 +19,8 @@ public class IRSService {
     private KelasMapper kelasMapper;
     @Autowired
     private JadwalDAO jadwalDAO;
+    @Autowired
+    private RiwayatMapper riwayatMapper;
 
     /**
      * Mendapatkan jadwal sekarang yang digunakan untuk memilih IRS
@@ -46,9 +49,30 @@ public class IRSService {
     }
 
     public void submitIRS(JadwalModel jadwalModel) {
-        List<Integer> selectedId = new ArrayList<>();
-        for(MatakuliahModel matkul : jadwalModel.getMatkul()){
 
+        String tahunAjar = jadwalModel.getTerm().getTahunAjar();
+        int term = jadwalModel.getTerm().getNomor();
+        String npm = "TODO GET NPM FROM SESION";
+        int idIRS = riwayatMapper.getIdRiwayatPerkuliahan(npm, tahunAjar, term);
+
+        if(idIRS == -1){//buat irs pertama kali
+            riwayatMapper.insertRiwayatPerkuliahan(npm, tahunAjar, term);
+            idIRS = riwayatMapper.getIdRiwayatPerkuliahan(npm, tahunAjar, term);
+        }else{//ubah irs
+            //menghapus kelas kelas yang sebelumnya dipilih
+            kelasMapper.removeKelas(idIRS);
         }
+
+        if(jadwalModel.getMatkul() == null){//tidak ada matakuliah yang dipilih
+        }else {
+            List<Integer> selectedIdKelas = new ArrayList<>();
+            for(MatakuliahModel matkul : jadwalModel.getMatkul()){
+                if(matkul.getSelectedIdKelas() != -1)
+                    selectedIdKelas.add(matkul.getSelectedIdKelas());
+            }
+        }
+
+        //TODO save irs
+
     }
 }

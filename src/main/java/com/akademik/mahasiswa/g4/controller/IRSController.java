@@ -26,6 +26,15 @@ public class IRSController {
         JadwalModel jadwalModel = new JadwalModel();
         jadwalModel.setTerm(new TermModel("2017/2018",1));
         List<MatakuliahModel> matakuliahModels = new ArrayList<>();
+
+        matakuliahModels.add(createMataKuliah("APAP-A","APAP-B",1,2));
+        matakuliahModels.add(createMataKuliah("ADBIS-A","ADBIS-B",3,4));
+        matakuliahModels.add(createMataKuliah("PSP-A","PSP-B",5,6));
+        jadwalModel.setMatkul(matakuliahModels);
+        return jadwalModel;
+    }
+
+    private MatakuliahModel createMataKuliah(String kelas1, String kelas2, int idKelas1, int idKelas2){
         MatakuliahModel matakuliahModel = new MatakuliahModel();
         matakuliahModel.setKodeMK("CS123");
         matakuliahModel.setNama("APAP");
@@ -34,9 +43,9 @@ public class IRSController {
         List<KelasModel> kelasModels = new ArrayList<>();
 
         KelasModel kelasModel = new KelasModel();
-        kelasModel.setIdKelas(100);
+        kelasModel.setIdKelas(idKelas1);
         kelasModel.setKodeMK("CS123");
-        kelasModel.setNamaKelas("APAP-A");
+        kelasModel.setNamaKelas(kelas1);
         kelasModel.setKapasitas(50);
         kelasModel.setMahasiswaSaatIni(30);
         List<JadwalKelasModel> jadwalKelasModels = new ArrayList<>();
@@ -70,11 +79,10 @@ public class IRSController {
         jadwalKelasModels.add(jadwalKelasModel2);
         kelasModel.setWaktu(jadwalKelasModels);
         kelasModels.add(kelasModel);
-
         KelasModel kelasModel2= new KelasModel();
-        kelasModel2.setIdKelas(1994);
+        kelasModel2.setIdKelas(idKelas2);
         kelasModel2.setKodeMK("CS123");
-        kelasModel2.setNamaKelas("APAP-B");
+        kelasModel2.setNamaKelas(kelas2);
         kelasModel2.setKapasitas(60);
         kelasModel2.setMahasiswaSaatIni(30);
         List<JadwalKelasModel> jadwalKelasModels2 = new ArrayList<>();
@@ -109,9 +117,7 @@ public class IRSController {
         kelasModel2.setWaktu(jadwalKelasModels2);
         kelasModels.add(kelasModel2);
         matakuliahModel.setKelas(kelasModels);
-        matakuliahModels.add(matakuliahModel);
-        jadwalModel.setMatkul(matakuliahModels);
-        return jadwalModel;
+        return matakuliahModel;
     }
 
     @RequestMapping(value = "/irs", method = RequestMethod.GET)
@@ -129,11 +135,7 @@ public class IRSController {
 
     @RequestMapping(value = "/irs", method = RequestMethod.POST)
     public String submitIRS(@ModelAttribute("jadwal") JadwalModel jadwalModel){
-
-        System.out.println(">>>>>>> " + jadwalModel.toString());
-
         irsService.submitIRS(jadwalModel);
-
         return "lihat-irs";
     }
 

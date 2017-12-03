@@ -1,6 +1,7 @@
 package com.akademik.mahasiswa.g4.mapper;
 
 import com.akademik.mahasiswa.g4.model.rest.KelasModel;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -67,4 +68,7 @@ public interface KelasMapper {
             "where k.id_riwayat_perkuliahan = rp.id " +
             "and rp.id = #idRiwayatPerkuliahan;")
     List<KelasModel> getKelas(@Param("idRiwayatPerkuliahan") int idRiwayatPerkuliahan);
+
+    @Delete("delete from kelas where id_riwayat_perkuliahan = #idRiwayatPerkuliahan;")
+    void removeKelas(@Param("idRiwayatPerkuliahan") int idRiwayatPerkuliahan);
 }
