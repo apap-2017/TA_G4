@@ -26,5 +26,5 @@ public class MatakuliahModel {
     private List<KelasModel> kelas;
     @JsonIgnore
     @Builder.Default
-    private int selectedIdKelas = -1;
+    private int selectedKelasIdx = -1;
 }

@@ -4,9 +4,17 @@
 <head>
     <title>ISI IRS</title>
 </head>
-<body>
+<body  th:object="${jadwal}">
 
-    <form action="#" th:action="@{/irs}" th:method="post" th:object="${jadwal}">
+    <h1 th:text="|Daftar Mata Kuliah yang Ditawarkan Periode ${jadwal.term.tahunAjar} term ${jadwal.term.nomor}|"></h1>
+
+    <form action="#" th:action="@{/irs}" th:method="post">
+
+        <div th:object="${jadwal.term}" style="display:none;">
+            <input th:type="text" th:field="*{tahunAjar}" th:value="*{tahunAjar}"></input>
+            <input th:type="text" th:field="*{nomor}" th:value="*{nomor}"></input>
+        </div>
+
         <table>
             <thead>
             <tr>
@@ -31,10 +39,21 @@
                     </tr>
 
                     <tr th:each="currentKelas, state : *{kelas}" th:object="${currentKelas}">
+
+                        <div th:object="${jadwal.matkul[__${stat.index}__].kelas[__${state.index}__]}"
+                             style="display:none;">
+                            <input th:type="text" th:field="*{kodeMK}"></input>
+                            <input th:type="text" th:field="*{kurikulum}"></input>
+                            <input th:type="text" th:field="*{idKelas}"></input>
+                            <input th:type="text" th:field="*{namaMK}"></input>
+                            <input th:type="text" th:field="*{namaKelas}"></input>
+                            <input th:type="text" th:field="*{sks}"></input>
+                        </div>
+
                         <td>
                             <input type="radio"
                                    th:value="${state.index}"
-                                   th:field="${jadwal.matkul[__${stat.index}__].selectedIdKelas}"></input>
+                                   th:field="${jadwal.matkul[__${stat.index}__].selectedKelasIdx}"></input>
                         </td>
                         <td>
                             <span th:text="*{namaKelas}"></span>

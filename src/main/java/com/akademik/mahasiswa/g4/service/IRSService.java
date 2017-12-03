@@ -36,6 +36,11 @@ public class IRSService {
                                 jadwalModel.getTerm().getTahunAjar(),
                                 jadwalModel.getTerm().getNomor());
                 kelas.setMahasiswaSaatIni(jumlahMhsInKelas);
+
+                kelas.setKodeMK(matakuliah.getKodeMK());
+                kelas.setKurikulum(matakuliah.getKurikulum());
+                kelas.setNamaMK(matakuliah.getNama());
+                kelas.setSks(matakuliah.getSks());
             }
         }
         return jadwalModel;
@@ -67,8 +72,9 @@ public class IRSService {
         }else {
             List<Integer> selectedIdKelas = new ArrayList<>();
             for(MatakuliahModel matkul : jadwalModel.getMatkul()){
-                if(matkul.getSelectedIdKelas() != -1)
-                    selectedIdKelas.add(matkul.getSelectedIdKelas());
+                if(matkul.getSelectedKelasIdx() != -1) {
+                    //TODO
+                }
             }
         }
 
