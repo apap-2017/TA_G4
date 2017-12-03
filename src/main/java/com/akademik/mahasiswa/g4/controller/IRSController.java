@@ -124,9 +124,7 @@ public class IRSController {
     public String setIRS(Model model){
 
         //TODO get jadwalModel from service
-        JadwalModel jadwalModel = get();//irsService.getJadwalSekarang();
-
-
+        JadwalModel jadwalModel = irsService.getJadwalSekarang();
 
         model.addAttribute("jadwal", jadwalModel);
 

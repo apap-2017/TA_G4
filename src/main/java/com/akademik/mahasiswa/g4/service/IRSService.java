@@ -28,7 +28,8 @@ public class IRSService {
      */
     public JadwalModel getJadwalSekarang(){
         //TODO change idUniv, idFakultas, idProdi with mahasiswa atribut
-        JadwalModel jadwalModel = jadwalDAO.getJadwalNow(1, 2, 3).getResult();
+        //http://localhost:8002/api/getJadwalListNow/1/1/3/2017
+        JadwalModel jadwalModel = jadwalDAO.getJadwalNow(1, 1, 3, "2017").getResult();
         for(MatakuliahModel matakuliah : jadwalModel.getMatkul()){
             for(KelasModel kelas : matakuliah.getKelas()){
                 int jumlahMhsInKelas = kelasMapper
@@ -37,6 +38,7 @@ public class IRSService {
                                 jadwalModel.getTerm().getNomor());
                 kelas.setMahasiswaSaatIni(jumlahMhsInKelas);
 
+                //set for save letter in db
                 kelas.setKodeMK(matakuliah.getKodeMK());
                 kelas.setKurikulum(matakuliah.getKurikulum());
                 kelas.setNamaMK(matakuliah.getNama());
@@ -57,10 +59,10 @@ public class IRSService {
 
         String tahunAjar = jadwalModel.getTerm().getTahunAjar();
         int term = jadwalModel.getTerm().getNomor();
-        String npm = "TODO GET NPM FROM SESION";
-        int idIRS = riwayatMapper.getIdRiwayatPerkuliahan(npm, tahunAjar, term);
+        String npm = "123456786";//TODO GET NPM FROM SESION;
+        Integer idIRS = riwayatMapper.getIdRiwayatPerkuliahan(npm, tahunAjar, term);
 
-        if(idIRS == -1){//buat irs pertama kali
+        if(idIRS == null){//buat irs pertama kali
             riwayatMapper.insertRiwayatPerkuliahan(npm, tahunAjar, term);
             idIRS = riwayatMapper.getIdRiwayatPerkuliahan(npm, tahunAjar, term);
         }else{//ubah irs
@@ -68,17 +70,17 @@ public class IRSService {
             kelasMapper.removeKelas(idIRS);
         }
 
+        //save to DB
         if(jadwalModel.getMatkul() == null){//tidak ada matakuliah yang dipilih
         }else {
-            List<Integer> selectedIdKelas = new ArrayList<>();
             for(MatakuliahModel matkul : jadwalModel.getMatkul()){
                 if(matkul.getSelectedKelasIdx() != -1) {
-                    //TODO
+                    KelasModel selectedKelas = matkul.getKelas().get(matkul.getSelectedKelasIdx());
+                    selectedKelas.setIdRiwayatPerkuliahan(idIRS);
+                    kelasMapper.insertKelas(selectedKelas);
                 }
             }
         }
-
-        //TODO save irs
 
     }
 }

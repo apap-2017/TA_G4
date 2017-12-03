@@ -14,7 +14,7 @@ public class PenilaianDAO {
 
     public NilaiResponseModel getSeluruhNilaiMahasiswa(String npm){
         NilaiResponseModel output = restTemplateBuilder
-                .build().getForObject(NetworkUtls.BASE_URL + "/api/getRiwayatKuliah/" + npm
+                .build().getForObject(NetworkUtls.BASE_URL_KURIKULUM + "/api/getRiwayatKuliah/" + npm
                         ,NilaiResponseModel.class);
         return output;
     }

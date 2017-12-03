@@ -1,21 +1,18 @@
 package com.akademik.mahasiswa.g4.mapper;
 
 import com.akademik.mahasiswa.g4.model.rest.KelasModel;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
 @Mapper
 public interface KelasMapper {
 
-    @Select("select count(*) from mahasiswa m, matakuliah_yg_diambil_mahasiswa mydm, riwayat_perkuliahan rp " +
-            "where rp.id = mydm.id_riwayat_perkuliahan " +
+    @Select("select count(*) from mahasiswa m, kelas k, riwayat_perkuliahan rp " +
+            "where rp.id = k.id_riwayat_perkuliahan " +
             "and rp.npm = m.npm " +
-            "and mydm.id_kelas = #{idKelas} " +
-            "and mydm.kode_mata_kuliah = #{kodeMK} " +
+            "and k.id_kelas = #{idKelas} " +
+            "and k.kode_mata_kuliah = #{kodeMK} " +
             "and rp.tahun_ajar = #{tahunAjar} " +
             "and rp.term = #{term};")
     int getJumlahMahasiswa(@Param("idKelas") int idKelas,
@@ -77,4 +74,8 @@ public interface KelasMapper {
             "where kode_mata_kuliah = #{kodeMK} " +
             "limit 1;")
     KelasModel getKelasByKodeMK(@Param("kodeMK") String kodeMK);
+
+    @Insert("insert into kelas (id_riwayat_perkuliahan, kode_mata_kuliah, kode_kurikulum, id_kelas, nama_mata_kuliah, nama_kelas, sks) " +
+            "values (#{kelas.idRiwayatPerkuliahan}, #{kelas.kodeMK}, #{kelas.kurikulum}, #{kelas.idKelas}, #{kelas.namaMK}, #{kelas.namaKelas}, #{kelas.sks}) ;")
+    void insertKelas(@Param("kelas") KelasModel selectedIdKelas);
 }

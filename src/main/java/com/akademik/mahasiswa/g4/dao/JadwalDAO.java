@@ -12,9 +12,9 @@ public class JadwalDAO {
     @Autowired
     private RestTemplateBuilder restTemplateBuilder;
 
-    public JadwalResponseModel getJadwalNow(int idUniv, int idFakultas, int idProdi){
+    public JadwalResponseModel getJadwalNow(int idUniv, int idFakultas, int idProdi, String angkatan){
         JadwalResponseModel output = restTemplateBuilder
-                .build().getForObject(NetworkUtls.BASE_URL + "/api/getJadwalList/" + idUniv + "/" + idFakultas + "/" + idProdi
+                .build().getForObject(NetworkUtls.BASE_URL_KURIKULUM + "/api/getJadwalListNow/" + idUniv + "/" + idFakultas + "/" + idProdi + "/" + angkatan
                         ,JadwalResponseModel.class);
         return output;
     }

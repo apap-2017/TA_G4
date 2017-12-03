@@ -14,23 +14,38 @@ import java.util.List;
 @Setter
 @ToString
 public class KelasModel {
-    private String namaMK;
+    @JsonProperty("id")
     private int idKelas;
+    @JsonProperty("nama")
+    private String namaKelas;
+    @JsonProperty("max_kapasitas")
+    private int kapasitas;
+    @JsonProperty("jadwalList")
+    private List<JadwalKelasModel> waktu;
+
+
+    @JsonIgnore
+    private int mahasiswaSaatIni;
     @JsonIgnore
     private int idRiwayatPerkuliahan;
     @JsonIgnore
     private Date tanggalPengisian;
-    private String namaKelas;
-    private int kapasitas;
-    private int mahasiswaSaatIni;
+
+    //akan disave di db
+    private String namaMK;
     private String kodeMK;
-    private List<JadwalKelasModel> waktu;
     private String kurikulum;
     private int sks;
+
+    //dapet dari api penilaian
     private double nilaiAkhir;
     private String nilaiHuruf;
-    private List<DosenPengajarModel> pengajar;
+
+//    private List<DosenPengajarModel> pengajar;
+    //for update
+    @JsonIgnore
     private boolean selected;
 
+    //for api to penilaian
     private List<MahasiswaDBModel> mahasiswa;
 }

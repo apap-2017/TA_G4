@@ -14,13 +14,17 @@ import java.util.List;
 public class MatakuliahModel {
     @JsonProperty("kode_mata_kuliah")
     private String kodeMK;
+    @JsonProperty("kode_kurikulum")
     private String kurikulum;
     @JsonProperty("nama")
     private String nama;
     @JsonProperty("jumlah_sks")
     private int sks;
+    @JsonProperty("jumlah_sks_minimal")
     private int sksMinimal;
+    @JsonProperty("deskripsi")
     private String deskipsi;
+    @JsonProperty("wajib")
     private boolean wajib;
     @JsonProperty("kelasList")
     private List<KelasModel> kelas;

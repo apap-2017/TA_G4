@@ -12,14 +12,14 @@ public interface RiwayatMapper {
 
     @Select("select id, status_irs as statusIrs, npm, tahun_ajar as tahunAjar, term " +
             "from riwayat_perkuliahan rp" +
-            "where rp.npm = #npm;")
+            "where rp.npm = #{npm};")
     List<RiwayatPerkuliahanModel> getRiwayatMahasiswa(@Param("npm") String npm);
 
     @Select("select id from riwayat_perkuliahan " +
-            "where npm = #npm and tahun_ajar = #tahunAjar and term = #term;")
-    int getIdRiwayatPerkuliahan(@Param("npm") String npm, @Param("tahunAjar") String tahunAjar, @Param("term") int term);
+            "where npm = #{npm} and tahun_ajar = #{tahunAjar} and term = #{term};")
+    Integer getIdRiwayatPerkuliahan(@Param("npm") String npm, @Param("tahunAjar") String tahunAjar, @Param("term") int term);
 
     @Insert("insert into riwayat_perkuliahan (npm, tahun_ajar, term) " +
-            "values(#npm, #tahunAjar, #term)")
-    void insertRiwayatPerkuliahan(String npm, String tahunAjar, int term);
+            "values(#{npm}, #{tahunAjar}, #{term})")
+    void insertRiwayatPerkuliahan(@Param("npm") String npm, @Param("tahunAjar") String tahunAjar, @Param("term") int term);
 }
