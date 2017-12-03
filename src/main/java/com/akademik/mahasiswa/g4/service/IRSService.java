@@ -8,6 +8,7 @@ import com.akademik.mahasiswa.g4.model.rest.MatakuliahModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -44,4 +45,10 @@ public class IRSService {
         return idKelas;
     }
 
+    public void submitIRS(JadwalModel jadwalModel) {
+        List<Integer> selectedId = new ArrayList<>();
+        for(MatakuliahModel matkul : jadwalModel.getMatkul()){
+
+        }
+    }
 }

@@ -22,7 +22,7 @@
 
             <tbody>
 
-                <div th:each="mataKuliah : *{matkul}" th:object="${mataKuliah}">
+                <div th:each="mataKuliah, stat : *{matkul}" th:object="${mataKuliah}">
 
                     <tr>
                         <td colspan="7">
@@ -30,9 +30,11 @@
                         </td>
                     </tr>
 
-                    <tr th:each="kelas : *{kelas}" th:object="${kelas}">
+                    <tr th:each="currentKelas, state : *{kelas}" th:object="${currentKelas}">
                         <td>
-                            <input type="radio" th:checked="${selected}"></input>
+                            <input type="radio"
+                                   th:value="${state.index}"
+                                   th:field="${jadwal.matkul[__${stat.index}__].selectedIdKelas}"></input>
                         </td>
                         <td>
                             <span th:text="*{namaKelas}"></span>

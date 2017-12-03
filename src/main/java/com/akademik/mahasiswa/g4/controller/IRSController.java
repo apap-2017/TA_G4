@@ -1,5 +1,6 @@
 package com.akademik.mahasiswa.g4.controller;
 
+import com.akademik.mahasiswa.g4.model.IRSFormModel;
 import com.akademik.mahasiswa.g4.model.rest.*;
 import com.akademik.mahasiswa.g4.service.IRSService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -32,6 +34,7 @@ public class IRSController {
         List<KelasModel> kelasModels = new ArrayList<>();
 
         KelasModel kelasModel = new KelasModel();
+        kelasModel.setIdKelas(100);
         kelasModel.setKodeMK("CS123");
         kelasModel.setNamaKelas("APAP-A");
         kelasModel.setKapasitas(50);
@@ -69,6 +72,7 @@ public class IRSController {
         kelasModels.add(kelasModel);
 
         KelasModel kelasModel2= new KelasModel();
+        kelasModel2.setIdKelas(1994);
         kelasModel2.setKodeMK("CS123");
         kelasModel2.setNamaKelas("APAP-B");
         kelasModel2.setKapasitas(60);
@@ -115,6 +119,9 @@ public class IRSController {
 
         //TODO get jadwalModel from service
         JadwalModel jadwalModel = get();//irsService.getJadwalSekarang();
+
+
+
         model.addAttribute("jadwal", jadwalModel);
 
         return "set-irs";
@@ -122,6 +129,11 @@ public class IRSController {
 
     @RequestMapping(value = "/irs", method = RequestMethod.POST)
     public String submitIRS(@ModelAttribute("jadwal") JadwalModel jadwalModel){
+
+        System.out.println(">>>>>>> " + jadwalModel.toString());
+
+        irsService.submitIRS(jadwalModel);
+
         return "lihat-irs";
     }
 

@@ -1,5 +1,6 @@
 package com.akademik.mahasiswa.g4.model.rest;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -23,6 +24,6 @@ public class MatakuliahModel {
     private boolean wajib;
     @JsonProperty("kelasList")
     private List<KelasModel> kelas;
-
-    private KelasModel selectedKlas;
+    @JsonIgnore
+    private int selectedIdKelas;
 }
