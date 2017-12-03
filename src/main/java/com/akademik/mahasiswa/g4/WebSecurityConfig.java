@@ -16,18 +16,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
     @Override
     protected void configure(HttpSecurity http) throws Exception
     {
-        http
-                .authorizeRequests()
-                .antMatchers("/css/**", "/js/**", "/img/**").permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/mahasiswa/**").hasAnyRole("ADMIN","USER")
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .permitAll()
-                .and()
-                .logout().permitAll();
+//        http
+//                .authorizeRequests()
+//                .antMatchers("/css/**", "/js/**", "/img/**").permitAll()
+//                .antMatchers("/admin/**").hasRole("SEKRETARIAT")
+//                .antMatchers("/mahasiswa/**").hasAnyRole("SEKRETARIAT","MAHASISWA")
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin()
+//                .loginPage("/login")
+//                .permitAll()
+//                .and()
+//                .logout().permitAll();
     }
 
     /*
@@ -35,10 +35,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 	public void configureGlobal (AuthenticationManagerBuilder auth) throws Exception
 	{
 		auth.inMemoryAuthentication()
-		.withUser("user").password("password").roles("USER");
+		.withUser("user").password("password").roles("MAHASISWA");
 
 		auth.inMemoryAuthentication()
-		.withUser("admin").password("admin").roles("ADMIN");
+		.withUser("admin").password("admin").roles("SEKRETARIAT");
 	}*/
 
     @Autowired
@@ -47,10 +47,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception
     {
-        auth.jdbcAuthentication().dataSource(dataSource)
-                .usersByUsernameQuery(
-                        "select username, password, enabled from user where username=?")
-                .authoritiesByUsernameQuery(
-                        "select username, role from user_role where username=?");
+//        auth.jdbcAuthentication().dataSource(dataSource)
+//                .usersByUsernameQuery(
+//                        "select username, password, enabled from user where username=?")
+//                .authoritiesByUsernameQuery(
+//                        "select username, role from user_role where username=?");
     }
 }
