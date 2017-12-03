@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>ISI IRS</title>
+</head>
+<body>
+
+    <form action="#" th:action="@{/irs}" th:method="post" th:object="${jadwal}">
+        <table>
+            <thead>
+            <tr>
+                <th></th>
+                <th>Mata Kuliah</th>
+                <th>Kap.</th>
+                <th>Mhs.</th>
+                <th>Waktu</th>
+                <th>Ruang</th>
+                <th>Pengajar</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+                <div th:each="mataKuliah : *{matkul}" th:object="${mataKuliah}">
+
+                    <tr>
+                        <td colspan="7">
+                            <p th:text="*{kodeMK} + ' ' + *{nama} + ' (' +*{sks} + ' SKS); Kurikulum ' + *{kurikulum}"></p>
+                        </td>
+                    </tr>
+
+                    <tr th:each="kelas : *{kelas}" th:object="${kelas}">
+                        <td>
+                            <input type="radio" th:checked="${selected}"></input>
+                        </td>
+                        <td>
+                            <span th:text="*{namaKelas}"></span>
+                        </td>
+                        <td>
+                            <span th:text="*{kapasitas}"></span>
+                        </td>
+                        <td>
+                            <span th:text="*{mahasiswaSaatIni}"></span>
+                        </td>
+                        <td>
+                            <div th:each="waktuBelajar : *{waktu}" th:object="${waktuBelajar}">
+                                <span th:text="*{hari} + ', ' + *{jamMulai} + '-' + *{jamAkhir}"></span>
+                            </div>
+                        </td>
+                        <td>
+                            <div th:each="waktuBelajar : *{waktu}" th:object="${waktuBelajar}" >
+                                <span th:text="*{ruangan}"></span><br></br>
+                            </div>
+                        </td>
+                        <td>
+                            <div th:each="waktuBelajar : *{waktu}" th:object="${waktuBelajar}">
+                                <span th:each="dosen : *{dosenPengajars}"  th:object="${dosen}">
+                                    <span th:text="*{nama} "></span>
+                                </span><br></br>
+                            </div>
+                        </td>
+                    </tr>
+
+                </div>
+            </tbody>
+        </table>
+        <button type="submit">Save</button>
+    </form>
+
+</body>
+</html>

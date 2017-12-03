@@ -53,7 +53,7 @@ public interface KelasMapper {
             "where k.id_riwayat_perkuliahan = rp.id " +
             "and rp.npm = m.npm " +
             "and m.npm = #npm;")
-    List<KelasModel> getKelasYangDiambilMahasiswa(@Param("npm") String npm);
+    List<KelasModel> getAllKelasYangDiambilMahasiswa(@Param("npm") String npm);
 
     @Select("select k.id_riwayat_perkuliahan as idRiwayatPerkuliahan, " +
             "k.id_kelas as idKelas, " +

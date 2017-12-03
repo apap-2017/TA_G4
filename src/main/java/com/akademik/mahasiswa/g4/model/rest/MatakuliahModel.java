@@ -23,4 +23,6 @@ public class MatakuliahModel {
     private boolean wajib;
     @JsonProperty("kelasList")
     private List<KelasModel> kelas;
+
+    private KelasModel selectedKlas;
 }

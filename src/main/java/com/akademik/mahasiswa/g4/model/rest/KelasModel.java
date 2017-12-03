@@ -27,4 +27,5 @@ public class KelasModel {
     private double nilaiAkhir;
     private String nilaiHuruf;
     private List<DosenPengajarModel> pengajar;
+    private boolean selected;
 }
