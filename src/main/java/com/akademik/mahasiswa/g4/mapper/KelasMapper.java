@@ -14,10 +14,10 @@ public interface KelasMapper {
     @Select("select count(*) from mahasiswa m, matakuliah_yg_diambil_mahasiswa mydm, riwayat_perkuliahan rp " +
             "where rp.id = mydm.id_riwayat_perkuliahan " +
             "and rp.npm = m.npm " +
-            "and mydm.id_kelas = #idKelas " +
-            "and mydm.kode_mata_kuliah = #kodeMK " +
-            "and rp.tahun_ajar = #tahunAjar " +
-            "and rp.term = #term;")
+            "and mydm.id_kelas = #{idKelas} " +
+            "and mydm.kode_mata_kuliah = #{kodeMK} " +
+            "and rp.tahun_ajar = #{tahunAjar} " +
+            "and rp.term = #{term};")
     int getJumlahMahasiswa(@Param("idKelas") int idKelas,
                            @Param("kodeMK") String kodeMK,
                                   @Param("tahunAjar") String tahunAjar,
@@ -37,7 +37,7 @@ public interface KelasMapper {
             "and rp.npm = m.npm " +
             "and rp.tahun_ajar = #tahunAjar " +
             "and rp.term = #term \n" +
-            "and m.npm = #npm;")
+            "and m.npm = #{npm};")
     List<KelasModel> getKelasYangDiambilMahasiswa(@Param("tahunAjar") String tahunAjar,
                                                   @Param("term") int term,
                                                   @Param("npm") String npm);
@@ -53,7 +53,7 @@ public interface KelasMapper {
             "from kelas k, riwayat_perkuliahan rp, mahasiswa m " +
             "where k.id_riwayat_perkuliahan = rp.id " +
             "and rp.npm = m.npm " +
-            "and m.npm = #npm;")
+            "and m.npm = #{npm};")
     List<KelasModel> getAllKelasYangDiambilMahasiswa(@Param("npm") String npm);
 
     @Select("select k.id_riwayat_perkuliahan as idRiwayatPerkuliahan, " +
@@ -66,9 +66,15 @@ public interface KelasMapper {
             "k.sks " +
             "from kelas k, riwayat_perkuliahan rp, " +
             "where k.id_riwayat_perkuliahan = rp.id " +
-            "and rp.id = #idRiwayatPerkuliahan;")
+            "and rp.id = #{idRiwayatPerkuliahan};")
     List<KelasModel> getKelas(@Param("idRiwayatPerkuliahan") int idRiwayatPerkuliahan);
 
-    @Delete("delete from kelas where id_riwayat_perkuliahan = #idRiwayatPerkuliahan;")
+    @Delete("delete from kelas where id_riwayat_perkuliahan = #{idRiwayatPerkuliahan};")
     void removeKelas(@Param("idRiwayatPerkuliahan") int idRiwayatPerkuliahan);
+
+    @Select("select nama_mata_kuliah as namaMK , kode_mata_kuliah as kodeMK, kode_kurikulum as kurikulum, sks " +
+            "from kelas " +
+            "where kode_mata_kuliah = #{kodeMK} " +
+            "limit 1;")
+    KelasModel getKelasByKodeMK(@Param("kodeMK") String kodeMK);
 }
