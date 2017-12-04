@@ -30,8 +30,16 @@ public class IRSService {
         //TODO change idUniv, idFakultas, idProdi with mahasiswa atribut
         //http://localhost:8002/api/getJadwalListNow/1/1/3/2017
         JadwalModel jadwalModel = jadwalDAO.getJadwalNow(1, 1, 3, "2017").getResult();
+
+        //TODO get irs yang dipilih mahasiswa jika ada
+        //TODO get NPM dari sesion
+        List<Integer> kelasYgUdhDipilih = kelasMapper.getIdKelasYangDiambilMahasiswa(jadwalModel.getTerm().getTahunAjar(), jadwalModel.getTerm().getNomor(), "123456786");
+
+        System.out.println(">>>>>>>>>>> " +kelasYgUdhDipilih.toString());
+
         for(MatakuliahModel matakuliah : jadwalModel.getMatkul()){
-            for(KelasModel kelas : matakuliah.getKelas()){
+            for(int i = 0 ; i < matakuliah.getKelas().size() ; i++){
+                KelasModel kelas = matakuliah.getKelas().get(i);
                 int jumlahMhsInKelas = kelasMapper
                         .getJumlahMahasiswa(kelas.getIdKelas(), matakuliah.getKodeMK(),
                                 jadwalModel.getTerm().getTahunAjar(),
@@ -43,6 +51,9 @@ public class IRSService {
                 kelas.setKurikulum(matakuliah.getKurikulum());
                 kelas.setNamaMK(matakuliah.getNama());
                 kelas.setSks(matakuliah.getSks());
+
+                if(kelasYgUdhDipilih.contains(kelas.getIdKelas()))
+                    matakuliah.setSelectedKelasIdx(i);
             }
         }
         return jadwalModel;
@@ -74,11 +85,14 @@ public class IRSService {
         if(jadwalModel.getMatkul() == null){//tidak ada matakuliah yang dipilih
         }else {
             for(MatakuliahModel matkul : jadwalModel.getMatkul()){
+
                 if(matkul.getSelectedKelasIdx() != -1) {
-                    KelasModel selectedKelas = matkul.getKelas().get(matkul.getSelectedKelasIdx());
-                    selectedKelas.setIdRiwayatPerkuliahan(idIRS);
-                    kelasMapper.insertKelas(selectedKelas);
+                    KelasModel kelas = matkul.getKelas().get(matkul.getSelectedKelasIdx());
+                    System.out.println(">>>>>>>> " + kelas);
+                    kelas.setIdRiwayatPerkuliahan(idIRS);
+                    kelasMapper.insertKelas(kelas);
                 }
+
             }
         }
 

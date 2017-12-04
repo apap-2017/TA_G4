@@ -41,11 +41,6 @@ public class KelasModel {
     private double nilaiAkhir;
     private String nilaiHuruf;
 
-//    private List<DosenPengajarModel> pengajar;
-    //for update
-    @JsonIgnore
-    private boolean selected;
-
     //for api to penilaian
     private List<MahasiswaDBModel> mahasiswa;
 }

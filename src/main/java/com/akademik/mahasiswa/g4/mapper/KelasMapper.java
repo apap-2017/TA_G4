@@ -32,10 +32,21 @@ public interface KelasMapper {
             "from kelas k, riwayat_perkuliahan rp, mahasiswa m " +
             "where k.id_riwayat_perkuliahan = rp.id " +
             "and rp.npm = m.npm " +
-            "and rp.tahun_ajar = #tahunAjar " +
-            "and rp.term = #term \n" +
+            "and rp.tahun_ajar = #{tahunAjar} " +
+            "and rp.term = #{term} " +
             "and m.npm = #{npm};")
     List<KelasModel> getKelasYangDiambilMahasiswa(@Param("tahunAjar") String tahunAjar,
+                                                  @Param("term") int term,
+                                                  @Param("npm") String npm);
+
+    @Select("select k.id_kelas as idKelas " +
+            "from kelas k, riwayat_perkuliahan rp, mahasiswa m " +
+            "where k.id_riwayat_perkuliahan = rp.id " +
+            "and rp.npm = m.npm " +
+            "and rp.tahun_ajar = #{tahunAjar} " +
+            "and rp.term = #{term} " +
+            "and m.npm = #{npm};")
+    List<Integer> getIdKelasYangDiambilMahasiswa(@Param("tahunAjar") String tahunAjar,
                                                   @Param("term") int term,
                                                   @Param("npm") String npm);
 
