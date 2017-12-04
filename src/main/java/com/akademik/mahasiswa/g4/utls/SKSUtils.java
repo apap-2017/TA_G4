@@ -8,11 +8,11 @@ public class SKSUtils {
 
     public static int getMaxSKSByIP(double lastIP) {
         int sks = 24;
-        if(lastIP < 3.5){
+        if(3<= lastIP && lastIP < 3.5){
             sks = 21;
-        }else if(lastIP < 3){
+        }else if(2 <= lastIP && lastIP < 3){
             sks = 18;
-        }else if(lastIP < 2){
+        }else if(1 <= lastIP && lastIP < 2){
             sks = 15;
         }else if(lastIP < 1){
             sks = 12;
