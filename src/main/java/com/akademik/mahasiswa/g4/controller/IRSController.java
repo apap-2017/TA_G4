@@ -28,9 +28,7 @@ public class IRSController {
     @RequestMapping(value = "/irs", method = RequestMethod.GET)
     public String setIRS(Model model){
 
-        //TODO get jadwalModel from service
         JadwalModel jadwalModel = irsService.getJadwalSekarang();
-
         model.addAttribute("jadwal", jadwalModel);
 
         return "set-irs";

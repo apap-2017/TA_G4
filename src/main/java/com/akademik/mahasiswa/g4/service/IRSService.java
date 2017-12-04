@@ -1,14 +1,12 @@
 package com.akademik.mahasiswa.g4.service;
 
 import com.akademik.mahasiswa.g4.dao.JadwalDAO;
+import com.akademik.mahasiswa.g4.dao.TermDAO;
 import com.akademik.mahasiswa.g4.mapper.KelasMapper;
 import com.akademik.mahasiswa.g4.mapper.RiwayatMapper;
 import com.akademik.mahasiswa.g4.model.db.MahasiswaDBModel;
 import com.akademik.mahasiswa.g4.model.db.RiwayatPerkuliahanModel;
-import com.akademik.mahasiswa.g4.model.rest.JadwalModel;
-import com.akademik.mahasiswa.g4.model.rest.KelasModel;
-import com.akademik.mahasiswa.g4.model.rest.MatakuliahModel;
-import com.akademik.mahasiswa.g4.model.rest.TermModel;
+import com.akademik.mahasiswa.g4.model.rest.*;
 import com.akademik.mahasiswa.g4.model.view.IRSModel;
 import com.akademik.mahasiswa.g4.utls.IPUtils;
 import com.akademik.mahasiswa.g4.utls.SKSUtils;
@@ -32,6 +30,8 @@ public class IRSService {
     private MahasiswaService mahasiswaService;
     @Autowired
     private RiwayatService riwayatService;
+    @Autowired
+    private TermDAO termDAO;
 
     /**
      * Mendapatkan jadwal sekarang yang digunakan untuk memilih IRS
@@ -104,13 +104,16 @@ public class IRSService {
 
     public IRSModel getIRS(String npm) {
 
-        IRSModel irs = new IRSModel();
+        //get term now
+        TermNowResponseModel termNowResponse = termDAO.getTermNow();
+        if(termNowResponse.getStatus() != 200
+                || termNowResponse.getResult() == null
+                || termNowResponse.getResult().getTermModel() == null){ // return null if some thing error
+            return null;
+        }
+        TermModel term = termNowResponse.getResult().getTermModel();
 
-        //TODO mendapatkan term saat ini
-        TermModel term = new TermModel();
-        //TODO delete dummy
-        term.setNomor(1);
-        term.setTahunAjar("2015-16");
+        IRSModel irs = new IRSModel();
 
         //get mahasiswa
         MahasiswaDBModel mahasiswa = mahasiswaService.getMahasiswa(npm);
@@ -121,6 +124,8 @@ public class IRSService {
             return null;
         }
 
+        //TODO populate nilai
+
         irs.setRiwayat(riwayat);
         //get ip terakhir dan sks maksimum
         TermModel prevTerm = TermUtils.getPrevTermOf(term);
@@ -129,16 +134,22 @@ public class IRSService {
         int angkatanMahasiswa = Integer.parseInt(mahasiswa.getAngkatan());
         boolean isGoBack = true;
         while (isGoBack) {
+            System.out.println(">>>>> im in");
             if (prevKelases != null && !prevKelases.isEmpty()) {
                 irs.setIpTerakhir(IPUtils.getIP(prevKelases));
                 irs.setSksMaksimum(SKSUtils.getMaxSKSByIP(irs.getIpTerakhir()));
                 isGoBack = false;
+                System.out.println(">>>>> im in done with ip " + irs.getIpTerakhir() + ", sks_max : " +irs.getSksMaksimum());
             } else {
+                System.out.println(">>>>> im still search");
                 prevTerm = TermUtils.getPrevTermOf(prevTerm);
                 if(angkatanMahasiswa > TermUtils.getYear1FromTahunAjar(prevTerm)){
+                    System.out.println(">>>>> im in not found");
                     irs.setIpTerakhir(0);
                     irs.setSksMaksimum(20);
                     isGoBack = false;
+                }else{
+                    prevKelases = kelasMapper.getKelasYangDiambilMahasiswa(prevTerm.getTahunAjar(), prevTerm.getNomor(), npm);
                 }
             }
         }
