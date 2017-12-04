@@ -1,9 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Title</title>
+    <title>Lihat IRS</title>
 </head>
-<body>
+<body th:object="${irs}">
+
+
+    <h1 th:text="|*{mahasiswa.npm} *{mahasiswa.nama}, Priode *{riwayat.tahunAjar} term *{riwayat.term}|"></h1>
+
+    <h2>Mata Kuliah yang Dipilih</h2>
+
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>No.</th>
+                <th>Kode MK</th>
+                <th>Kurikulum</th>
+                <th>Nama MK</th>
+                <th>Kelas</th>
+                <th>SKS</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="kelas, state : *{riwayat.kelases}" th:object="${kelas}">
+                <td th:text="${state.index}"></td>
+                <td th:text="*{kodeMK}"></td>
+                <td th:text="*{kurikulum}"></td>
+                <td th:text="*{namaMK}"></td>
+                <td th:text="*{namaKelas}"></td>
+                <td th:text="*{sks}"></td>
+            </tr>
+            <tr>
+                <td colspan="4"></td>
+                <td>Total SKS</td>
+                <td th:text="*{totalSKS}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <div>
+            <h4>SKS Maksimum:</h4>
+            <h1 th:text="*{sksMaksimum}"></h1>
+        </div>
+        <div>
+            <h4>IP Terakhir:</h4>
+            <h1 th:text="*{ipTerakhir}"></h1>
+        </div>
+        <div>
+            <h4>Pengecekan IRS</h4>
+            <div th:each="currentError : *{error}" th:object="${currentError}">
+                <h3 th:text="${currentError}"></h3>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>
