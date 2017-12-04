@@ -45,9 +45,12 @@ public class IRSController {
     @RequestMapping(value = "/irs/{npm}", method = RequestMethod.GET)
     public String lihatIRS(Model model, @PathVariable("npm") String npm){
         IRSModel irs = irsService.getIRS(npm);
-        //TODO if irs is NULL that's mean mahasiswa not fill it yet
-        model.addAttribute("irs", irs);
-        return "lihat-irs";
+        if(irs != null) {
+            model.addAttribute("irs", irs);
+            return "lihat-irs";
+        }else{
+            return "not-found-irs";
+        }
     }
 
 
