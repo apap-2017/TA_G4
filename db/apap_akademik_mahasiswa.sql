@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 03, 2017 at 03:56 PM
--- Server version: 10.1.25-MariaDB
--- PHP Version: 7.1.7
+-- Generation Time: 04 Des 2017 pada 14.33
+-- Versi Server: 10.1.13-MariaDB
+-- PHP Version: 5.6.23
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -25,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kelas`
+-- Struktur dari tabel `kelas`
 --
 
 CREATE TABLE `kelas` (
@@ -40,7 +38,7 @@ CREATE TABLE `kelas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `kelas`
+-- Dumping data untuk tabel `kelas`
 --
 
 INSERT INTO `kelas` (`id_riwayat_perkuliahan`, `tanggal_pengisian`, `kode_mata_kuliah`, `kode_kurikulum`, `id_kelas`, `nama_mata_kuliah`, `nama_kelas`, `sks`) VALUES
@@ -83,7 +81,7 @@ INSERT INTO `kelas` (`id_riwayat_perkuliahan`, `tanggal_pengisian`, `kode_mata_k
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mahasiswa`
+-- Struktur dari tabel `mahasiswa`
 --
 
 CREATE TABLE `mahasiswa` (
@@ -97,7 +95,7 @@ CREATE TABLE `mahasiswa` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `mahasiswa`
+-- Dumping data untuk tabel `mahasiswa`
 --
 
 INSERT INTO `mahasiswa` (`npm`, `nama`, `username`, `id_universitas`, `id_fakultas`, `id_prodi`, `angkatan`) VALUES
@@ -112,7 +110,7 @@ INSERT INTO `mahasiswa` (`npm`, `nama`, `username`, `id_universitas`, `id_fakult
 -- --------------------------------------------------------
 
 --
--- Table structure for table `riwayat_perkuliahan`
+-- Struktur dari tabel `riwayat_perkuliahan`
 --
 
 CREATE TABLE `riwayat_perkuliahan` (
@@ -124,7 +122,7 @@ CREATE TABLE `riwayat_perkuliahan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `riwayat_perkuliahan`
+-- Dumping data untuk tabel `riwayat_perkuliahan`
 --
 
 INSERT INTO `riwayat_perkuliahan` (`id`, `status_irs`, `npm`, `tahun_ajar`, `term`) VALUES
@@ -142,34 +140,35 @@ INSERT INTO `riwayat_perkuliahan` (`id`, `status_irs`, `npm`, `tahun_ajar`, `ter
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Struktur dari tabel `user`
 --
 
 CREATE TABLE `user` (
   `username` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL
+  `password` varchar(100) NOT NULL,
+  `enabled` tinyint(4) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `user`
+-- Dumping data untuk tabel `user`
 --
 
-INSERT INTO `user` (`username`, `password`) VALUES
-('username1', 'password1'),
-('username10', 'password10'),
-('username2', 'password2'),
-('username3', 'password3'),
-('username4', 'password4'),
-('username5', 'password5'),
-('username6', 'password6'),
-('username7', 'password7'),
-('username8', 'password8'),
-('username9', 'password9');
+INSERT INTO `user` (`username`, `password`, `enabled`) VALUES
+('username1', 'password1', 1),
+('username10', 'password10', 1),
+('username2', 'password2', 1),
+('username3', 'password3', 1),
+('username4', 'password4', 1),
+('username5', 'password5', 1),
+('username6', 'password6', 1),
+('username7', 'password7', 1),
+('username8', 'password8', 1),
+('username9', 'password9', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_role`
+-- Struktur dari tabel `user_role`
 --
 
 CREATE TABLE `user_role` (
@@ -178,7 +177,7 @@ CREATE TABLE `user_role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `user_role`
+-- Dumping data untuk tabel `user_role`
 --
 
 INSERT INTO `user_role` (`username`, `role`) VALUES
@@ -240,33 +239,32 @@ ALTER TABLE `user_role`
 ALTER TABLE `riwayat_perkuliahan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `kelas`
+-- Ketidakleluasaan untuk tabel `kelas`
 --
 ALTER TABLE `kelas`
   ADD CONSTRAINT `kelas_ibfk_1` FOREIGN KEY (`id_riwayat_perkuliahan`) REFERENCES `riwayat_perkuliahan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `mahasiswa`
+-- Ketidakleluasaan untuk tabel `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
   ADD CONSTRAINT `mahasiswa_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `riwayat_perkuliahan`
+-- Ketidakleluasaan untuk tabel `riwayat_perkuliahan`
 --
 ALTER TABLE `riwayat_perkuliahan`
   ADD CONSTRAINT `riwayat_perkuliahan_ibfk_1` FOREIGN KEY (`npm`) REFERENCES `mahasiswa` (`npm`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `user_role`
+-- Ketidakleluasaan untuk tabel `user_role`
 --
 ALTER TABLE `user_role`
   ADD CONSTRAINT `user_role_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
