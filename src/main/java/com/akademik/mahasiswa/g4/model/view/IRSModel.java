@@ -15,12 +15,12 @@ import java.util.List;
 public class IRSModel {
 
     private MahasiswaDBModel mahasiswa;
-    private RiwayatPerkuliahanModel riwayatPadaIRS;
+    private RiwayatPerkuliahanModel riwayat;
     private List<String> error;
-    private String sksMaksimum;
-    private String ipTerakhir;
+    private int sksMaksimum;
+    private double ipTerakhir;
 
     //drive atribut
-    private int totalSks;
+    private int totalSKS;
 
 }

@@ -7,7 +7,7 @@
 <body th:object="${irs}">
 
 
-    <h1 th:text="|*{mahasiswa.npm} *{mahasiswa.nama}, Priode *{riwayat.tahunAjar} term *{riwayat.term}|"></h1>
+    <h1 th:text="|(*{mahasiswa.npm}) *{mahasiswa.nama}, Priode *{riwayat.tahunAjar} term *{riwayat.term}|"></h1>
 
     <h2>Mata Kuliah yang Dipilih</h2>
 
