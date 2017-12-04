@@ -25,9 +25,9 @@ public interface KelasMapper {
             "k.id_kelas as idKelas, " +
             "k.tanggal_pengisian as tanggalPengisian, " +
             "k.kode_mata_kuliah as kodeMK, " +
-            "k.kode_kurikulum as kurikulum " +
-            "k.nama_mata_kuliah as namaMK" +
-            "k.nama_kelas as namaKelas" +
+            "k.kode_kurikulum as kurikulum, " +
+            "k.nama_mata_kuliah as namaMK, " +
+            "k.nama_kelas as namaKelas, " +
             "k.sks " +
             "from kelas k, riwayat_perkuliahan rp, mahasiswa m " +
             "where k.id_riwayat_perkuliahan = rp.id " +
@@ -54,9 +54,9 @@ public interface KelasMapper {
             "k.id_kelas as idKelas, " +
             "k.tanggal_pengisian as tanggalPengisian, " +
             "k.kode_mata_kuliah as kodeMK, " +
-            "k.kode_kurikulum as kurikulum " +
-            "k.nama_mata_kuliah as namaMK" +
-            "k.nama_kelas as namaKelas" +
+            "k.kode_kurikulum as kurikulum, " +
+            "k.nama_mata_kuliah as namaMK, " +
+            "k.nama_kelas as namaKelas, " +
             "k.sks " +
             "from kelas k, riwayat_perkuliahan rp, mahasiswa m " +
             "where k.id_riwayat_perkuliahan = rp.id " +
@@ -68,11 +68,11 @@ public interface KelasMapper {
             "k.id_kelas as idKelas, " +
             "k.tanggal_pengisian as tanggalPengisian, " +
             "k.kode_mata_kuliah as kodeMK, " +
-            "k.kode_kurikulum as kurikulum " +
-            "k.nama_mata_kuliah as namaMK" +
-            "k.nama_kelas as namaKelas" +
+            "k.kode_kurikulum as kurikulum, " +
+            "k.nama_mata_kuliah as namaMK, " +
+            "k.nama_kelas as namaKelas, " +
             "k.sks " +
-            "from kelas k, riwayat_perkuliahan rp, " +
+            "from kelas k, riwayat_perkuliahan rp " +
             "where k.id_riwayat_perkuliahan = rp.id " +
             "and rp.id = #{idRiwayatPerkuliahan};")
     List<KelasModel> getKelas(@Param("idRiwayatPerkuliahan") int idRiwayatPerkuliahan);

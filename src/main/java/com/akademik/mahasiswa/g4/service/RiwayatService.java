@@ -23,8 +23,10 @@ public class RiwayatService {
     KelasMapper kelasMapper;
     @Autowired
     PenilaianDAO penilaianDAO;
+    @Autowired
+    KelasService kelasService;
 
-    public List<RiwayatPerkuliahanModel> getRiwayatMahasiswa(String npm){
+    public List<RiwayatPerkuliahanModel> getAllRiwayatMahasiswa(String npm){
 
         /**
          * holder nilai from api for mapping to model;
@@ -49,7 +51,7 @@ public class RiwayatService {
         }
 
         List<RiwayatPerkuliahanModel> riwayatPerkuliahs =
-                riwayatMapper.getRiwayatMahasiswa(npm);
+                riwayatMapper.getAllRiwayatMahasiswa(npm);
 
         /**
          * build model
@@ -67,6 +69,15 @@ public class RiwayatService {
         }
 
         return riwayatPerkuliahs;
+    }
+
+    public RiwayatPerkuliahanModel getRiwayatMahasiswa(String npm, String tahunAjar, int term){
+        RiwayatPerkuliahanModel riwayat = riwayatMapper.getRiwayatMahasiswa(npm, tahunAjar, term);
+        if(riwayat != null) {
+            riwayat.setKelases(kelasService.getKelasByIdRiwayat(riwayat.getId()));
+            return riwayat;
+        }
+        return null;
     }
 
 }

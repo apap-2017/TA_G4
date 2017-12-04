@@ -11,9 +11,14 @@ import java.util.List;
 public interface RiwayatMapper {
 
     @Select("select id, status_irs as statusIrs, npm, tahun_ajar as tahunAjar, term " +
-            "from riwayat_perkuliahan rp" +
-            "where rp.npm = #{npm};")
-    List<RiwayatPerkuliahanModel> getRiwayatMahasiswa(@Param("npm") String npm);
+            "from riwayat_perkuliahan " +
+            "where npm = #{npm};")
+    List<RiwayatPerkuliahanModel> getAllRiwayatMahasiswa(@Param("npm") String npm);
+
+    @Select("select id, status_irs as statusIrs, npm, tahun_ajar as tahunAjar, term " +
+            "from riwayat_perkuliahan " +
+            "where npm = #{npm} and tahun_ajar = #{tahunAjar} and term = #{term};")
+    RiwayatPerkuliahanModel getRiwayatMahasiswa(@Param("npm") String npm, @Param("tahunAjar") String tahunAjar, @Param("term") int term);
 
     @Select("select id from riwayat_perkuliahan " +
             "where npm = #{npm} and tahun_ajar = #{tahunAjar} and term = #{term};")
