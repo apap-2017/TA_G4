@@ -31,7 +31,7 @@ public class IRSController {
         JadwalModel jadwalModel = irsService.getJadwalSekarang();
         model.addAttribute("jadwal", jadwalModel);
 
-        return "set-irs";
+        return "page-set-irs";
     }
 
     @RequestMapping(value = "/irs", method = RequestMethod.POST)
@@ -45,9 +45,9 @@ public class IRSController {
         IRSModel irs = irsService.getIRS(npm);
         if(irs != null) {
             model.addAttribute("irs", irs);
-            return "lihat-irs";
+            return "page-lihat-irs";
         }else{
-            return "not-found-irs";
+            return "page-not-found-irs";
         }
     }
 
