@@ -12,11 +12,40 @@ public class HomeController {
         return "login";
     }
 
-    @RequestMapping("/mahasiswa")
-    public String dashboardMahasiswa()
+    @RequestMapping("/admin")
+    public String home()
     {
-        return "dashboard-mahasiswa";
+        return "home-admin";
     }
 
+    @RequestMapping("/mahasiswa")
+    public String ringkasanMahasiswa()
+    {
+        return "ringkasan-mahasiswa";
+    }
+
+    @RequestMapping("/mahasiswa/riwayat")
+    public String riwayatMahasiswa()
+    {
+        return "riwayat-mahasiswa";
+    }
+
+    @RequestMapping("/mahasiswa/irs")
+    public String irsMahasiswa()
+    {
+        return "lihat-irs-mahasiswa";
+    }
+
+    @RequestMapping("/admin/viewallmahasiswa")
+    public String viewallMahasiswa()
+    {
+        return "viewall-mahasiswa";
+    }
+
+    @RequestMapping("/irs")
+    public String isiIrs()
+    {
+        return "isi-irs-mahasiswa";
+    }
 
 }

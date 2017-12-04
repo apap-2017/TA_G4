@@ -5,4 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 public class JadwalResponseModel extends BaseResponseModel<JadwalModel> {
+    public JadwalResponseModel(int status, String msg, JadwalModel result) {
+        super(status, msg, result);
+    }
 }

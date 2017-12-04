@@ -22,7 +22,7 @@ public class APIController {
                                          @PathVariable("kodeMK") Optional<String> kodeMK){
 
         if(!tahunAjar.isPresent() || !term.isPresent() || !kodeMK.isPresent()){
-            PesertaKuliahModel errorModel = new PesertaKuliahModel();
+            PesertaKuliahModel errorModel = new PesertaKuliahModel(0,"",null);
             errorModel.setStatus(404);
             errorModel.setMsg("not found");
             return errorModel;

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="htttp://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <title>Welcome</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -16,10 +17,13 @@
     <div id="form-login" class="container col-md-12">
         <div class="form float-left">
             <h4 id="text" class="text-center">Login</h4>
-            <form class="login-form" align="left">
-                <input type="text" placeholder="username"/>
-                <input type="password" placeholder="password"/>
-                <button>Submit</button>
+            <div align="center" th:if="${param.error}">
+                Invalid username and password.
+            </div>
+            <form th:action="@{/login}" method="post" class="login-form" align="left">
+                <input type="text" name="username" placeholder="username"/>
+                <input type="password" name="password" placeholder="password"/>
+                <button type="submit" value="login">Submit</button>
             </form>
         </div>
     </div>
