@@ -15,4 +15,11 @@ public class MahasiswaService {
         return mahasiswaMapper.getMahasiswa(npm);
     }
 
+    public String deleteMahasiswa(String npm){
+        if(mahasiswaMapper.deleteMahasiswa(npm) == -1){
+            return "gagal";
+        } else {
+            return "berhasil";
+        }
+    }
 }
