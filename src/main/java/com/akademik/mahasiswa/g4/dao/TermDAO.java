@@ -2,7 +2,7 @@ package com.akademik.mahasiswa.g4.dao;
 
 import com.akademik.mahasiswa.g4.model.db.MahasiswaDBModel;
 import com.akademik.mahasiswa.g4.model.rest.TermNowResponseModel;
-import com.akademik.mahasiswa.g4.utls.NetworkUtls;
+import com.akademik.mahasiswa.g4.utls.NetworkUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ public class TermDAO {
         currentMahasiswa.setIdProdi(1);
 
         TermNowResponseModel output = restTemplateBuilder
-                .build().getForObject(NetworkUtls.BASE_URL_KURIKULUM + "/api/getTermNow/"
+                .build().getForObject(NetworkUtils.BASE_URL_SEKRETARIAT + "/api/getTermNow/"
                                 + currentMahasiswa.getIdUniv()
                                 + "/" + currentMahasiswa.getIdFakultas()
                                 + "/" + currentMahasiswa.getIdProdi()

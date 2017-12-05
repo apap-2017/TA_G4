@@ -1,7 +1,7 @@
 package com.akademik.mahasiswa.g4.dao;
 
 import com.akademik.mahasiswa.g4.model.rest.JadwalResponseModel;
-import com.akademik.mahasiswa.g4.utls.NetworkUtls;
+import com.akademik.mahasiswa.g4.utls.NetworkUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ public class JadwalDAO {
 
     public JadwalResponseModel getJadwalNow(int idUniv, int idFakultas, int idProdi, String angkatan){
         JadwalResponseModel output = restTemplateBuilder
-                .build().getForObject(NetworkUtls.BASE_URL_KURIKULUM + "/api/getJadwalListNow/" + idUniv + "/" + idFakultas + "/" + idProdi + "/" + angkatan
+                .build().getForObject(NetworkUtils.BASE_URL_SEKRETARIAT + "/api/getJadwalListNow/" + idUniv + "/" + idFakultas + "/" + idProdi + "/" + angkatan
                         ,JadwalResponseModel.class);
         return output;
     }
