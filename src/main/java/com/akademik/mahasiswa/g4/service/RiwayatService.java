@@ -5,8 +5,9 @@ import com.akademik.mahasiswa.g4.mapper.KelasMapper;
 import com.akademik.mahasiswa.g4.mapper.RiwayatMapper;
 import com.akademik.mahasiswa.g4.model.db.RiwayatPerkuliahanModel;
 import com.akademik.mahasiswa.g4.model.rest.KelasModel;
+import com.akademik.mahasiswa.g4.model.rest.NilaiKuliahModel;
 import com.akademik.mahasiswa.g4.model.rest.TermModel;
-import com.akademik.mahasiswa.g4.model.rest.penilaian.NilaiResponseModel;
+import com.akademik.mahasiswa.g4.model.rest.SemuaNilaiResponseModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,13 +38,13 @@ public class RiwayatService {
         /**
          * get data from api penilaian
          */
-        List<NilaiResponseModel.NilaiResultModel.NilaiModel> nilaiModels = penilaianDAO.getSeluruhNilaiMahasiswa(npm);
-        for(NilaiResponseModel.NilaiResultModel.NilaiModel nilaiModel : nilaiModels){
+        List<SemuaNilaiResponseModel.NilaiResultModel.NilaiTermModel> nilaiModels = penilaianDAO.getNilaiMahasiswa(npm);
+        for(SemuaNilaiResponseModel.NilaiResultModel.NilaiTermModel nilaiModel : nilaiModels){
             TermModel term = nilaiModel.getTerm();
             /**
              * Nilai kuliah merupakan nilai suatu matakuliah
              */
-            for(NilaiResponseModel.NilaiResultModel.NilaiModel.NilaiKuliahModel nilaiKuliah
+            for(NilaiKuliahModel nilaiKuliah
                     : nilaiModel.getNilaiKuliahs()){
                 //get all data
                 int nilai = nilaiKuliah.getNilai();
@@ -83,10 +84,27 @@ public class RiwayatService {
     }
 
     public RiwayatPerkuliahanModel getRiwayatMahasiswa(String npm, String tahunAjar, int term){
-        //TODO add API Penilaian for getting nilai in some term
+        /**
+         * creates holder for nilai kuliah
+         */
+        Map<String,Integer> nilaiAkhirHolders = new HashMap<>();
+        Map<String, String> nilaiHurufHolders = new HashMap<>();
+        List<NilaiKuliahModel> nilaiKuliahs = penilaianDAO.getNilaiMahasiswa(npm, tahunAjar, term);
+        for(NilaiKuliahModel nilaiKuliah : nilaiKuliahs){
+            String key = nilaiKuliah.getKelas().getMatakuliah().getKodeMK();
+            nilaiAkhirHolders.put(key, nilaiKuliah.getNilai());
+            nilaiHurufHolders.put(key, nilaiKuliah.getNilaiHuruf());
+        }
+
         RiwayatPerkuliahanModel riwayat = riwayatMapper.getRiwayatMahasiswa(npm, tahunAjar, term);
         if(riwayat != null) {
             riwayat.setKelases(kelasService.getKelasByIdRiwayat(riwayat.getId()));
+            //set nilai kuliah
+            for(KelasModel kelas : riwayat.getKelases()){
+                String key = kelas.getKodeMK();
+                kelas.setNilaiHuruf(nilaiHurufHolders.get(key));
+                kelas.setNilaiAkhir(nilaiAkhirHolders.get(key));
+            }
             return riwayat;
         }
         return null;

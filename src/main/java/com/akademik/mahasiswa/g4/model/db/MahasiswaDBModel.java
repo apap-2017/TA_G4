@@ -1,5 +1,6 @@
 package com.akademik.mahasiswa.g4.model.db;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 @AllArgsConstructor
@@ -11,9 +12,13 @@ public class MahasiswaDBModel {
     private String npm;
     private String nama;
     private String username;
+    @JsonIgnore
     private String password;
+    @JsonIgnore
     private String namaUniv;
+    @JsonIgnore
     private String namaFakultas;
+    @JsonIgnore
     private String namaProdi;
     private int idUniv;
     private int idFakultas;

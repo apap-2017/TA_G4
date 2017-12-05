@@ -1,6 +1,7 @@
 package com.akademik.mahasiswa.g4.service;
 
 import com.akademik.mahasiswa.g4.dao.JadwalDAO;
+import com.akademik.mahasiswa.g4.dao.KurikulumDAO;
 import com.akademik.mahasiswa.g4.dao.TermDAO;
 import com.akademik.mahasiswa.g4.mapper.KelasMapper;
 import com.akademik.mahasiswa.g4.mapper.RiwayatMapper;
@@ -32,6 +33,10 @@ public class IRSService {
     private RiwayatService riwayatService;
     @Autowired
     private TermDAO termDAO;
+    @Autowired
+    private KurikulumDAO kurikulumDAO;
+    @Autowired
+    private KelasService kelasService;
 
     /**
      * Mendapatkan jadwal sekarang yang digunakan untuk memilih IRS
@@ -104,47 +109,33 @@ public class IRSService {
 
     public IRSModel getIRS(String npm) {
 
-        //get term now
-        TermNowResponseModel termNowResponse = termDAO.getTermNow();
-        if(termNowResponse.getStatus() != 200
-                || termNowResponse.getResult() == null
-                || termNowResponse.getResult().getTermModel() == null){ // return null if some thing error
-            return null;
-        }
-        TermModel term = termNowResponse.getResult().getTermModel();
-
         IRSModel irs = new IRSModel();
 
         //get mahasiswa
         MahasiswaDBModel mahasiswa = mahasiswaService.getMahasiswa(npm);
         irs.setMahasiswa(mahasiswa);
-        RiwayatPerkuliahanModel riwayat = riwayatService.getRiwayatMahasiswa(npm, term.getTahunAjar(), term.getNomor());
 
-        if(riwayat == null){
+        //get irs
+        TermModel termNow = termDAO.getTermNow();
+        RiwayatPerkuliahanModel riwayat = riwayatService.getRiwayatMahasiswa(npm, termNow.getTahunAjar(), termNow.getNomor());
+        if(riwayat == null)
             return null;
-        }
-
-        //TODO populate nilai
-
         irs.setRiwayat(riwayat);
+
         //get ip terakhir dan sks maksimum
-        TermModel prevTerm = TermUtils.getPrevTermOf(term);
+        TermModel prevTerm = TermUtils.getPrevTermOf(termNow);
         List<KelasModel> prevKelases = kelasMapper.getKelasYangDiambilMahasiswa(prevTerm.getTahunAjar(), prevTerm.getNomor(), npm);
 
         int angkatanMahasiswa = Integer.parseInt(mahasiswa.getAngkatan());
         boolean isGoBack = true;
         while (isGoBack) {
-            System.out.println(">>>>> im in");
             if (prevKelases != null && !prevKelases.isEmpty()) {
                 irs.setIpTerakhir(IPUtils.getIP(prevKelases));
                 irs.setSksMaksimum(SKSUtils.getMaxSKSByIP(irs.getIpTerakhir()));
                 isGoBack = false;
-                System.out.println(">>>>> im in done with ip " + irs.getIpTerakhir() + ", sks_max : " +irs.getSksMaksimum());
             } else {
-                System.out.println(">>>>> im still search");
                 prevTerm = TermUtils.getPrevTermOf(prevTerm);
                 if(angkatanMahasiswa > TermUtils.getYear1FromTahunAjar(prevTerm)){
-                    System.out.println(">>>>> im in not found");
                     irs.setIpTerakhir(0);
                     irs.setSksMaksimum(20);
                     isGoBack = false;
@@ -160,9 +151,20 @@ public class IRSService {
         List<String> erorr = new ArrayList<>();
         if(irs.getSksMaksimum() < irs.getTotalSKS())
             erorr.add("SKS melebih batas bung!");
+        for(KelasModel kelas : irs.getRiwayat().getKelases()){
+            List<MatakuliahModel> prasyaratMatkuls = kurikulumDAO.getPrasyaratMatkul(kelas.getKodeMK(), kelas.getKurikulum());
+            for(MatakuliahModel prasyaratMatkul : prasyaratMatkuls ){
+                KelasModel currentKelas = kelasService.getKelasWithNilai(npm, prasyaratMatkul.getKodeMK());
+                if(currentKelas == null){//belum mengambil
+                    erorr.add("Anda tidak bisa mengambil " + kelas.getNamaMK() + " sebelum mengambil " + prasyaratMatkul.getNama());
+                }else{//
+                    if(55 > currentKelas.getNilaiAkhir()){//tidak lulus
+                        erorr.add("Anda tidak bisa mengambil " + kelas.getNamaMK() + " sebelum lulus " + prasyaratMatkul.getNama());
+                    }
+                }
+            }
+        }
         irs.setError(erorr);
-
-        //TODO add error persyaratan
 
         return irs;
     }
@@ -220,4 +222,6 @@ public class IRSService {
         irs.setRiwayat(riwayatPerkuliahanModel);
         return irs;
     }
+
+
 }

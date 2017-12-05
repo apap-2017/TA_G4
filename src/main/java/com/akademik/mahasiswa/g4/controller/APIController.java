@@ -2,6 +2,7 @@ package com.akademik.mahasiswa.g4.controller;
 
 import com.akademik.mahasiswa.g4.dao.MahasiswaDAO;
 import com.akademik.mahasiswa.g4.model.PesertaKuliahModel;
+import com.akademik.mahasiswa.g4.model.rest.MahasiswaAPIModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,15 +22,13 @@ public class APIController {
                                          @PathVariable("term") Optional<Integer> term,
                                          @PathVariable("kodeMK") Optional<String> kodeMK){
 
-        if(!tahunAjar.isPresent() || !term.isPresent() || !kodeMK.isPresent()){
-            PesertaKuliahModel errorModel = new PesertaKuliahModel(0,"",null);
-            errorModel.setStatus(404);
-            errorModel.setMsg("not found");
-            return errorModel;
-        }
-
         return mahasiswaDAO.getPesertaKuliah(tahunAjar.get(), term.get(), kodeMK.get());
 
     }
 
+    @RequestMapping("/getMahasiswa/{npm}")
+    public MahasiswaAPIModel get(@PathVariable("npm") String npm){
+        return mahasiswaDAO.getMahasiswa(npm);
+
+    }
 }
