@@ -22,15 +22,15 @@ public class RiwayatController {
         List<RiwayatPerkuliahanModel> riwayats = riwayatService.getAllRiwayatMahasiswa(npm);
         model.addAttribute("riwayats", riwayats);
 //        TODO uncomment this for see result or remove this afterall
-//        System.out.println(">>>>>>>>>>>>> " + riwayats);
-//        if(riwayats != null){
-//            for(RiwayatPerkuliahanModel riwayat : riwayats){
-//                System.out.println(" riwayat : " + riwayat);
-//                for(KelasModel kelas : riwayat.getKelases()){
-//                    System.out.println(">>>>>>> kelas : " + kelas);
-//                }
-//            }
-//        }
+        System.out.println(">>>>>>>>>>>>> " + riwayats);
+        if(riwayats != null){
+            for(RiwayatPerkuliahanModel riwayat : riwayats){
+                System.out.println(" riwayat : " + riwayat);
+                for(KelasModel kelas : riwayat.getKelases()){
+                    System.out.println(">>>>>>> kelas : " + kelas);
+                }
+            }
+        }
         return "page-lihat-riwayat";
     }
 

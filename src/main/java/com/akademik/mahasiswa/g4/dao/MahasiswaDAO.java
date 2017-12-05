@@ -18,13 +18,18 @@ public class MahasiswaDAO {
 
 
     public PesertaKuliahModel getPesertaKuliah(String tahunAjaran, int term, String kodeMK){
+
         PesertaKuliahModel pesertaKuliahModel = new PesertaKuliahModel(0,"",null);
-        pesertaKuliahModel.setStatus(200);
-        pesertaKuliahModel.setMsg("success");
         KelasModel kelasModel = kelasMapper.getKelasByKodeMK(kodeMK);
-        if(kelasModel != null)
-            kelasModel.setMahasiswa(mahasiswaMapper.getMahasiswaPadaSuatuMatkul(tahunAjaran,term,kodeMK));
-        pesertaKuliahModel.setResult(kelasModel);
+        if(kelasModel != null) {
+            kelasModel.setMahasiswa(mahasiswaMapper.getMahasiswaPadaSuatuMatkul(tahunAjaran, term, kodeMK));
+            pesertaKuliahModel.setStatus(200);
+            pesertaKuliahModel.setMsg("success");
+            pesertaKuliahModel.setResult(kelasModel);
+        }else{
+            pesertaKuliahModel.setStatus(404);
+            pesertaKuliahModel.setMsg("kelas not found");
+        }
         return pesertaKuliahModel;
     }
 
