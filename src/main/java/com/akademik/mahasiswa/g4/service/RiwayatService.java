@@ -35,21 +35,30 @@ public class RiwayatService {
         Map<String, String> nilaiHurufHolder = new HashMap<>();
 
         /**
-         * get data from api
+         * get data from api penilaian
          */
-        NilaiResponseModel.NilaiResultModel nilaiResult = penilaianDAO.getSeluruhNilaiMahasiswa(npm).getResult();
-        for(NilaiResponseModel.NilaiResultModel.NilaiModel nilaiModel : nilaiResult.getNilaiModels()){
+        List<NilaiResponseModel.NilaiResultModel.NilaiModel> nilaiModels = penilaianDAO.getSeluruhNilaiMahasiswa(npm);
+        for(NilaiResponseModel.NilaiResultModel.NilaiModel nilaiModel : nilaiModels){
             TermModel term = nilaiModel.getTerm();
-            for(NilaiResponseModel.NilaiResultModel.NilaiModel.NilaiKuliahModel nilaiKuliah : nilaiModel.getNilaiKuliahs()){
+            /**
+             * Nilai kuliah merupakan nilai suatu matakuliah
+             */
+            for(NilaiResponseModel.NilaiResultModel.NilaiModel.NilaiKuliahModel nilaiKuliah
+                    : nilaiModel.getNilaiKuliahs()){
+                //get all data
                 int nilai = nilaiKuliah.getNilai();
                 String nilaiHuruf = nilaiKuliah.getNilaiHuruf();
                 String kodeMK = nilaiKuliah.getKelas().getMatakuliah().getKodeMK();
-                String key = term.getTahunAjar() + " " + term.getNomor() + " " + kodeMK;
+                String key = term.getTahunAjar()
+                        + " " + term.getNomor()
+                        + " " + kodeMK;
+                //save to holder
                 nilaiHolder.put(key, nilai);
                 nilaiHurufHolder.put(key, nilaiHuruf);
             }
         }
 
+        //get semua riwayat mahasiswa without kelas
         List<RiwayatPerkuliahanModel> riwayatPerkuliahs =
                 riwayatMapper.getAllRiwayatMahasiswa(npm);
 
@@ -57,8 +66,10 @@ public class RiwayatService {
          * build model
          */
         for(RiwayatPerkuliahanModel riwayatPerkuliahan : riwayatPerkuliahs){
+            //get semua kelas yang diambil pada suatu riwayat per term
             List<KelasModel> kelases = kelasMapper.getKelas(riwayatPerkuliahan.getId());
             for(KelasModel kelas : kelases){
+                //populate nilai from holder
                 String key = riwayatPerkuliahan.getTahunAjar()
                         + " " +riwayatPerkuliahan.getTerm()
                         + " " + kelas.getKodeMK();
@@ -72,6 +83,7 @@ public class RiwayatService {
     }
 
     public RiwayatPerkuliahanModel getRiwayatMahasiswa(String npm, String tahunAjar, int term){
+        //TODO add API Penilaian for getting nilai in some term
         RiwayatPerkuliahanModel riwayat = riwayatMapper.getRiwayatMahasiswa(npm, tahunAjar, term);
         if(riwayat != null) {
             riwayat.setKelases(kelasService.getKelasByIdRiwayat(riwayat.getId()));
