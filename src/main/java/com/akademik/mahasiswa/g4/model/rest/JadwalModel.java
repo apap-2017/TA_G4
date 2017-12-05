@@ -18,19 +18,4 @@ public class JadwalModel {
     @JsonProperty("term")
     private TermModel term;
 
-    public List<MatakuliahModel> getMatkul() {
-        return matkul;
-    }
-
-    public void setMatkul(List<MatakuliahModel> matkul) {
-        this.matkul = matkul;
-    }
-
-    public TermModel getTerm() {
-        return term;
-    }
-
-    public void setTerm(TermModel term) {
-        this.term = term;
-    }
 }

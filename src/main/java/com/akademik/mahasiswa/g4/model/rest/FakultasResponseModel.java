@@ -20,7 +20,4 @@ public class FakultasResponseModel extends BaseResponseModel<FakultasResponseMod
         private List<FakultasModel> fakultasModel;
     }
 
-
-
-
 }
