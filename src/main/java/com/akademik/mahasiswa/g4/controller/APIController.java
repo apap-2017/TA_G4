@@ -21,13 +21,6 @@ public class APIController {
                                          @PathVariable("term") Optional<Integer> term,
                                          @PathVariable("kodeMK") Optional<String> kodeMK){
 
-        if(!tahunAjar.isPresent() || !term.isPresent() || !kodeMK.isPresent()){
-            PesertaKuliahModel errorModel = new PesertaKuliahModel(0,"",null);
-            errorModel.setStatus(404);
-            errorModel.setMsg("not found");
-            return errorModel;
-        }
-
         return mahasiswaDAO.getPesertaKuliah(tahunAjar.get(), term.get(), kodeMK.get());
 
     }
