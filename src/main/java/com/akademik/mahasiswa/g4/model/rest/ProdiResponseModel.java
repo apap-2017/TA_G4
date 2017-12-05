@@ -20,7 +20,7 @@ public class ProdiResponseModel extends BaseResponseModel<ProdiResponseModel.Pro
         private String idFakultas;
 
         @JsonProperty("prodiList")
-        private List<ProdiModel> prodiModel;
+        private List<ProdiModel> listProdi;
     }
 
 

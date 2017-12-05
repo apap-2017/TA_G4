@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragment :: header-title-fragment">
+</head>
+<body>
+<div th:replace="fragments/fragment :: header"></div>
+
+<div id="main-container" class="container mt-6">
+    <div id="content-container" class="container col-md-9 bg-white">
+        <div class="container">
+            <h3><strong>Add Mahasiswa Sukses</strong></h3>
+            <h5 th:text="'Berhasil menambahkan Mahasiswa dengan NPM ' + ${npm}" class="text-primary"></h5>
+            <hr/>
+            <br/>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/fragment :: footer"></div>
+</body>
+</html>
