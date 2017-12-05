@@ -28,15 +28,7 @@ public class APIController {
 
     @RequestMapping("/getMahasiswa/{npm}")
     public MahasiswaAPIModel get(@PathVariable("npm") String npm){
-        MahasiswaAPIModel result = mahasiswaDAO.getMahasiswa(npm);
+        return mahasiswaDAO.getMahasiswa(npm);
 
-        if(npm.isEmpty()){
-            MahasiswaAPIModel errorModel = new MahasiswaAPIModel(0,"",null);
-            errorModel.setStatus(404);
-            errorModel.setMsg("not found");
-            return errorModel;
-        }
-
-        return result;
     }
 }
