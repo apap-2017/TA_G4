@@ -5,6 +5,10 @@ import lombok.*;
 
 public class TermNowResponseModel extends BaseResponseModel<TermNowResponseModel.TermNowResultModel> {
 
+    public TermNowResponseModel(int status, String msg, TermNowResultModel result) {
+        super(status, msg, result);
+    }
+
     @AllArgsConstructor
     @NoArgsConstructor
     @ToString
@@ -12,6 +16,10 @@ public class TermNowResponseModel extends BaseResponseModel<TermNowResponseModel
     @Setter
     public static class TermNowResultModel{
         @JsonProperty("term")
-        private TermModel termModel;
-    }
+    private TermModel termModel;
+}
+
+
+
+
 }

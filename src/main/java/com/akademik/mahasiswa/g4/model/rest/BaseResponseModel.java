@@ -17,12 +17,6 @@ public class BaseResponseModel<E> {
     @JsonProperty("result")
     private E result;
 
-    public BaseResponseModel(int status, String msg, E result) {
-        this.status = status;
-        this.msg = msg;
-        this.result = result;
-    }
-
     public int getStatus() {
         return status;
     }

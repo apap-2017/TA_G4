@@ -1,5 +1,6 @@
 package com.akademik.mahasiswa.g4.model.rest;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 @AllArgsConstructor
@@ -8,22 +9,14 @@ import lombok.*;
 @Setter
 @ToString
 public class FakultasModel {
+
+    @JsonProperty("univ")
+    private String idUniv;
+
+    @JsonProperty("id_fakultas")
     private String idFakultas;
+
+    @JsonProperty("nama_fakultas")
     private String namaFakultas;
 
-    public String getIdFakultas() {
-        return idFakultas;
-    }
-
-    public void setIdFakultas(String idFakultas) {
-        this.idFakultas = idFakultas;
-    }
-
-    public String getNamaFakultas() {
-        return namaFakultas;
-    }
-
-    public void setNamaFakultas(String namaFakultas) {
-        this.namaFakultas = namaFakultas;
-    }
 }

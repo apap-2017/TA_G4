@@ -19,11 +19,11 @@ public class AdminController {
     @RequestMapping("/admin/addmahasiswa")
     public String goToAddmahasiswa(Model model)
     {
-        model.addAttribute("univs", mahasiswaDAO.getAllUniv());
-        model.addAttribute("fakults", mahasiswaDAO.getAllFakultas());
-        model.addAttribute("prodis", mahasiswaDAO.getAllProdi());
+        //model.addAttribute("univs", mahasiswaDAO.getAllUniv());
+        //model.addAttribute("fakults", mahasiswaDAO.getAllFakultas());
+        //model.addAttribute("prodis", mahasiswaDAO.getAllProdi());
 
-        model.addAttribute("page_title", "Add Mahasiswa");
+        //model.addAttribute("page_title", "Add Mahasiswa");
         return "add-mahasiswa-form";
     }
 
