@@ -11,6 +11,7 @@ public class MahasiswaDBModel {
     private String npm;
     private String nama;
     private String username;
+    private String password;
     private String namaUniv;
     private String namaFakultas;
     private String namaProdi;

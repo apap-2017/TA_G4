@@ -6,9 +6,14 @@ body {
     width: 100%;
 }
 
-#logout {
+.set-right{
+    display: inline;
     position:fixed;
     right:10px;
+}
+
+#admin-container{
+    margin-top: 8em;
 }
 
 #main-container {

@@ -15,8 +15,9 @@ public class MahasiswaDAO {
     @Autowired
     private MahasiswaMapper mahasiswaMapper;
 
+
     public PesertaKuliahModel getPesertaKuliah(String tahunAjaran, int term, String kodeMK){
-        PesertaKuliahModel pesertaKuliahModel = new PesertaKuliahModel();
+        PesertaKuliahModel pesertaKuliahModel = new PesertaKuliahModel(0,"",null);
         pesertaKuliahModel.setStatus(200);
         pesertaKuliahModel.setMsg("success");
         KelasModel kelasModel = kelasMapper.getKelasByKodeMK(kodeMK);

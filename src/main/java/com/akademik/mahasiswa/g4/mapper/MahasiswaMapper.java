@@ -1,6 +1,9 @@
 package com.akademik.mahasiswa.g4.mapper;
 
 import com.akademik.mahasiswa.g4.model.db.MahasiswaDBModel;
+import com.akademik.mahasiswa.g4.model.rest.FakultasModel;
+import com.akademik.mahasiswa.g4.model.rest.ProdiModel;
+import com.akademik.mahasiswa.g4.model.rest.UnivModel;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -29,4 +32,6 @@ public interface MahasiswaMapper {
 
     @Delete("DELETE FROM mahasiswa WHERE npm = #{npm}")
     int deleteMahasiswa (@Param("npm") String npm);
+
+
 }

@@ -18,10 +18,19 @@
                     <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Isi Irs</a>
+                    <a class="nav-link" th:if="${#httpServletRequest.isUserInRole('MAHASISWA')}" href="#">Isi Irs</a>
+                    <a class="nav-link" th:if="${#httpServletRequest.isUserInRole('ADMIN')}" href="#">Add Mahasiswa</a>
                 </li>
                 <li class="nav-item">
-                    <a id="logout" align="right" class="nav-link" href="#">Logout</a>
+                    <a class="nav-link" th:if="${#httpServletRequest.isUserInRole('ADMIN')}" href="#">Daftar Mahasiswa</a>
+                </li>
+                <li class="nav-item">
+                    <a align="right" class="nav-link set-right" th:text=" 'Welcome, ' + ${#httpServletRequest.remoteUser}"></a>
+                </li>
+                <li class="nav-item">
+                    <form align="right" class="set-right" th:action="@{/logout}" method="post">
+                        <input align="right" class="btn set-right" type="submit" value="logout"/>
+                    </form>
                 </li>
             </ul>
 
