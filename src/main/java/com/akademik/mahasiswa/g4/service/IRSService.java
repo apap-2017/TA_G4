@@ -220,4 +220,6 @@ public class IRSService {
         irs.setRiwayat(riwayatPerkuliahanModel);
         return irs;
     }
+
+
 }

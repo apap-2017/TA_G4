@@ -4,6 +4,7 @@ import com.akademik.mahasiswa.g4.mapper.KelasMapper;
 import com.akademik.mahasiswa.g4.mapper.MahasiswaMapper;
 import com.akademik.mahasiswa.g4.model.PesertaKuliahModel;
 import com.akademik.mahasiswa.g4.model.rest.KelasModel;
+import com.akademik.mahasiswa.g4.model.rest.MahasiswaAPIModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,15 @@ public class MahasiswaDAO {
             kelasModel.setMahasiswa(mahasiswaMapper.getMahasiswaPadaSuatuMatkul(tahunAjaran,term,kodeMK));
         pesertaKuliahModel.setResult(kelasModel);
         return pesertaKuliahModel;
+    }
+
+    public MahasiswaAPIModel getMahasiswa(String npm){
+        MahasiswaAPIModel balikan = new MahasiswaAPIModel(0,"",null);
+        balikan.setStatus(200);
+        balikan.setMsg("success");
+        balikan.setResult(mahasiswaMapper.getMahasiswa(npm));
+
+        return balikan;
     }
 
 }
