@@ -5,8 +5,9 @@ import com.akademik.mahasiswa.g4.mapper.KelasMapper;
 import com.akademik.mahasiswa.g4.mapper.RiwayatMapper;
 import com.akademik.mahasiswa.g4.model.db.RiwayatPerkuliahanModel;
 import com.akademik.mahasiswa.g4.model.rest.KelasModel;
+import com.akademik.mahasiswa.g4.model.rest.NilaiKuliahModel;
 import com.akademik.mahasiswa.g4.model.rest.TermModel;
-import com.akademik.mahasiswa.g4.model.rest.penilaian.NilaiResponseModel;
+import com.akademik.mahasiswa.g4.model.rest.SemuaNilaiResponseModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,13 +38,13 @@ public class RiwayatService {
         /**
          * get data from api penilaian
          */
-        List<NilaiResponseModel.NilaiResultModel.NilaiModel> nilaiModels = penilaianDAO.getSeluruhNilaiMahasiswa(npm);
-        for(NilaiResponseModel.NilaiResultModel.NilaiModel nilaiModel : nilaiModels){
+        List<SemuaNilaiResponseModel.NilaiResultModel.NilaiTermModel> nilaiModels = penilaianDAO.getNilaiMahasiswa(npm);
+        for(SemuaNilaiResponseModel.NilaiResultModel.NilaiTermModel nilaiModel : nilaiModels){
             TermModel term = nilaiModel.getTerm();
             /**
              * Nilai kuliah merupakan nilai suatu matakuliah
              */
-            for(NilaiResponseModel.NilaiResultModel.NilaiModel.NilaiKuliahModel nilaiKuliah
+            for(NilaiKuliahModel nilaiKuliah
                     : nilaiModel.getNilaiKuliahs()){
                 //get all data
                 int nilai = nilaiKuliah.getNilai();
