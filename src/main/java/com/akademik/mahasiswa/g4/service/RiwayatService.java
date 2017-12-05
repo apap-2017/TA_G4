@@ -84,10 +84,27 @@ public class RiwayatService {
     }
 
     public RiwayatPerkuliahanModel getRiwayatMahasiswa(String npm, String tahunAjar, int term){
-        //TODO add API Penilaian for getting nilai in some term
+        /**
+         * creates holder for nilai kuliah
+         */
+        Map<String,Integer> nilaiAkhirHolders = new HashMap<>();
+        Map<String, String> nilaiHurufHolders = new HashMap<>();
+        List<NilaiKuliahModel> nilaiKuliahs = penilaianDAO.getNilaiMahasiswa(npm, tahunAjar, term);
+        for(NilaiKuliahModel nilaiKuliah : nilaiKuliahs){
+            String key = nilaiKuliah.getKelas().getMatakuliah().getKodeMK();
+            nilaiAkhirHolders.put(key, nilaiKuliah.getNilai());
+            nilaiHurufHolders.put(key, nilaiKuliah.getNilaiHuruf());
+        }
+
         RiwayatPerkuliahanModel riwayat = riwayatMapper.getRiwayatMahasiswa(npm, tahunAjar, term);
         if(riwayat != null) {
             riwayat.setKelases(kelasService.getKelasByIdRiwayat(riwayat.getId()));
+            //set nilai kuliah
+            for(KelasModel kelas : riwayat.getKelases()){
+                String key = kelas.getKodeMK();
+                kelas.setNilaiHuruf(nilaiHurufHolders.get(key));
+                kelas.setNilaiAkhir(nilaiAkhirHolders.get(key));
+            }
             return riwayat;
         }
         return null;
