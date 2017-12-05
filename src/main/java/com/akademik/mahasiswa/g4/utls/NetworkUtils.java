@@ -4,5 +4,6 @@ public class NetworkUtils {
     //TODO change it
     public static final String BASE_URL_SEKRETARIAT = "http://localhost:8002";
     public static final String BASE_URL_PENILAIAN = "https://apap-g2.azurewebsites.net";
+    public static final String BASE_URL_UNIVERSITAS = "https://apap2017-univ-apps.herokuapp.com";
 
 }
