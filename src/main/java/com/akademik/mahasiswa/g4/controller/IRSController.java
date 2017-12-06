@@ -29,15 +29,19 @@ public class IRSController {
     public String setIRS(Model model){
 
         JadwalModel jadwalModel = irsService.getJadwalSekarang();
-        model.addAttribute("jadwal", jadwalModel);
 
-        return "page-set-irs";
+        if(jadwalModel != null) {
+            model.addAttribute("jadwal", jadwalModel);
+            return "page-set-irs";
+        }
+
+        return "not-found";
     }
 
     @RequestMapping(value = "/irs", method = RequestMethod.POST)
     public String submitIRS(@ModelAttribute("jadwal") JadwalModel jadwalModel){
         irsService.submitIRS(jadwalModel);
-        return "lihat-irs";
+        return "page-lihat-irs";
     }
 
     @RequestMapping(value = "/irs/{npm}", method = RequestMethod.GET)
