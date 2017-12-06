@@ -17,7 +17,7 @@ public class FakultasResponseModel extends BaseResponseModel<FakultasResponseMod
         private String idUniv;
 
         @JsonProperty("fakultasList")
-        private List<FakultasModel> fakultasModel;
+        private List<FakultasModel> listFakultas;
     }
 
 }

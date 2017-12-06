@@ -4,10 +4,7 @@ import com.akademik.mahasiswa.g4.model.db.MahasiswaDBModel;
 import com.akademik.mahasiswa.g4.model.rest.FakultasModel;
 import com.akademik.mahasiswa.g4.model.rest.ProdiModel;
 import com.akademik.mahasiswa.g4.model.rest.UnivModel;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -34,4 +31,13 @@ public interface MahasiswaMapper {
     int deleteMahasiswa (@Param("npm") String npm);
 
 
+    @Insert("INSERT INTO user (username, password, enabled) VALUES (#{username}, #{password}, 1)")
+    void addUser (MahasiswaDBModel newMahasiswa);
+
+    @Insert("INSERT INTO user_role (username, role) VALUES (#{username}, 'ROLE_MAHASISWA')")
+    void addUserRole (MahasiswaDBModel newMahasiswa);
+
+    @Insert("INSERT INTO mahasiswa (nama, npm, username, id_universitas, id_fakultas, id_prodi, angkatan) VALUES" +
+            " (#{nama}, #{npm}, #{username}, #{idUniv}, #{idFakultas}, #{idProdi}, #{angkatan})")
+    void addMahasiswa (MahasiswaDBModel newMahasiswa);
 }

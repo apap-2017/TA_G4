@@ -4,31 +4,27 @@
 </head>
 <body>
     <div th:replace="fragments/fragment :: header"></div>
-    <div id="admin-container" class="container mt-6">
-        <h4><strong>Selamat Datang di Sistem Akademik Mahasiswa</strong></h4>
-        <hr/>
-        <br/>
+    <div id="main-container" class="container mt-6">
+        <div id="content-container" class="container col-md-9 bg-white">
+            <div class="container">
+                <h3><strong>Selamat Datang di Sistem Akademik Mahasiswa</strong></h3>
+                <h5 th:if="${invalidity != null}" th:text="${invalidity}" class="text-danger">Ini notifikasinya</h5>
+                <hr/>
+                <br/>
+            </div>
 
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <form action="#" method="get">
-                        <div class="row">
-                            <label for="nik"><strong>Masukan NPM untuk mencari mahasswa</strong></label>
-                        </div>
-                        <div class="row">
-                            <div class="form-group">
-                                <input type="text" name="npm" />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <button type="submit" class="btn btn-primary">Lihat</button>
-                        </div>
-                    </form>
-                </div>
+            <div class="container col-md-12">
+                <form action="/admin/viewmahasiswa" method="get">
+                    <div class="form-group">
+                        <label>Masukan NPM untuk Mencari Mahasiswa: </label>
+                        <input class="form-control" type="text" name="npm"/>
+                    </div>
+                    <button type="submit" class="w-25 btn btn-primary">Cari</button>
+                </form>
             </div>
         </div>
-
     </div>
+
+    <div th:replace="fragments/fragment :: footer"></div>
 </body>
 </html>

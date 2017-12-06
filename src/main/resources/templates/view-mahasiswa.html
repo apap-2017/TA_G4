@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragment :: header-title-fragment">
+</head>
+<body>
+<div th:replace="fragments/fragment :: header"></div>
+
+<div id="main-container" class="container mt-6">
+    <div id="content-container" class="container col-md-9 bg-white">
+        <div class="container">
+            <h3><strong>Hasil Pencarian</strong></h3>
+            <h5 th:if="${invalidity != null}" th:text="${invalidity}" class="text-danger">Ini notifikasinya</h5>
+            <hr/>
+            <br/>
+        </div>
+
+        <div class="container col-md-12">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">No. </th>
+                        <th scope="col">NPM</th>
+                        <th scope="col">Nama</th>
+                        <th scope="col">Universitas</th>
+                        <th scope="col">Update</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td th:if="${mahasiswa != null}"  scope="row">1</td>
+                    <td><a th:if="${mahasiswa != null}" th:text="${mahasiswa.npm}" th:href="'/admin'"></a></td>
+                    <td th:if="${mahasiswa != null}" th:text="${mahasiswa.nama}"></td>
+                    <td th:if="${mahasiswa != null}" th:text="${mahasiswa.namaUniv}"></td>
+                    <td><a th:if="${mahasiswa != null}" class="text-white btn btn-primary">Update Data</a></td>
+                    <td><a th:if="${mahasiswa != null}" class="text-white btn btn-danger">Delete Data</a></td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<div th:replace="fragments/fragment :: footer"></div>
+</body>
+</html>

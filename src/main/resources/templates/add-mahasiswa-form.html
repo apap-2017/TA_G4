@@ -9,6 +9,7 @@
     <div id="content-container" class="container col-md-9 bg-white">
         <div class="container">
             <h3><strong>Add Mahasiswa</strong></h3>
+            <h5 th:if="${invalidity != null}" th:text="${invalidity}" class="text-danger">Ini notifikasinya</h5>
             <hr/>
             <br/>
         </div>
@@ -30,7 +31,7 @@
                 </div>
                 <div class="form-group">
                     <label>Universitas: </label>
-                    <input class="form-control" type="text" name="universitas"/>
+                    <input class="form-control" type="text" name="univ"/>
                 </div>
                 <div class="form-group">
                     <label>Fakultas: </label>

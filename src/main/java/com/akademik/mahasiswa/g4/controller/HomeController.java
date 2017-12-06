@@ -12,12 +12,6 @@ public class HomeController {
         return "login";
     }
 
-    @RequestMapping("/admin")
-    public String home()
-    {
-        return "home-admin";
-    }
-
     @RequestMapping("/mahasiswa")
     public String ringkasanMahasiswa()
     {
