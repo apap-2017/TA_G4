@@ -8,6 +8,7 @@ import com.akademik.mahasiswa.g4.service.UnivService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -128,7 +129,15 @@ public class AdminController {
         return "viewall-mahasiswa";
     }
 
+    @RequestMapping("/mahasiswa/update/{npm}")
+    public String update (@PathVariable(value = "npm") String npm, Model model)
+    {
+        MahasiswaDBModel  mahasiswa = mahasiswaService.getMahasiswa(npm);
+        model.addAttribute("page_title", "Update Mahasiswa");
+        model.addAttribute ("mahasiswa", mahasiswa);
+        return "mahasiswa-update-form";
 
+    }
 
 }
 
