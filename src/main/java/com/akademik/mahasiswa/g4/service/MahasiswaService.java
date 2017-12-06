@@ -1,6 +1,9 @@
 package com.akademik.mahasiswa.g4.service;
+import com.akademik.mahasiswa.g4.dao.UnivDAO;
 import com.akademik.mahasiswa.g4.mapper.MahasiswaMapper;
 import com.akademik.mahasiswa.g4.model.db.MahasiswaDBModel;
+import com.akademik.mahasiswa.g4.model.rest.UnivModel;
+import com.akademik.mahasiswa.g4.model.rest.UnivResponseModel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -16,8 +19,26 @@ public class MahasiswaService {
     @Autowired
     private MahasiswaMapper mahasiswaMapper;
 
-    public MahasiswaDBModel getMahasiswa(String npm){
+    @Autowired
+    private UnivDAO univDAO;
+
+    public MahasiswaDBModel getMahasiswa(String npm)
+    {
         return mahasiswaMapper.getMahasiswa(npm);
+    }
+
+
+    public MahasiswaDBModel getMahasiswaWithUniv(String npm)
+    {
+        MahasiswaDBModel mahasiswa = mahasiswaMapper.getMahasiswa(npm);
+        if(mahasiswa == null) {
+            return mahasiswa;
+        }
+
+        String idUniv = Integer.toString(mahasiswa.getIdUniv());
+        UnivResponseModel univ = univDAO.getUniv(idUniv);
+        mahasiswa.setNamaUniv(univ.getResult().getUniversitas().getNamaUniv());
+        return mahasiswa;
     }
 
     public String deleteMahasiswa(String npm){

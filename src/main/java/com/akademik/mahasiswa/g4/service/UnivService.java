@@ -102,8 +102,8 @@ public class UnivService {
 
         int i = 0;
         while(i < prodis.size()) {
-            if(prodi.equalsIgnoreCase(prodis.get(0).getNamaProdi())) {
-                return prodis.get(0).getIdProdi();
+            if(prodi.equalsIgnoreCase(prodis.get(i).getNamaProdi())) {
+                return prodis.get(i).getIdProdi();
             }else {
                 i++;
             }

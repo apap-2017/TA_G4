@@ -25,6 +25,15 @@ public class UnivDAO {
         return Univs;
     }
 
+    public UnivResponseModel getUniv(String idUniv)
+    {
+        // to do ambil univ dengan parameter
+        UnivResponseModel univ = restTemplateBuilder.build().getForObject(
+                NetworkUtils.BASE_URL_UNIVERSITAS + "/getUniversitas/" + idUniv, UnivResponseModel.class);
+
+        return univ;
+    }
+
 
     public FakultasResponseModel getAllFakultas(String idUniv)
     {

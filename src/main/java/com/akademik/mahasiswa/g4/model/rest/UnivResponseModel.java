@@ -15,6 +15,9 @@ public class UnivResponseModel extends BaseResponseModel<UnivResponseModel.UnivR
     public static class UnivResultModel{
         @JsonProperty("univList")
         private List<UnivModel> listUniv;
+
+        @JsonProperty("universitas")
+        private UnivModel universitas;
     }
 
 

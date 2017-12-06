@@ -46,7 +46,6 @@ public class AdminController {
                                 @RequestParam(value = "password", required = false) String password,
                             Model model)
     {
-
         String hasilUniv = univService.checkUniv(univ);
 
         if(hasilUniv.equals("invalid-univ")) {
@@ -107,9 +106,16 @@ public class AdminController {
     @RequestMapping("/admin/viewmahasiswa")
     public String viewMahasiswa(@RequestParam(value = "npm", required = false) String npm, Model model)
     {
-
-        model.addAttribute("page-title","View Mahasiswa");
-        return "view-mahasiswa";
+        MahasiswaDBModel mahasiswa = mahasiswaService.getMahasiswaWithUniv(npm);
+        if(mahasiswa == null) {
+            model.addAttribute("invalidity", "Mahasiswa dengan npm "+ npm + " tidak ditemukan");
+            model.addAttribute("page-title","View Mahasiswa");
+            return "view-mahasiswa";
+        }else {
+            model.addAttribute("mahasiswa",mahasiswa);
+            model.addAttribute("page-title","View Mahasiswa");
+            return "view-mahasiswa";
+        }
     }
 
 

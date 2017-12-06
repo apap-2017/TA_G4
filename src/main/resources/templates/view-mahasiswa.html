@@ -27,12 +27,12 @@
                     </tr>
                 </thead>
                 <tr>
-                    <td scope="row">1</td>
-                    <td><a>12345</a></td>
-                    <td>Muhammad Akhdan Shidqi</td>
-                    <td>Universitas Indonesia</td>
-                    <td><a class="text-white btn btn-primary">Update Data</a></td>
-                    <td><a class="text-white btn btn-danger">Delete Data</a></td>
+                    <td th:if="${mahasiswa != null}"  scope="row">1</td>
+                    <td><a th:if="${mahasiswa != null}" th:text="${mahasiswa.npm}" th:href="'/admin'"></a></td>
+                    <td th:if="${mahasiswa != null}" th:text="${mahasiswa.nama}"></td>
+                    <td th:if="${mahasiswa != null}" th:text="${mahasiswa.namaUniv}"></td>
+                    <td><a th:if="${mahasiswa != null}" class="text-white btn btn-primary">Update Data</a></td>
+                    <td><a th:if="${mahasiswa != null}" class="text-white btn btn-danger">Delete Data</a></td>
                 </tr>
             </table>
         </div>
