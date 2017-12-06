@@ -1,9 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>Riwayat Mahasiswa</title>
 </head>
 <body>
+
+    <table>
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Kode MK</th>
+                <th>Kurikulum</th>
+                <th>Nama MK</th>
+                <th>Kelas</th>
+                <th>SKS</th>
+                <th>N. Akhir</th>
+                <th>N. Huruf</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <div th:each="riwayat : *{riwayats}" th:object="${riwayat}">
+
+                <tr>
+                    <td colspan="8">
+                        <p th:text="|Tahun Ajaran *{tahunAjar} - Term *{term}|"></p>
+                    </td>
+                </tr>
+
+                <tr th:each="kelas, state : *{kelases}" th:object="${kelas}">
+
+                    <td>
+                        <span th:text="${state.index + 1}"></span>
+                    </td>
+
+                    <td>
+                        <span th:text="*{kodeMK}"></span>
+                    </td>
+                    <td>
+                        <span th:text="*{kurikulum}"></span>
+                    </td>
+                    <td>
+                        <span th:text="*{namaMK}"></span>
+                    </td>
+                    <td>
+                        <span th:text="*{namaKelas}"></span>
+                    </td>
+                    <td>
+                        <span th:text="*{sks}"></span>
+                    </td>
+                    <td>
+                        <span th:text="*{nilaiAkhir}"></span>
+                    </td>
+                    <td>
+                        <span th:text="*{nilaiHuruf}"></span>
+                    </td>
+                </tr>
+
+        </div>
+        </tbody>
+    </table>
 
 </body>
 </html>

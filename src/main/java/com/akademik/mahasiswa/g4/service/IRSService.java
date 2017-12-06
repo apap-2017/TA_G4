@@ -45,11 +45,19 @@ public class IRSService {
     public JadwalModel getJadwalSekarang(){
         //TODO change idUniv, idFakultas, idProdi with mahasiswa atribut
         //http://localhost:8002/api/getJadwalListNow/1/1/3/2017
-        JadwalModel jadwalModel = jadwalDAO.getJadwalNow(1, 1, 3, "2017").getResult();
+        JadwalModel jadwalModel = jadwalDAO.getJadwalNow(1, 1, 1, "2016");
+
+        if(jadwalModel == null){
+            return null;
+        }
 
         //TODO get irs yang dipilih mahasiswa jika ada
         //TODO get NPM dari sesion
-        List<Integer> kelasYgUdhDipilih = kelasMapper.getIdKelasYangDiambilMahasiswa(jadwalModel.getTerm().getTahunAjar(), jadwalModel.getTerm().getNomor(), "123456786");
+        List<Integer> kelasYgUdhDipilih = kelasMapper
+                .getIdKelasYangDiambilMahasiswa(
+                        jadwalModel.getTerm().getTahunAjar(),
+                        jadwalModel.getTerm().getNomor(),
+                        "123456786");
 
         System.out.println(">>>>>>>>>>> " +kelasYgUdhDipilih.toString());
 

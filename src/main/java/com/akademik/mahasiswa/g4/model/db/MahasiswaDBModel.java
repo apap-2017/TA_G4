@@ -24,4 +24,9 @@ public class MahasiswaDBModel {
     private int idFakultas;
     private int idProdi;
     private String angkatan;
+
+    @JsonIgnore
+    private int sksDiperoleh;
+    @JsonIgnore
+    private int sksLulus;
 }
