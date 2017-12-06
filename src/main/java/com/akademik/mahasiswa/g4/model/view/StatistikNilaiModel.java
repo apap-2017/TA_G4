@@ -10,7 +10,7 @@ import lombok.*;
 public class StatistikNilaiModel {
 
     private String tahunAjaran;
-    private String term;
+    private int term;
     private int totalMK;
     private int totalSKS;
     private int totalSKSLulus;
