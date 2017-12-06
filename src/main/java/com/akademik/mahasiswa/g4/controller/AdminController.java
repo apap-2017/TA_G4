@@ -118,6 +118,16 @@ public class AdminController {
         }
     }
 
+    @RequestMapping("/admin/viewallmahasiswa")
+    public String viewAllMahasiswa(Model model)
+    {
+        List<MahasiswaDBModel> mahasiswas = mahasiswaService.getAllMahasiswa();
+        model.addAttribute("mahasiswas",mahasiswas);
+        model.addAttribute("page-title","View All Mahasiswa");
+
+        return "viewall-mahasiswa";
+    }
+
 
 
 }
