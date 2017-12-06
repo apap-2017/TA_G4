@@ -9,7 +9,12 @@
     <script>
         $(document).ready(function(){
             $("input[type=radio]").click(function () {
-                alert("HALLLO")
+                var checked = $(this).attr('checked');
+                if(checked){
+                    $(this).attr('checked', false);
+                }else{
+                    $(this).attr('checked', true);
+                }
             });
         });
     </script>
