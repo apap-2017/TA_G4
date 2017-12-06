@@ -22,6 +22,12 @@ public class AdminController {
     @Autowired
     private UnivService univService;
 
+    @RequestMapping("/admin")
+    public String home()
+    {
+        return "home-admin";
+    }
+
     @RequestMapping("/admin/addmahasiswa")
     public String goToAddmahasiswa(Model model)
     {
@@ -98,12 +104,15 @@ public class AdminController {
         }
     }
 
-    @RequestMapping("/admin/coba")
-    public String sukses(Model model)
+    @RequestMapping("/admin/viewmahasiswa")
+    public String viewMahasiswa(@RequestParam(value = "npm", required = false) String npm, Model model)
     {
-        model.addAttribute("page-title","Add Mahasiswa");
-        return "add-mahasiswa-sukses";
+
+        model.addAttribute("page-title","View Mahasiswa");
+        return "view-mahasiswa";
     }
+
+
 
 }
 
