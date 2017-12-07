@@ -21,7 +21,6 @@ public class UnivDAO {
     {
         UnivResponseModel Univs = restTemplateBuilder.build().getForObject(
                 NetworkUtils.BASE_URL_UNIVERSITAS + "/getUniversitasList", UnivResponseModel.class);
-
         return Univs;
     }
 

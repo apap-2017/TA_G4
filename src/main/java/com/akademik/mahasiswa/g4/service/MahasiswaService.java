@@ -41,6 +41,19 @@ public class MahasiswaService {
         return mahasiswa;
     }
 
+    public List<MahasiswaDBModel> getAllMahasiswa()
+    {
+        List<MahasiswaDBModel> mahasiswas = mahasiswaMapper.getAllMahasiswa();
+
+        for(int i = 0; i< mahasiswas.size(); i++) {
+            String idUniv = Integer.toString(mahasiswas.get(i).getIdUniv());
+            UnivResponseModel univ = univDAO.getUniv(idUniv);
+            mahasiswas.get(i).setNamaUniv(univ.getResult().getUniversitas().getNamaUniv());
+        }
+
+        return mahasiswas;
+    }
+
     public String deleteMahasiswa(String npm){
         if(mahasiswaMapper.deleteMahasiswa(npm) == -1){
             return "gagal";

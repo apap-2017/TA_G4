@@ -22,6 +22,9 @@ public interface MahasiswaMapper {
                                                        @Param("term") int term,
                                                        @Param("kodeMK") String kodeMK);
 
+    @Select("select nama, npm, angkatan, id_universitas as idUniv from mahasiswa")
+    List<MahasiswaDBModel> getAllMahasiswa();
+
     @Select("select m.npm, m.nama, m.username, m.id_universitas as idUniv, m.id_fakultas as idFakultas, m.id_prodi as idProdi, m.angkatan " +
             "from mahasiswa m " +
             "where m.npm = #{npm};")
