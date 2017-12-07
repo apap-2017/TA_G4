@@ -138,7 +138,7 @@ public class IRSService {
         boolean isGoBack = true;
         while (isGoBack) {
             if (prevKelases != null && !prevKelases.isEmpty()) {
-                irs.setIpTerakhir(IPUtils.getIP(prevKelases));
+                irs.setIpTerakhir(IPUtils.getIPT(prevKelases));
                 irs.setSksMaksimum(SKSUtils.getMaxSKSByIP(irs.getIpTerakhir()));
                 isGoBack = false;
             } else {

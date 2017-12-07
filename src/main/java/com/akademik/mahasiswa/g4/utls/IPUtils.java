@@ -6,17 +6,32 @@ import java.util.List;
 
 public class IPUtils {
 
-    public static double getIP(List<KelasModel> kelases){
+    public static double getIPT(List<KelasModel> kelases){
         double ip = 0;
         int countSKS = 0;
-        int countNilai = 0;
+        double countNilai = 0;
         for(KelasModel kelas : kelases){
             countSKS += kelas.getSks();
-            countNilai += kelas.getSks() * kelas.getNilaiAkhir();
+            countNilai += kelas.getSks() * NilaiUtils.bobotSKS(kelas.getNilaiHuruf());
         }
-        if(countSKS != 0)
-            ip = countNilai / (countSKS * 1.0);
+        if(countSKS > 0)
+            ip = countNilai / countSKS;
         return ip;
     }
 
+    public static double getIPLulus(List<KelasModel> kelases) {
+        double ip = 0;
+        int countSKSLulus = 0;
+        int countNilaiLulus = 0;
+        for(KelasModel kelas : kelases){
+            if(SKSUtils.isLulus(kelas.getNilaiHuruf())){
+                countSKSLulus += kelas.getSks();
+                countNilaiLulus += kelas.getSks() * NilaiUtils.bobotSKS(kelas.getNilaiHuruf());
+            }
+        }
+        if(countSKSLulus > 0){
+            ip = countNilaiLulus / countSKSLulus;
+        }
+        return ip;
+    }
 }

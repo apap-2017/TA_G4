@@ -1,8 +1,14 @@
 package com.akademik.mahasiswa.g4.service;
 
+import com.akademik.mahasiswa.g4.mapper.MahasiswaMapper;
 import com.akademik.mahasiswa.g4.model.db.MahasiswaDBModel;
+import com.akademik.mahasiswa.g4.model.db.RiwayatPerkuliahanModel;
+import com.akademik.mahasiswa.g4.model.rest.KelasModel;
 import com.akademik.mahasiswa.g4.model.view.DashboardModel;
 import com.akademik.mahasiswa.g4.model.view.StatistikNilaiModel;
+import com.akademik.mahasiswa.g4.utls.IPUtils;
+import com.akademik.mahasiswa.g4.utls.SKSUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,8 +17,50 @@ import java.util.List;
 @Service
 public class DashboardService {
 
+    @Autowired
+    private MahasiswaMapper mahasiswaMapper;
+    @Autowired
+    private RiwayatService riwayatService;
+
     public DashboardModel getDashboardMahasiswa(String npm){
-        //TODO
+
+        DashboardModel dashboard = new DashboardModel();
+        dashboard.setMahasiswa(mahasiswaMapper.getMahasiswa(npm));
+
+        double countIPLulus = 0;
+        double countSemester = 0;
+
+        List<StatistikNilaiModel> statistikNilais = new ArrayList<>();
+        List<RiwayatPerkuliahanModel> allRiwayatMahasiswa = riwayatService.getAllRiwayatMahasiswa(npm);
+        for(RiwayatPerkuliahanModel riwayatMahasiswa : allRiwayatMahasiswa){
+
+            List<KelasModel> kelases = riwayatMahasiswa.getKelases();
+            StatistikNilaiModel statistikNilai = new StatistikNilaiModel(
+                    riwayatMahasiswa.getTahunAjar(),
+                    riwayatMahasiswa.getTerm(),
+                    kelases.size(),
+                    SKSUtils.getJumlahSKS(kelases),
+                    SKSUtils.getJumlahSKSLulus(kelases),
+                    IPUtils.getIPT(kelases));
+            statistikNilais.add(statistikNilai);
+
+            //untuk ipk
+            countIPLulus += IPUtils.getIPLulus(kelases);
+            countSemester++;
+
+        }
+
+        dashboard.setStatistikNilais(statistikNilais);
+
+        double ipk = 0;
+        if(countSemester > 0)
+            ipk = countIPLulus / countSemester;
+        dashboard.setIpk(ipk);
+
+        dashboard.setStatistikNilais(statistikNilais);
+
+//        TODO ganti dengan yg dibawah ini returnnya
+//        return dashboard;
         return getDashboardDummy();
     }
 
