@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 05, 2017 at 01:18 PM
+-- Generation Time: Dec 09, 2017 at 07:23 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -44,45 +44,21 @@ CREATE TABLE `kelas` (
 --
 
 INSERT INTO `kelas` (`id_riwayat_perkuliahan`, `tanggal_pengisian`, `kode_mata_kuliah`, `kode_kurikulum`, `id_kelas`, `nama_mata_kuliah`, `nama_kelas`, `sks`) VALUES
-(1, '2017-12-03 14:35:17', 'SI1', '2016.2017', 1, 'Bisnis Aja', 'BA1', 3),
-(2, '2017-12-03 14:35:17', 'SI1', '2016.2017', 1, 'Bisnis Aja', 'BA1', 3),
-(4, '2017-12-03 14:35:17', 'SI1', '2016.2017', 1, 'Bisnis Aja', 'BA1', 3),
-(6, '2017-12-03 14:35:17', 'SI1', '2016.2017', 1, 'Bisnis Aja', 'BA1', 3),
-(9, '2017-12-03 14:35:17', 'SI1', '2016.2017', 1, 'Bisnis Aja', 'BA1', 3),
-(11, '2017-12-04 07:19:02', 'FI1101', 'U1-F1-P1-2', 1, 'Fisika Dasar IA', 'Fisika Dasar IA-A', 4),
-(12, '2017-12-05 04:20:07', 'CS124', '2016.2017', 1, 'Kombistek', 'Fisika Dasar IA-A', 4),
-(1, '2017-12-03 14:35:17', 'SI2', '2016.2017', 2, 'Bisnis Itu', 'BI1', 4),
-(2, '2017-12-03 14:35:17', 'SI2', '2016.2017', 2, 'Bisnis Itu', 'BI1', 4),
-(4, '2017-12-03 14:35:17', 'SI2', '2016.2017', 2, 'Bisnis Itu', 'BI1', 4),
-(6, '2017-12-03 14:35:17', 'SI2', '2016.2017', 2, 'Bisnis Itu', 'BI1', 4),
-(9, '2017-12-03 14:35:17', 'SI2', '2016.2017', 2, 'Bisnis Itu', 'BI1', 4),
-(1, '2017-12-03 14:35:17', 'SI3', '2016.2017', 3, 'Bisnis Sana', 'BS1', 3),
-(3, '2017-12-03 14:35:17', 'SI3', '2016.2017', 3, 'Bisnis Sana', 'BS1', 3),
-(5, '2017-12-03 14:35:17', 'SI3', '2016.2017', 3, 'Bisnis Sana', 'BS1', 3),
-(7, '2017-12-03 14:35:17', 'SI3', '2016.2017', 3, 'Bisnis Sana', 'BS1', 3),
-(9, '2017-12-03 14:35:17', 'SI3', '2016.2017', 3, 'Bisnis Sana', 'BS1', 3),
-(1, '2017-12-03 14:35:17', 'SI4', '2016.2017', 4, 'Bisnis Lagi', 'BL1', 4),
-(3, '2017-12-03 14:35:17', 'SI4', '2016.2017', 4, 'Bisnis Lagi', 'BL1', 4),
-(5, '2017-12-03 14:35:17', 'SI4', '2016.2017', 4, 'Bisnis Lagi', 'BL1', 4),
-(7, '2017-12-03 14:35:17', 'SI4', '2016.2017', 4, 'Bisnis Lagi', 'BL1', 4),
-(10, '2017-12-03 14:35:17', 'SI4', '2016.2017', 4, 'Bisnis Lagi', 'BL1', 4),
-(2, '2017-12-03 14:35:17', 'SI5', '2016.2017', 5, 'Bisnis Admin', 'BAA1', 3),
-(3, '2017-12-03 14:35:17', 'SI5', '2016.2017', 5, 'Bisnis Admin', 'BAA1', 3),
-(5, '2017-12-03 14:35:17', 'SI5', '2016.2017', 5, 'Bisnis Admin', 'BAA1', 3),
-(7, '2017-12-03 14:35:17', 'SI5', '2016.2017', 5, 'Bisnis Admin', 'BAA1', 3),
-(10, '2017-12-03 14:35:17', 'SI5', '2016.2017', 5, 'Bisnis Admin', 'BAA1', 3),
-(2, '2017-12-03 14:35:17', 'SI6', '2016.2017', 6, 'Coding Aja', 'CA1', 5),
-(4, '2017-12-03 14:35:17', 'SI6', '2016.2017', 6, 'Coding Aja', 'CA1', 5),
-(5, '2017-12-03 14:35:17', 'SI6', '2016.2017', 6, 'Coding Aja', 'CA1', 5),
-(8, '2017-12-03 14:35:17', 'SI6', '2016.2017', 6, 'Coding Aja', 'CA1', 5),
-(10, '2017-12-03 14:35:17', 'SI6', '2016.2017', 6, 'Coding Aja', 'CA1', 5),
-(2, '2017-12-03 14:35:17', 'SI7', '2016.2017', 7, 'Coding Bgt', 'CB1', 3),
-(4, '2017-12-03 14:35:17', 'SI7', '2016.2017', 7, 'Coding Bgt', 'CB1', 3),
-(6, '2017-12-03 14:35:17', 'SI7', '2016.2017', 7, 'Coding Bgt', 'CB1', 3),
-(8, '2017-12-03 14:35:17', 'SI7', '2016.2017', 7, 'Coding Bgt', 'CB1', 3),
-(10, '2017-12-03 14:35:17', 'SI7', '2016.2017', 7, 'Coding Bgt', 'CB1', 3),
-(11, '2017-12-04 07:19:02', 'FI1201', 'U1-F1-P1-2', 13, 'Fisika Dasar IIA', 'Fisika Dasar IIA-A', 4),
-(11, '2017-12-04 07:19:02', 'TI4204', 'U1-F1-P1-2', 42, 'Manajemen Sumber Daya Manusis', 'Manajemen Sumber Daya Manusis-B', 3);
+(27, '2017-12-09 09:09:59', 'ECM103', 'U1-F1-P1-1', 11, 'Pengantar Akuntansi 1', 'Pengantar Akuntansi 1-A', 4),
+(29, '2017-12-09 09:14:35', 'ECM103', 'U1-F1-P1-1', 11, 'Pengantar Akuntansi 1', 'Pengantar Akuntansi 1-A', 4),
+(31, '2017-12-09 09:14:35', 'ECM103', 'U1-F1-P1-1', 11, 'Pengantar Akuntansi 1', 'Pengantar Akuntansi 1-A', 4),
+(26, '2017-12-09 18:14:07', ' PSO105A', 'U1-F1-P1-1', 12, 'Kode Etik Psikologi', 'Kode Etik Psikologi', 2),
+(28, '2017-12-09 18:15:04', ' PSO105A', 'U1-F1-P1-1', 12, 'Kode Etik Psikologi', 'Kode Etik Psikologi', 2),
+(27, '2017-12-09 09:09:59', 'MB4045', 'U1-F1-P1-1', 13, 'Manajemen Investasi', 'Manajemen Investasi', 3),
+(29, '2017-12-09 09:14:35', 'MB4045', 'U1-F1-P1-1', 13, 'Manajemen Investasi', 'Manajemen Investasi', 3),
+(31, '2017-12-09 09:14:35', 'MB4045', 'U1-F1-P1-1', 13, 'Manajemen Investasi', 'Manajemen Investasi', 3),
+(26, '2017-12-09 18:14:07', 'MA1101', 'U1-F1-P1-1', 14, 'Matematika IA', 'Matematika IA-A', 4),
+(28, '2017-12-09 18:15:04', 'MA1101', 'U1-F1-P1-1', 14, 'Matematika IA', 'Matematika IA-A', 4),
+(30, '2017-12-09 18:17:46', 'MA1101', 'U1-F1-P1-1', 14, 'Matematika IA', 'Matematika IA-A', 4),
+(26, '2017-12-09 18:14:07', 'MA1201', 'U1-F1-P1-1', 15, 'Matematika IIA', 'Matematika IIA-A', 4),
+(30, '2017-12-09 18:17:46', 'MA1201', 'U1-F1-P1-1', 15, 'Matematika IIA', 'Matematika IIA-A', 4),
+(27, '2017-12-09 09:09:59', 'KU1072', 'U1-F1-P1-1', 16, 'Pengenalan Teknologi Informasi', 'Pengenalan Teknologi Informasi A', 2),
+(29, '2017-12-09 09:14:35', 'KU1072', 'U1-F1-P1-1', 16, 'Pengenalan Teknologi Informasi', 'Pengenalan Teknologi Informasi A', 2);
 
 -- --------------------------------------------------------
 
@@ -105,14 +81,9 @@ CREATE TABLE `mahasiswa` (
 --
 
 INSERT INTO `mahasiswa` (`npm`, `nama`, `username`, `id_universitas`, `id_fakultas`, `id_prodi`, `angkatan`) VALUES
-('123456781', 'nama1', 'username1', 1, 1, 1, 2015),
-('123456782', 'nama2', 'username2', 1, 1, 1, 2015),
-('123456783', 'nama3', 'username3', 1, 1, 1, 2016),
-('123456784', 'nama4', 'username4', 1, 1, 1, 2018),
-('123456785', 'nama5', 'username5', 1, 1, 1, 2018),
-('123456786', 'nama6', 'username6', 1, 1, 1, 2018),
-('123456787', 'nama7', 'username7', 1, 1, 1, 2018),
-('1302', 'jokowi', 'jokowi', 1, 1, 1, 2015);
+('987654321', 'Badu', 'username1', 1, 1, 1, 2016),
+('987654322', 'Budi', 'username2', 1, 1, 1, 2016),
+('987654323', 'Ayu', 'username3', 1, 1, 1, 2016);
 
 -- --------------------------------------------------------
 
@@ -133,18 +104,12 @@ CREATE TABLE `riwayat_perkuliahan` (
 --
 
 INSERT INTO `riwayat_perkuliahan` (`id`, `status_irs`, `npm`, `tahun_ajar`, `term`) VALUES
-(1, 0, '123456781', '2015-16', 1),
-(2, 0, '123456781', '2017-16', 2),
-(3, 0, '123456781', '2015-16', 2),
-(4, 0, '123456781', '2017-16', 1),
-(5, 0, '123456782', '2016-17', 1),
-(6, 0, '123456782', '2015-16', 2),
-(7, 0, '123456782', '2015-16', 1),
-(8, 0, '123456782', '2016-17', 2),
-(9, 0, '123456783', '2016-17', 1),
-(10, 0, '123456783', '2016-17', 2),
-(11, 0, '123456781', '2017-18', 1),
-(12, 0, '1302', '2017-18', 1);
+(26, 0, '987654321', '2016-17', 1),
+(27, 0, '987654321', '2016-17', 2),
+(28, 0, '987654322', '2016-17', 1),
+(29, 0, '987654322', '2016-17', 2),
+(30, 0, '987654323', '2016-17', 1),
+(31, 0, '987654323', '2016-17', 2);
 
 -- --------------------------------------------------------
 
@@ -162,17 +127,11 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`username`, `password`) VALUES
-('jokowi', 'jokowipassword'),
 ('username1', 'password1'),
-('username10', 'password10'),
 ('username2', 'password2'),
 ('username3', 'password3'),
 ('username4', 'password4'),
-('username5', 'password5'),
-('username6', 'password6'),
-('username7', 'password7'),
-('username8', 'password8'),
-('username9', 'password9');
+('username5', 'password5');
 
 -- --------------------------------------------------------
 
@@ -190,17 +149,11 @@ CREATE TABLE `user_role` (
 --
 
 INSERT INTO `user_role` (`username`, `role`) VALUES
-('jokowi', 'ROLE_MAHASISWA'),
 ('username1', 'ROLE_MAHASISWA'),
-('username10', 'ROLE_SEKRETARIAT'),
 ('username2', 'ROLE_MAHASISWA'),
 ('username3', 'ROLE_MAHASISWA'),
-('username4', 'ROLE_MAHASISWA'),
-('username5', 'ROLE_MAHASISWA'),
-('username6', 'ROLE_MAHASISWA'),
-('username7', 'ROLE_MAHASISWA'),
-('username8', 'ROLE_SEKRETARIAT'),
-('username9', 'ROLE_SEKRETARIAT');
+('username4', 'ROLE_SEKRETARIAT'),
+('username5', 'ROLE_SEKRETARIAT');
 
 --
 -- Indexes for dumped tables
@@ -247,7 +200,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `riwayat_perkuliahan`
 --
 ALTER TABLE `riwayat_perkuliahan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 --
 -- Constraints for dumped tables
 --
