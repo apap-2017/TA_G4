@@ -60,8 +60,8 @@ public class DashboardService {
         dashboard.setStatistikNilais(statistikNilais);
 
 //        TODO ganti dengan yg dibawah ini returnnya
-//        return dashboard;
-        return getDashboardDummy();
+        return dashboard;
+//        return getDashboardDummy();
     }
 
     //TODO remove this id back end already
