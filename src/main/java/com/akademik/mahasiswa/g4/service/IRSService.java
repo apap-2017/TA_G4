@@ -82,7 +82,9 @@ public class IRSService {
                     matakuliah.setSelectedKelasIdx(i);
             }
         }
-        return jadwalModel;
+        //TODO delete dummy
+//        return jadwalModel;
+        return getJadwalDummy();
     }
 
     public void submitIRS(JadwalModel jadwalModel) {
@@ -183,7 +185,9 @@ public class IRSService {
         }
         irs.setError(erorr);
 
-        return irs;
+        //TODO delete dummy
+//        return irs;
+        return getIrsDummy();
     }
 
     //TODO remove this id back end already
