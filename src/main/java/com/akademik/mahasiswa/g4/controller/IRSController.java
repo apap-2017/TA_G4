@@ -35,7 +35,7 @@ public class IRSController {
         //save IRS to db
         irsService.submitIRS(jadwalModel);
         //show irs
-        IRSModel irs = irsService.getIRS("987654321"); //TODO change this npm 123456786
+        IRSModel irs = irsService.getIRS();
         if(irs != null) {
             model.addAttribute("irs", irs);
             return "page-lihat-irs";

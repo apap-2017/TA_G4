@@ -64,7 +64,7 @@ public class DashboardService {
         return getDashboardDummy();
     }
 
-    //TODO remove this dummy
+    //TODO remove this id back end already
     private DashboardModel getDashboardDummy() {
         DashboardModel dummyDashboardModel = new DashboardModel();
         MahasiswaDBModel mahasiswa = new MahasiswaDBModel();

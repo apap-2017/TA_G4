@@ -4,6 +4,7 @@ import com.akademik.mahasiswa.g4.dao.JadwalDAO;
 import com.akademik.mahasiswa.g4.dao.KurikulumDAO;
 import com.akademik.mahasiswa.g4.dao.TermDAO;
 import com.akademik.mahasiswa.g4.mapper.KelasMapper;
+import com.akademik.mahasiswa.g4.mapper.MahasiswaMapper;
 import com.akademik.mahasiswa.g4.mapper.RiwayatMapper;
 import com.akademik.mahasiswa.g4.model.db.MahasiswaDBModel;
 import com.akademik.mahasiswa.g4.model.db.RiwayatPerkuliahanModel;
@@ -12,6 +13,7 @@ import com.akademik.mahasiswa.g4.model.view.IRSModel;
 import com.akademik.mahasiswa.g4.utls.IPUtils;
 import com.akademik.mahasiswa.g4.utls.SKSUtils;
 import com.akademik.mahasiswa.g4.utls.TermUtils;
+import com.akademik.mahasiswa.g4.utls.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +30,7 @@ public class IRSService {
     @Autowired
     private RiwayatMapper riwayatMapper;
     @Autowired
-    private MahasiswaService mahasiswaService;
+    private MahasiswaMapper mahasiswaMapper;
     @Autowired
     private RiwayatService riwayatService;
     @Autowired
@@ -43,21 +45,21 @@ public class IRSService {
      * @return JadwalMode - berisi jadwal sekarang
      */
     public JadwalModel getJadwalSekarang(){
-        //TODO change idUniv, idFakultas, idProdi with mahasiswa atribut
-        //http://localhost:8002/api/getJadwalListNow/1/1/3/2017
-        JadwalModel jadwalModel = jadwalDAO.getJadwalNow(1, 1, 1, "2016");
+        MahasiswaDBModel mahasiswa = mahasiswaMapper.getMahasiswaByUsername(UserUtils.getUsername());
+        JadwalModel jadwalModel = jadwalDAO.getJadwalNow(mahasiswa.getIdUniv(),
+                mahasiswa.getIdFakultas(),
+                mahasiswa.getIdProdi(),
+                mahasiswa.getAngkatan());
 
         if(jadwalModel == null){
             return null;
         }
 
-        //TODO get irs yang dipilih mahasiswa jika ada
-        //TODO change NPM
         List<Integer> kelasYgUdhDipilih = kelasMapper
                 .getIdKelasYangDiambilMahasiswa(
                         jadwalModel.getTerm().getTahunAjar(),
                         jadwalModel.getTerm().getNomor(),
-                        "987654321");
+                        mahasiswaMapper.getMahasiswaNPM(UserUtils.getUsername()));
 
         System.out.println(">>>>>>>>>>> " +kelasYgUdhDipilih.toString());
 
@@ -87,7 +89,7 @@ public class IRSService {
 
         String tahunAjar = jadwalModel.getTerm().getTahunAjar();
         int term = jadwalModel.getTerm().getNomor();
-        String npm = "987654321";//TODO GET NPM FROM SESION;
+        String npm = mahasiswaMapper.getMahasiswaNPM(UserUtils.getUsername());
         Integer idIRS = riwayatMapper.getIdRiwayatPerkuliahan(npm, tahunAjar, term);
 
         if(idIRS == null){//buat irs pertama kali
@@ -115,12 +117,19 @@ public class IRSService {
 
     }
 
+    public IRSModel getIRS() {
+        //get npm mahasiswa yang login saat init
+        return getIRS(
+                mahasiswaMapper.getMahasiswaNPM(UserUtils.getUsername())
+        );
+    }
+
     public IRSModel getIRS(String npm) {
 
         IRSModel irs = new IRSModel();
 
         //get mahasiswa
-        MahasiswaDBModel mahasiswa = mahasiswaService.getMahasiswa(npm);
+        MahasiswaDBModel mahasiswa = mahasiswaMapper.getMahasiswa(npm);
         irs.setMahasiswa(mahasiswa);
 
         //get irs
@@ -177,7 +186,7 @@ public class IRSService {
         return irs;
     }
 
-    //TODO remove this
+    //TODO remove this id back end already
     public IRSModel getIrsDummy(){
         IRSModel irs = new IRSModel();
         irs.setTotalSKS(22);

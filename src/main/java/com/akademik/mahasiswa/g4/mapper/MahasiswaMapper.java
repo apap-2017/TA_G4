@@ -43,4 +43,12 @@ public interface MahasiswaMapper {
     @Insert("INSERT INTO mahasiswa (nama, npm, username, id_universitas, id_fakultas, id_prodi, angkatan) VALUES" +
             " (#{nama}, #{npm}, #{username}, #{idUniv}, #{idFakultas}, #{idProdi}, #{angkatan})")
     void addMahasiswa (MahasiswaDBModel newMahasiswa);
+
+    @Select("SELECT npm FROM mahasiswa WHERE username = #{username}")
+    String getMahasiswaNPM(@Param("username") String username);
+
+    @Select("select m.npm, m.nama, m.username, m.id_universitas as idUniv, m.id_fakultas as idFakultas, m.id_prodi as idProdi, m.angkatan " +
+            "from mahasiswa m " +
+            "where m.username = #{username};")
+    MahasiswaDBModel getMahasiswaByUsername(@Param("username") String username);
 }
