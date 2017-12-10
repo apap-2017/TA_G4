@@ -102,8 +102,10 @@ public class RiwayatService {
             //set nilai kuliah
             for(KelasModel kelas : riwayat.getKelases()){
                 String key = kelas.getKodeMK();
-                kelas.setNilaiHuruf(nilaiHurufHolders.get(key));
-                kelas.setNilaiAkhir(nilaiAkhirHolders.get(key));
+                if(nilaiHurufHolders.containsKey(key))
+                    kelas.setNilaiHuruf(nilaiHurufHolders.get(key));
+                if(nilaiAkhirHolders.containsKey(key))
+                    kelas.setNilaiAkhir(nilaiAkhirHolders.get(key));
             }
             return riwayat;
         }
