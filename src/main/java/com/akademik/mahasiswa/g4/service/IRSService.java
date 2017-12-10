@@ -45,6 +45,11 @@ public class IRSService {
      * @return JadwalMode - berisi jadwal sekarang
      */
     public JadwalModel getJadwalSekarang(){
+
+        //TODO delete dummy
+        if(true)
+            return getJadwalDummy();
+
         MahasiswaDBModel mahasiswa = mahasiswaMapper.getMahasiswaByUsername(UserUtils.getUsername());
         JadwalModel jadwalModel = jadwalDAO.getJadwalNow(mahasiswa.getIdUniv(),
                 mahasiswa.getIdFakultas(),
@@ -82,9 +87,7 @@ public class IRSService {
                     matakuliah.setSelectedKelasIdx(i);
             }
         }
-        //TODO delete dummy
-//        return jadwalModel;
-        return getJadwalDummy();
+        return jadwalModel;
     }
 
     public void submitIRS(JadwalModel jadwalModel) {
@@ -127,6 +130,9 @@ public class IRSService {
     }
 
     public IRSModel getIRS(String npm) {
+        //TODO delete dummy
+        if(true)
+            return getIrsDummy();
 
         IRSModel irs = new IRSModel();
 
@@ -185,14 +191,18 @@ public class IRSService {
         }
         irs.setError(erorr);
 
-        //TODO delete dummy
-//        return irs;
-        return getIrsDummy();
+        return irs;
     }
 
     //TODO remove this id back end already
     public IRSModel getIrsDummy(){
         IRSModel irs = new IRSModel();
+
+        MahasiswaDBModel mahasiswa = new MahasiswaDBModel();
+        mahasiswa.setNama("Badu");
+        mahasiswa.setNpm("1507456898");
+        irs.setMahasiswa(mahasiswa);
+
         irs.setTotalSKS(22);
         irs.setIpTerakhir(3.89);
         irs.setSksMaksimum(24);

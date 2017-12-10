@@ -23,6 +23,9 @@ public class DashboardService {
     private RiwayatService riwayatService;
 
     public DashboardModel getDashboardMahasiswa(String npm){
+        //TODO ganti dengan yg dibawah ini returnnya
+        if(true)
+            return getDashboardDummy();
 
         DashboardModel dashboard = new DashboardModel();
         dashboard.setMahasiswa(mahasiswaMapper.getMahasiswa(npm));
@@ -59,9 +62,7 @@ public class DashboardService {
 
         dashboard.setStatistikNilais(statistikNilais);
 
-//        TODO ganti dengan yg dibawah ini returnnya
         return dashboard;
-//        return getDashboardDummy();
     }
 
     //TODO remove this id back end already
