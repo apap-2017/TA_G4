@@ -40,6 +40,10 @@ public class RiwayatService {
 
     public List<RiwayatPerkuliahanModel> getAllRiwayatMahasiswa(String npm){
 
+        //TODO remove this dummy
+        if(true)
+            return getRiwayatDummy();
+
         /**
          * holder nilai from api for mapping to model;
          */
@@ -127,7 +131,7 @@ public class RiwayatService {
     }
 
     //TODO remove this if back end already
-    private List<RiwayatPerkuliahanModel> getDummy(){
+    private List<RiwayatPerkuliahanModel> getRiwayatDummy(){
         List<RiwayatPerkuliahanModel> riwayats = new ArrayList<>();
 
         RiwayatPerkuliahanModel riwayat1 = new RiwayatPerkuliahanModel();
