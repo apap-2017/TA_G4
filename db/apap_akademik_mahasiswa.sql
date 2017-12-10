@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 09, 2017 at 07:23 PM
+-- Generation Time: Dec 10, 2017 at 06:06 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -44,6 +44,8 @@ CREATE TABLE `kelas` (
 --
 
 INSERT INTO `kelas` (`id_riwayat_perkuliahan`, `tanggal_pengisian`, `kode_mata_kuliah`, `kode_kurikulum`, `id_kelas`, `nama_mata_kuliah`, `nama_kelas`, `sks`) VALUES
+(33, '2017-12-10 05:05:11', 'EL4230', 'U1-F1-P1-1', 5, 'Analisis & Perancangan IC Digital', 'Analisis & Perancangan IC Digital-A', 3),
+(33, '2017-12-10 05:05:12', 'MB4045', 'U1-F1-P1-1', 10, 'Manajemen Investasi', 'Manajemen Investasi-A', 3),
 (27, '2017-12-09 09:09:59', 'ECM103', 'U1-F1-P1-1', 11, 'Pengantar Akuntansi 1', 'Pengantar Akuntansi 1-A', 4),
 (29, '2017-12-09 09:14:35', 'ECM103', 'U1-F1-P1-1', 11, 'Pengantar Akuntansi 1', 'Pengantar Akuntansi 1-A', 4),
 (31, '2017-12-09 09:14:35', 'ECM103', 'U1-F1-P1-1', 11, 'Pengantar Akuntansi 1', 'Pengantar Akuntansi 1-A', 4),
@@ -109,7 +111,8 @@ INSERT INTO `riwayat_perkuliahan` (`id`, `status_irs`, `npm`, `tahun_ajar`, `ter
 (28, 0, '987654322', '2016-17', 1),
 (29, 0, '987654322', '2016-17', 2),
 (30, 0, '987654323', '2016-17', 1),
-(31, 0, '987654323', '2016-17', 2);
+(31, 0, '987654323', '2016-17', 2),
+(33, 0, '987654321', '2017-18', 1);
 
 -- --------------------------------------------------------
 
@@ -119,19 +122,20 @@ INSERT INTO `riwayat_perkuliahan` (`id`, `status_irs`, `npm`, `tahun_ajar`, `ter
 
 CREATE TABLE `user` (
   `username` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL
+  `password` varchar(100) NOT NULL,
+  `enabled` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`username`, `password`) VALUES
-('username1', 'password1'),
-('username2', 'password2'),
-('username3', 'password3'),
-('username4', 'password4'),
-('username5', 'password5');
+INSERT INTO `user` (`username`, `password`, `enabled`) VALUES
+('username1', 'password1', 1),
+('username2', 'password2', 1),
+('username3', 'password3', 1),
+('username4', 'password4', 1),
+('username5', 'password5', 1);
 
 -- --------------------------------------------------------
 
@@ -200,7 +204,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `riwayat_perkuliahan`
 --
 ALTER TABLE `riwayat_perkuliahan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 --
 -- Constraints for dumped tables
 --
