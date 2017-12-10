@@ -38,7 +38,9 @@ public class KelasModel {
     private int sks;
 
     //dapet dari api penilaian
+    @JsonIgnore
     private double nilaiAkhir;
+    @JsonIgnore
     private String nilaiHuruf;
 
     //for api to penilaian
