@@ -134,6 +134,12 @@ public class IRSService {
         if(true)
             return getIrsDummy();
 
+        //jika mahasiswa yang mengakses irs orang lain maka tidak boleh
+        if(UserUtils.userRoleIs(UserUtils.ROLE_MAHASISWA) &&
+                !npm.equalsIgnoreCase(mahasiswaMapper.getMahasiswaNPM(UserUtils.getUsername()))){
+            return null;
+        }
+
         IRSModel irs = new IRSModel();
 
         //get mahasiswa
