@@ -17,7 +17,7 @@ public class PenilaianDAO {
     @Autowired
     private RestTemplateBuilder restTemplateBuilder;
 
-    //TODO
+    //TODO use it for getting nilai mahasiswa in particular matkul
     public List<SemuaNilaiResponseModel.NilaiResultModel.NilaiTermModel> getNilaiMahasiswa(String npm, String kodeMK){
         SemuaNilaiResponseModel response = restTemplateBuilder
                 .build().getForObject(NetworkUtils.BASE_URL_PENILAIAN + "/api/getNilaiKuliah/" + npm + "/" + kodeMK

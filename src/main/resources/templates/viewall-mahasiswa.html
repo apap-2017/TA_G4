@@ -7,16 +7,42 @@
 
     <div id="main-container" class="container mt-6">
         <div id="content-container" class="container col-md-9 bg-white">
-            <h3><strong>Daftar Mahasiswa yang Tersedia</strong></h3>
-            <hr/>
-            <br/>
             <div class="container">
-                <div class="row">
-                    <div>
-                        <p>Daftar Mahasiswa</p>
-                    </div>
-                </div>
+                <h3><strong>Daftar Mahasiswa yang Tersedia</strong></h3>
+                <h5 th:if="${invalidity != null}" th:text="${invalidity}" class="text-danger">Ini notifikasinya</h5>
+                <hr/>
+                <br/>
             </div>
+
+            <div class="container col-md-12">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">No. </th>
+                        <th scope="col">NPM</th>
+                        <th scope="col">Nama</th>
+                        <th scope="col">Angkatan</th>
+                        <th scope="col">Universitas</th>
+                        <th scope="col">Update</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                    </thead>
+
+                        <div th:each="mahasiswa,iterationStatus: ${mahasiswas}">
+                            <tr>
+                                <td scope="row" th:text="${iterationStatus.count}"></td>
+                                <td><a th:text="${mahasiswa.npm}" th:href="'/admin'"></a></td>
+                                <td th:text="${mahasiswa.nama}"></td>
+                                <td th:text="${mahasiswa.angkatan}"></td>
+                                <td th:text="${mahasiswa.namaUniv}"></td>
+                                <td><a th:href="'/admin/update/' + ${mahasiswa.npm}" class="text-white btn btn-primary">Update Data</a></td>
+                                <td><a th:href="'/admin/delete/' + ${mahasiswa.npm}" class="text-white btn btn-danger">De
+                            </tr>
+                        </div>
+
+                </table>
+            </div>
+
         </div>
     </div>
 

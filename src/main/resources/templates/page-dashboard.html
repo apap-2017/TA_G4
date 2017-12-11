@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard</title>
+</head>
+<body th:object="${dashboard}">
+
+    <div>
+        <table th:object="${dashboard.mahasiswa}">
+            <tr>
+                <td>NPM</td>
+                <td><span th:text="*{npm}"></span></td>
+            </tr>
+            <tr>
+                <td>Nama</td>
+                <td><span th:text="*{nama}"></span></td>
+            </tr>
+            <tr>
+                <td>Angkatan</td>
+                <td><span th:text="*{angkatan}"></span></td>
+            </tr>
+            <tr>
+                <td>Universitas</td>
+                <td><span th:text="*{namaUniv}"></span></td>
+            </tr>
+            <tr>
+                <td>Faultas</td>
+                <td><span th:text="*{namaFakultas}"></span></td>
+            </tr>
+            <tr>
+                <td>Program Studi</td>
+                <td><span th:text="*{namaProdi}"></span></td>
+            </tr>
+            <tr>
+                <td>SKS Diperoleh</td>
+                <td><span th:text="*{sksDiperoleh}"></span></td>
+            </tr>
+            <tr>
+                <td>Total SKS Lulus</td>
+                <td><span th:text="*{sksLulus}"></span></td>
+            </tr>
+        </table>
+    </div>
+
+    <div>
+        <div>
+            <h2>Status Akademis: </h2>
+        </div>
+        <div>
+            <span th:text="*{statusAkademik}"></span>
+        </div>
+        <div>
+            <h2>IPK: </h2>
+        </div>
+        <div>
+            <span th:text="*{ipk}"></span>
+        </div>
+    </div>
+
+    <div>
+        <h3>Statistik Nilai</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tahun</th>
+                    <th>Term</th>
+                    <th>Total Mata Kuliah</th>
+                    <th>SKS Diambil</th>
+                    <th>SKS Lulus</th>
+                    <th>IP</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr th:each="statistikNilai : *{statistikNilais}" th:object="${statistikNilai}">
+                    <td><span th:text="*{tahunAjaran}"></span></td>
+                    <td><span th:text="*{term}"></span></td>
+                    <td><span th:text="*{totalMK}"></span></td>
+                    <td><span th:text="*{totalSKS}"></span></td>
+                    <td><span th:text="*{totalSKSLulus}"></span></td>
+                    <td><span th:text="*{ip}"></span></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

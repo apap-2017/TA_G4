@@ -31,8 +31,8 @@
                     <td><a th:if="${mahasiswa != null}" th:text="${mahasiswa.npm}" th:href="'/admin'"></a></td>
                     <td th:if="${mahasiswa != null}" th:text="${mahasiswa.nama}"></td>
                     <td th:if="${mahasiswa != null}" th:text="${mahasiswa.namaUniv}"></td>
-                    <td><a th:if="${mahasiswa != null}" class="text-white btn btn-primary">Update Data</a></td>
-                    <td><a th:if="${mahasiswa != null}" class="text-white btn btn-danger">Delete Data</a></td>
+                    <td><a th:if="${mahasiswa != null}" th:href="'/admin/update/' + ${mahasiswa.npm}" class="text-white btn btn-primary">Update Data</a></td>
+                    <td><a th:if="${mahasiswa != null}" th:href="'/admin/delete/' + ${mahasiswa.npm}" class="text-white btn btn-danger">Delete Data</a></td>
                 </tr>
             </table>
         </div>

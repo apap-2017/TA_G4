@@ -1,7 +1,6 @@
 package com.akademik.mahasiswa.g4.controller;
 
 import com.akademik.mahasiswa.g4.model.db.RiwayatPerkuliahanModel;
-import com.akademik.mahasiswa.g4.model.rest.KelasModel;
 import com.akademik.mahasiswa.g4.service.RiwayatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,16 +20,13 @@ public class RiwayatController {
     public String getRiwayatMahasiswa(@PathVariable("npm") String npm, Model model){
         List<RiwayatPerkuliahanModel> riwayats = riwayatService.getAllRiwayatMahasiswa(npm);
         model.addAttribute("riwayats", riwayats);
-//        TODO uncomment this for see result or remove this afterall
-        System.out.println(">>>>>>>>>>>>> " + riwayats);
-        if(riwayats != null){
-            for(RiwayatPerkuliahanModel riwayat : riwayats){
-                System.out.println(" riwayat : " + riwayat);
-                for(KelasModel kelas : riwayat.getKelases()){
-                    System.out.println(">>>>>>> kelas : " + kelas);
-                }
-            }
-        }
+        return "page-lihat-riwayat";
+    }
+
+    @RequestMapping(value = "/riwayat")
+    public String getRiwayatMahasiswa(Model model){
+        List<RiwayatPerkuliahanModel> riwayats = riwayatService.getAllRiwayatMahasiswa();
+        model.addAttribute("riwayats", riwayats);
         return "page-lihat-riwayat";
     }
 

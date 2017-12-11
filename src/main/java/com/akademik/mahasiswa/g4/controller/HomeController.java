@@ -30,12 +30,6 @@ public class HomeController {
         return "lihat-irs-mahasiswa";
     }
 
-    @RequestMapping("/admin/viewallmahasiswa")
-    public String viewallMahasiswa()
-    {
-        return "viewall-mahasiswa";
-    }
-
     @RequestMapping("/irs")
     public String isiIrs()
     {
