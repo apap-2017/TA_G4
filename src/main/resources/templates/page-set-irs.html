@@ -25,7 +25,7 @@
 <div th:replace="fragments/fragment :: header"></div>
 <div id="main-container" class="container mt-6">
 <div id="content-container" class="container col-md-9 bg-white">
-    <div class="container">
+    <div class="container mt-3">
     <h1 th:text="|Daftar Mata Kuliah yang Ditawarkan Periode ${jadwal.term.tahunAjar} term ${jadwal.term.nomor}|"></h1>
 
 
@@ -35,7 +35,7 @@
             <input th:type="text" th:field="*{nomor}" th:value="*{nomor}"></input>
         </div>
 
-        <table class="table borderless">
+        <table class="table table-hover">
             <thead>
             <tr>
                 <th></th>
@@ -49,7 +49,7 @@
             </thead>
 
             <tbody>
-            <div class="container">
+            <div class="container col-md-12">
                 <div th:each="mataKuliah, stat : *{matkul}" th:object="${mataKuliah}">
 
                     <tr>
@@ -107,11 +107,13 @@
             </div>
             </tbody>
         </table>
-
+        <div class="container">
         <button type="submit" class="btn-primary">Save</button>
+        </div>
     </form>
     </div>
 </div>
 </div>
+<div th:replace="fragments/fragment :: footer"></div>
 </body>
 </html>
