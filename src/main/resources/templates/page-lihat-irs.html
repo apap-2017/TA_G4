@@ -29,6 +29,7 @@
 </head>
 <body th:object="${irs}">
 <div th:replace="fragments/fragment :: header"></div>
+
 <div id="main-container" class="container mt-6">
 <div id="content-container" class="container col-md-9 bg-white">
     <h2 th:text="|(*{mahasiswa.npm}) *{mahasiswa.nama}, Priode *{riwayat.tahunAjar} term *{riwayat.term}|"></h2>
@@ -66,13 +67,21 @@
             </tbody>
         </table>
 
-        <div>
+        <div class="panel panel-info">
+            <div class="panel-heading">
             <h4>SKS Maksimum:</h4>
+            </div>
+            <div class="panel-body">
             <h1 th:text="*{sksMaksimum}"></h1>
+            </div>
         </div>
-        <div>
+        <div class="panel panel-info">
+            <div class="panel-heading">
             <h4>IP Terakhir:</h4>
+            </div>
+            <div class="panel-body">
             <h1 th:text="*{ipTerakhir}"></h1>
+            </div>
         </div>
         <div class="panel panel-warning">
             <div class="panel-heading">
@@ -85,6 +94,7 @@
     </div>
 </div>
 </div>
+
 <div th:replace="fragments/fragment :: footer"></div>
 </body>
 </html>
