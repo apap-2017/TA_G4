@@ -12,11 +12,11 @@
 </head>
 <body>
     <nav th:fragment="header" class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark box-shadow">
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
+            <ul class="nav navbar-nav mr-auto">
                 <li class ="nav-item">
-                    <a class="nav-link" th:if="${#httpServletRequest.isUserInRole('MAHASISWA')}" href="#">Home</a>
-                    <a class="nav-link" th:if="${#httpServletRequest.isUserInRole('ADMIN')}" href="#">Home</a>
+                    <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:if="${#httpServletRequest.isUserInRole('MAHASISWA')}" href="#">Isi Irs</a>
@@ -25,15 +25,13 @@
                 <li class="nav-item">
                     <a class="nav-link" th:if="${#httpServletRequest.isUserInRole('ADMIN')}" href="#">Daftar Mahasiswa</a>
                 </li>
-                <li class="nav-item">
-                    <a align="right" class="nav-link set-right" th:text=" 'Welcome, ' + ${#httpServletRequest.remoteUser}"></a>
-                </li>
-                <li class="nav-item">
-                    <form align="right" class="set-right" th:action="@{/logout}" method="post">
-                        <input align="right" class="btn set-right" type="submit" value="logout"/>
-                    </form>
-                </li>
             </ul>
+                <a class="navbar navbar-nav" th:text=" 'Welcome, ' + ${#httpServletRequest.remoteUser}"></a>
+                <form class="navbar-form navbar-right" th:action="@{/logout}" method="post">
+                    <input type="submit" value="logout"/><span class="glyphicon glyphicon-log-out"></span>
+                </form>
+
+
 
 
         </div>
