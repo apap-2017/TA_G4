@@ -40,9 +40,9 @@ public class RiwayatService {
 
     public List<RiwayatPerkuliahanModel> getAllRiwayatMahasiswa(String npm){
 
-//        //TODO remove this dummy
-//        if(true)
-//            return getRiwayatDummy();
+        //TODO remove this dummy
+        if(true)
+            return getRiwayatDummy();
 
         /**
          * holder nilai from api for mapping to model;
