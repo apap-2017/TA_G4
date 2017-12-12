@@ -32,7 +32,7 @@
                         <div th:each="mahasiswa,iterationStatus: ${mahasiswas}">
                             <tr>
                                 <td scope="row" th:text="${iterationStatus.count}"></td>
-                                <td><a th:text="${mahasiswa.npm}" th:href="'/admin'"></a></td>
+                                <td><a th:text="${mahasiswa.npm}" th:href="'/dashboard/' + ${mahasiswa.npm}"></a></td>
                                 <td th:text="${mahasiswa.nama}"></td>
                                 <td th:text="${mahasiswa.angkatan}"></td>
                                 <td th:text="${mahasiswa.namaUniv}"></td>

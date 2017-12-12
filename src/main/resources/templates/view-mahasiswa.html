@@ -29,7 +29,7 @@
                 </thead>
                 <tr>
                     <td th:if="${mahasiswa != null}"  scope="row">1</td>
-                    <td><a th:if="${mahasiswa != null}" th:text="${mahasiswa.npm}" th:href="'/admin'"></a></td>
+                    <td><a th:if="${mahasiswa != null}" th:text="${mahasiswa.npm}" th:href="'/dashboard/' + ${mahasiswa.npm}"></a></td>
                     <td th:if="${mahasiswa != null}" th:text="${mahasiswa.nama}"></td>
                     <td th:if="${mahasiswa != null}" th:text="${mahasiswa.angkatan}"></td>
                     <td th:if="${mahasiswa != null}" th:text="${mahasiswa.namaUniv}"></td>
