@@ -9,7 +9,7 @@
     <div id="content-container" class="container col-md-9 bg-white">
         <div class="container">
             <h3><strong>Update Mahasiswa Sukses</strong></h3>
-            <h5 th:text="'Berhasil mengubah Mahasiswa dengan NPM ' + ${npmBaru}" class="text-primary"></h5>
+            <h5 th:text="'Berhasil mengubah Mahasiswa dengan NPM ' + ${npmLama}" class="text-primary"></h5>
             <br/>
             <h5 th:text="${npmBaru == npmLama} ? 'NPM tidak berubah' : 'NPM menjadi ' + ${npmBaru}"></h5>
             <hr/>
