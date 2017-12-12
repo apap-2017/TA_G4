@@ -30,9 +30,30 @@ public interface MahasiswaMapper {
             "where m.npm = #{npm};")
     MahasiswaDBModel getMahasiswa(@Param("npm") String npm);
 
+    @Select("select password from user where username = #{username}")
+    String getPassword(@Param("username") String username);
+
+    @Delete("DELETE FROM mahasiswa WHERE npm = #{npm}")
+    void deleteMahasiswaDB (@Param("npm") String npm);
+
     @Delete("DELETE FROM mahasiswa WHERE npm = #{npm}")
     int deleteMahasiswa (@Param("npm") String npm);
 
+    @Delete("DELETE FROM user_role WHERE username = #{username}")
+    void deleteUserRole (@Param("username") String username);
+
+    @Delete("DELETE FROM user WHERE username = #{username}")
+    void deleteUser (@Param("username") String username);
+
+    @Update("update user set username = #{username}, password = #{password}, enabled = 1 where username = #{username}")
+    void updateUser(MahasiswaDBModel newMahasiswa);
+
+    @Update("update user_role set username = #{username}, role = 'ROLE_MAHASISWA' where username = #{username}")
+    void updateUserRole(MahasiswaDBModel newMahasiswa);
+
+    @Update("update mahasiswa set nama = #{nama}, npm = #{npm}, username = #{username}, id_universitas = #{idUniv}, " +
+            "id_fakultas = #{idFakultas}, id_prodi = #{idProdi}, angkatan = #{angkatan} where username = #{username}")
+    void updateMahasiswa(MahasiswaDBModel newMahasiswa);
 
     @Insert("INSERT INTO user (username, password, enabled) VALUES (#{username}, #{password}, 1)")
     void addUser (MahasiswaDBModel newMahasiswa);
