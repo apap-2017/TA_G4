@@ -19,6 +19,7 @@ public class RiwayatController {
     @RequestMapping(value = "/riwayat/{npm}")
     public String getRiwayatMahasiswa(@PathVariable("npm") String npm, Model model){
         List<RiwayatPerkuliahanModel> riwayats = riwayatService.getAllRiwayatMahasiswa(npm);
+        model.addAttribute("page_title", "Lihat Riwayat");
         model.addAttribute("riwayats", riwayats);
         return "page-lihat-riwayat";
     }
@@ -26,6 +27,7 @@ public class RiwayatController {
     @RequestMapping(value = "/riwayat")
     public String getRiwayatMahasiswa(Model model){
         List<RiwayatPerkuliahanModel> riwayats = riwayatService.getAllRiwayatMahasiswa();
+        model.addAttribute("page_title", "Lihat Riwayat");
         model.addAttribute("riwayats", riwayats);
         return "page-lihat-riwayat";
     }

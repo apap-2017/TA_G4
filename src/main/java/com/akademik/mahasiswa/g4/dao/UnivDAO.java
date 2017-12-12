@@ -34,7 +34,7 @@ public class UnivDAO {
     }
 
 
-    public FakultasResponseModel getAllFakultas(String idUniv)
+    public FakultasResponseModel getAllFakultasUniv(String idUniv)
     {
         FakultasResponseModel Fakults = restTemplateBuilder.build().getForObject(
                 NetworkUtils.BASE_URL_UNIVERSITAS + "/getFakultasList/" + idUniv, FakultasResponseModel.class);
@@ -42,13 +42,31 @@ public class UnivDAO {
         return Fakults;
     }
 
+    public FakultasResponseModel getFakultas(String idUniv, String idFakultas)
+    {
+        // to do ambil univ dengan parameter
+        FakultasResponseModel fakultas = restTemplateBuilder.build().getForObject(
+                NetworkUtils.BASE_URL_UNIVERSITAS + "/getFakultas/" + idUniv + "/" + idFakultas, FakultasResponseModel.class);
 
-    public ProdiResponseModel getAllProdi(String idUniv, String idFakultas)
+        return fakultas;
+    }
+
+
+    public ProdiResponseModel getAllProdiFakultas(String idUniv, String idFakultas)
     {
         ProdiResponseModel Prodis= restTemplateBuilder.build().getForObject(
                 NetworkUtils.BASE_URL_UNIVERSITAS + "/getProdiList/" + idUniv + "/" + idFakultas, ProdiResponseModel.class);
 
         return Prodis;
+    }
+
+    public ProdiResponseModel getProdi(String idUniv, String idFakultas, String idProdi)
+    {
+        // to do ambil univ dengan parameter
+        ProdiResponseModel prodi = restTemplateBuilder.build().getForObject(
+                NetworkUtils.BASE_URL_UNIVERSITAS + "/getProdi/" + idUniv + "/" + idFakultas + "/" + idProdi, ProdiResponseModel.class);
+
+        return prodi;
     }
 
 }

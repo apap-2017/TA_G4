@@ -21,6 +21,9 @@ public class ProdiResponseModel extends BaseResponseModel<ProdiResponseModel.Pro
 
         @JsonProperty("prodiList")
         private List<ProdiModel> listProdi;
+
+        @JsonProperty("prodi")
+        private ProdiModel prodi;
     }
 
 

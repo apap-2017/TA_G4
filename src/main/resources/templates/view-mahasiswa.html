@@ -21,6 +21,7 @@
                         <th scope="col">No. </th>
                         <th scope="col">NPM</th>
                         <th scope="col">Nama</th>
+                        <th scope="col">Angkatan</th>
                         <th scope="col">Universitas</th>
                         <th scope="col">Update</th>
                         <th scope="col">Delete</th>
@@ -28,11 +29,12 @@
                 </thead>
                 <tr>
                     <td th:if="${mahasiswa != null}"  scope="row">1</td>
-                    <td><a th:if="${mahasiswa != null}" th:text="${mahasiswa.npm}" th:href="'/admin'"></a></td>
+                    <td><a th:if="${mahasiswa != null}" th:text="${mahasiswa.npm}" th:href="'/dashboard/' + ${mahasiswa.npm}"></a></td>
                     <td th:if="${mahasiswa != null}" th:text="${mahasiswa.nama}"></td>
+                    <td th:if="${mahasiswa != null}" th:text="${mahasiswa.angkatan}"></td>
                     <td th:if="${mahasiswa != null}" th:text="${mahasiswa.namaUniv}"></td>
-                    <td><a th:if="${mahasiswa != null}" th:href="'/admin/update/' + ${mahasiswa.npm}" class="text-white btn btn-primary">Update Data</a></td>
-                    <td><a th:if="${mahasiswa != null}" th:href="'/admin/delete/' + ${mahasiswa.npm}" class="text-white btn btn-danger">Delete Data</a></td>
+                    <td><a th:if="${mahasiswa != null}" th:href="'/admin/update/' + ${mahasiswa.npm}" class="text-white btn btn-primary">Update</a></td>
+                    <td><a th:if="${mahasiswa != null}" th:href="'/admin/viewmahasiswa/delete/' + ${mahasiswa.npm}" class="text-white btn btn-danger">Delete</a></td>
                 </tr>
             </table>
         </div>

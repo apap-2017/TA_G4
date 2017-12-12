@@ -28,10 +28,11 @@ public class IRSController {
         JadwalModel jadwalModel = irsService.getJadwalSekarang();
 
         if(jadwalModel != null) {
+            model.addAttribute("page_title", "Set IRS");
             model.addAttribute("jadwal", jadwalModel);
             return "page-set-irs";
         }
-
+        model.addAttribute("page_title", "IRS Not Found");
         return "not-found";
     }
 
@@ -43,8 +44,10 @@ public class IRSController {
         IRSModel irs = irsService.getIRS();
         if(irs != null) {
             model.addAttribute("irs", irs);
+            model.addAttribute("page_title", "Lihat IRS");
             return "page-lihat-irs";
         }else{
+            model.addAttribute("page_title", "IRS Not Found");
             return "page-not-found-irs";
         }
     }
@@ -53,9 +56,11 @@ public class IRSController {
     public String lihatIRS(Model model, @PathVariable("npm") String npm){
         IRSModel irs = irsService.getIRS(npm);
         if(irs != null) {
+            model.addAttribute("page_title", "Lihat IRS");
             model.addAttribute("irs", irs);
             return "page-lihat-irs";
         }else{
+            model.addAttribute("page_title", "IRS Not Found");
             return "page-not-found-irs";
         }
     }

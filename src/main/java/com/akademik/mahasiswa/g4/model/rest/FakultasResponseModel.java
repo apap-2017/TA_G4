@@ -18,6 +18,9 @@ public class FakultasResponseModel extends BaseResponseModel<FakultasResponseMod
 
         @JsonProperty("fakultasList")
         private List<FakultasModel> listFakultas;
+
+        @JsonProperty("fakultas")
+        private FakultasModel fakultas;
     }
 
 }

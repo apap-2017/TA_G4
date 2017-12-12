@@ -20,10 +20,15 @@ public class UnivService {
     @Autowired
     private UnivDAO univDAO;
 
+    public List<UnivModel> getAllUniv()
+    {
+        List<UnivModel> univs = univDAO.getAllUniv().getResult().getListUniv();
+        return univs;
+    }
+
     public String checkUniv(String univ)
     {
         List<UnivModel> univs = univDAO.getAllUniv().getResult().getListUniv();
-
         int i = 0;
         while(i < univs.size()) {
             if(univ.equalsIgnoreCase(univs.get(i).getNamaUniv())) {
@@ -53,7 +58,7 @@ public class UnivService {
 
     public String checkFakultas(String idUniv, String fakultas)
     {
-        List<FakultasModel> fakults = univDAO.getAllFakultas(idUniv).getResult().getListFakultas();
+        List<FakultasModel> fakults = univDAO.getAllFakultasUniv(idUniv).getResult().getListFakultas();
 
         int i = 0;
         while(i < fakults.size()) {
@@ -68,7 +73,7 @@ public class UnivService {
 
     public String convertFakultas(String idUniv, String fakultas)
     {
-        List<FakultasModel> fakults = univDAO.getAllFakultas(idUniv).getResult().getListFakultas();
+        List<FakultasModel> fakults = univDAO.getAllFakultasUniv(idUniv).getResult().getListFakultas();
 
         int i = 0;
         while(i < fakults.size()) {
@@ -83,7 +88,7 @@ public class UnivService {
 
     public String checkProdi(String idUniv, String idFakultas, String prodi)
     {
-        List<ProdiModel> prodis = univDAO.getAllProdi(idUniv, idFakultas).getResult().getListProdi();
+        List<ProdiModel> prodis = univDAO.getAllProdiFakultas(idUniv, idFakultas).getResult().getListProdi();
 
         int i = 0;
         while(i < prodis.size()) {
@@ -98,7 +103,7 @@ public class UnivService {
 
     public String convertProdi(String idUniv, String idFakultas, String prodi)
     {
-        List<ProdiModel> prodis = univDAO.getAllProdi(idUniv, idFakultas).getResult().getListProdi();
+        List<ProdiModel> prodis = univDAO.getAllProdiFakultas(idUniv, idFakultas).getResult().getListProdi();
 
         int i = 0;
         while(i < prodis.size()) {

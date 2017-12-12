@@ -1,12 +1,41 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Dashboard</title>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragment :: header-title-fragment">
+
+
 </head>
+<script>
+    $(document).ready(function(){
+        $("button").click(function () {
+            var idKelas = $(this).attr("id");
+
+            $.ajax({
+                url: "test.html",
+                context: document.body
+            }).done(function() {
+                //update total SKS and remove table row
+                var sks = $(this).parent().parent().children().eq(5).text();
+                var totalSKS = $("#totalSKS").text();
+                var remainsSKS = totalSKS - sks;
+                $("#totalSKS").html(remainsSKS);
+                $(this).parent().parent().remove();
+            });
+        });
+
+    });
+</script>
+
 <body th:object="${dashboard}">
+<div th:replace="fragments/fragment :: header"></div>
+
+<div id="main-container" class="container mt-6">
+    <div align="center" id="content-container" class="container col-md-9 bg-white">
+
+        <h2>Dashboard Mahasiswa</h2>
 
     <div>
-        <table th:object="${dashboard.mahasiswa}">
+        <table th:object="${dashboard.mahasiswa}" class="table table-hover">
             <tr>
                 <td>NPM</td>
                 <td><span th:text="*{npm}"></span></td>
@@ -24,7 +53,7 @@
                 <td><span th:text="*{namaUniv}"></span></td>
             </tr>
             <tr>
-                <td>Faultas</td>
+                <td>Fakultas</td>
                 <td><span th:text="*{namaFakultas}"></span></td>
             </tr>
             <tr>
@@ -59,7 +88,7 @@
 
     <div>
         <h3>Statistik Nilai</h3>
-        <table>
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th>Tahun</th>
@@ -84,6 +113,8 @@
             </tbody>
         </table>
     </div>
-
+    </div>
+</div>
+<div th:replace="fragments/fragment :: footer"></div>
 </body>
 </html>

@@ -18,6 +18,7 @@ public class DasboardController {
     @RequestMapping(value = "/dashboard/{npm}", method = RequestMethod.GET)
     public String displayDashboardMahasiswa(@PathVariable("npm") String npm, Model model){
         DashboardModel dashboard = dashboardService.getDashboardMahasiswa(npm);
+        model.addAttribute("page_title", "Dashboard Mahasiswa");
         model.addAttribute("dashboard", dashboard);
         return "page-dashboard";
     }
