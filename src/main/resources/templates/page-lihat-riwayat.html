@@ -1,11 +1,43 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <title>Riwayat Mahasiswa</title>
-</head>
-<body>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragment :: header-title-fragment">
 
-    <table>
+
+</head>
+<script>
+    $(document).ready(function(){
+        $("button").click(function () {
+            var idKelas = $(this).attr("id");
+
+            $.ajax({
+                url: "test.html",
+                context: document.body
+            }).done(function() {
+                //update total SKS and remove table row
+                var sks = $(this).parent().parent().children().eq(5).text();
+                var totalSKS = $("#totalSKS").text();
+                var remainsSKS = totalSKS - sks;
+                $("#totalSKS").html(remainsSKS);
+                $(this).parent().parent().remove();
+            });
+        });
+
+    });
+</script>
+<body>
+<div th:replace="fragments/fragment :: header"></div>
+
+<div id="main-container" class="container mt-6">
+    <div align="center" id="content-container" class="container col-md-9 bg-white">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#">Ringkasan</a></li>
+            <li><a href="#">Riwayat</a></li>
+            <li><a href="#">Lihat IRS</a></li>
+        </ul>
+        <br/>
+
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th>No.</th>
@@ -14,8 +46,8 @@
                 <th>Nama MK</th>
                 <th>Kelas</th>
                 <th>SKS</th>
-                <th>N. Akhir</th>
-                <th>N. Huruf</th>
+                <th>Nilai Akhir</th>
+                <th>Nilai Huruf</th>
             </tr>
         </thead>
 
@@ -24,7 +56,7 @@
 
                 <tr>
                     <td colspan="8">
-                        <p th:text="|Tahun Ajaran *{tahunAjar} - Term *{term}|"></p>
+                        <h2 th:text="|Tahun Ajaran *{tahunAjar} - Term *{term}|"></h2>
                     </td>
                 </tr>
 
@@ -60,6 +92,9 @@
         </div>
         </tbody>
     </table>
+    </div>
+</div>
 
+<div th:replace="fragments/fragment :: footer"></div>
 </body>
 </html>
