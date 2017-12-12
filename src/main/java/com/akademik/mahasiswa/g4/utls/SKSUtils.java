@@ -31,21 +31,11 @@ public class SKSUtils {
     public static int getJumlahSKSLulus(List<KelasModel> kelases) {
         int sksLulus = 0;
         for(KelasModel kelas : kelases){
-            if(isLulus(kelas.getNilaiHuruf())){
+            if(NilaiUtils.isLulus(kelas.getNilaiHuruf())){
                 sksLulus += kelas.getSks();
             }
         }
         return sksLulus;
-    }
-
-    public static boolean isLulus(String nilaiHuruf) {
-        return nilaiHuruf != null && (nilaiHuruf.equalsIgnoreCase("A") ||
-                nilaiHuruf.equalsIgnoreCase("A-") ||
-                nilaiHuruf.equalsIgnoreCase("B+") ||
-                nilaiHuruf.equalsIgnoreCase("B") ||
-                nilaiHuruf.equalsIgnoreCase("B-") ||
-                nilaiHuruf.equalsIgnoreCase("C+") ||
-                nilaiHuruf.equalsIgnoreCase("C"));
     }
 
 }

@@ -7,6 +7,7 @@ import com.akademik.mahasiswa.g4.model.rest.KelasModel;
 import com.akademik.mahasiswa.g4.model.view.DashboardModel;
 import com.akademik.mahasiswa.g4.model.view.StatistikNilaiModel;
 import com.akademik.mahasiswa.g4.utls.IPUtils;
+import com.akademik.mahasiswa.g4.utls.NilaiUtils;
 import com.akademik.mahasiswa.g4.utls.SKSUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,44 +24,52 @@ public class DashboardService {
     private RiwayatService riwayatService;
 
     public DashboardModel getDashboardMahasiswa(String npm){
-        //TODO ganti dengan yg dibawah ini returnnya
-        if(true)
-            return getDashboardDummy();
+//        //TODO ganti dengan yg dibawah ini returnnya
+//        if(true)
+//            return getDashboardDummy();
 
         DashboardModel dashboard = new DashboardModel();
-        dashboard.setMahasiswa(mahasiswaMapper.getMahasiswa(npm));
 
-        double countIPLulus = 0;
-        double countSemester = 0;
+        int totalSKSLulus = 0;
+        int totalSKSDiperoleh = 0;
+        List<KelasModel> allKelasesYgDiambilMhs = new ArrayList<>();
 
+        //set statistik
         List<StatistikNilaiModel> statistikNilais = new ArrayList<>();
         List<RiwayatPerkuliahanModel> allRiwayatMahasiswa = riwayatService.getAllRiwayatMahasiswa(npm);
         for(RiwayatPerkuliahanModel riwayatMahasiswa : allRiwayatMahasiswa){
 
             List<KelasModel> kelases = riwayatMahasiswa.getKelases();
+            int sksLulus = SKSUtils.getJumlahSKSLulus(kelases);
+            int sksDiperoleh = SKSUtils.getJumlahSKS(kelases);
+            totalSKSLulus += sksLulus;
+            totalSKSDiperoleh += sksDiperoleh;
             StatistikNilaiModel statistikNilai = new StatistikNilaiModel(
                     riwayatMahasiswa.getTahunAjar(),
                     riwayatMahasiswa.getTerm(),
                     kelases.size(),
-                    SKSUtils.getJumlahSKS(kelases),
-                    SKSUtils.getJumlahSKSLulus(kelases),
+                    sksDiperoleh,
+                    sksLulus,
                     IPUtils.getIPT(kelases));
             statistikNilais.add(statistikNilai);
 
-            //untuk ipk
-            countIPLulus += IPUtils.getIPLulus(kelases);
-            countSemester++;
+            allKelasesYgDiambilMhs.addAll(kelases);
 
         }
-
         dashboard.setStatistikNilais(statistikNilais);
 
-        double ipk = 0;
-        if(countSemester > 0)
-            ipk = countIPLulus / countSemester;
-        dashboard.setIpk(ipk);
+        double totalNilaiLulus = NilaiUtils.totalNilaiLulus(allKelasesYgDiambilMhs);
+        System.out.println(">>>>> totalNilaiLulus : " + totalNilaiLulus +", totalSKSLulus : " + totalSKSLulus);
+        //set ipk
+        dashboard.setIpk(
+                totalSKSLulus > 0
+                        ? totalNilaiLulus / totalSKSLulus
+                        : 0);
 
-        dashboard.setStatistikNilais(statistikNilais);
+        //set dashboard mahasiswa
+        dashboard.setMahasiswa(mahasiswaMapper.getMahasiswa(npm));
+        dashboard.getMahasiswa().setSksLulus(totalSKSLulus);
+        dashboard.getMahasiswa().setSksDiperoleh(totalSKSDiperoleh);
 
         return dashboard;
     }
