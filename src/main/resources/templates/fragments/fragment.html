@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="header-title-fragment">
-    <title>Dashboard</title>
+    <title th:text="${page-title}"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
@@ -15,7 +15,8 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class ="nav-item">
-                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link" th:if="${#httpServletRequest.isUserInRole('MAHASISWA')}" href="#">Home</a>
+                    <a class="nav-link" th:if="${#httpServletRequest.isUserInRole('ADMIN')}" href="#">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:if="${#httpServletRequest.isUserInRole('MAHASISWA')}" href="#">Isi Irs</a>

@@ -8,53 +8,48 @@
 <div id="main-container" class="container mt-6">
     <div id="content-container" class="container col-md-9 bg-white">
         <div class="container">
-            <h3><strong>Add Mahasiswa</strong></h3>
+            <h3><strong>Update Mahasiswa</strong></h3>
             <h5 th:if="${invalidity != null}" th:text="${invalidity}" class="text-danger">Ini notifikasinya</h5>
             <hr/>
             <br/>
         </div>
 
 
-        <form action="/admin/addmahasiswa/submit" method="get">
+        <form th:action="@{/admin/update/submit/} + ${npm}" method="post" th:object="${penduduk}">
             <div class="container col-md-6">
                 <div class="form-group">
                     <label>Nama Mahasiswa: </label>
-                    <input class="form-control" type="text" name="nama"/>
+                    <input class="form-control" type="text" name="nama" th:value="${mahasiswa.nama}"/>
                 </div>
                 <div class="form-group">
                     <label>NPM Mahasiswa: </label>
-                    <input class="form-control" type="text" name="npm"/>
+                    <input class="form-control" type="text" name="npm" th:value="${mahasiswa.npm}"/>
                 </div>
                 <div class="form-group">
                     <label>Angkatan: </label>
-                    <input class="form-control" type="text" name="angkatan"/>
+                    <input class="form-control" type="text" name="angkatan" th:value="${mahasiswa.angkatan}"/>
                 </div>
                 <div class="form-group">
                     <label>Universitas: </label>
-                    <select class="form-control" type="text" name="univ">
-                        <div th:each="univ,iterationStatus: ${univs}">
-                            <option th:value="${univ.namaUniv}" th:text="${univ.namaUniv}">
-                            </option>
-                        </div>
-                    </select>
+                    <input class="form-control" type="text" name="namaUniv" th:value="${mahasiswa.namaUniv}"/>
                 </div>
                 <div class="form-group">
                     <label>Fakultas: </label>
-                    <input class="form-control" type="text" name="fakultas"/>
+                    <input class="form-control" type="text" name="namaFakultas" th:value="${mahasiswa.namaFakultas}"/>
                 </div>
             </div>
             <div class="container col-md-6">
                 <div class="form-group">
                     <label>Program Studi: </label>
-                    <input class="form-control" type="text" name="prodi"/>
+                    <input class="form-control" type="text" name="namaProdi" th:value="${mahasiswa.namaProdi}"/>
                 </div>
                 <div class="form-group">
                     <label>Username: </label>
-                    <input class="form-control" type="text" name="username"/>
+                    <input class="form-control" type="text" name="username" th:value="${mahasiswa.username}"/>
                 </div>
                 <div class="form-group">
                     <label>Password: </label>
-                    <input class="form-control" type="text" name="password"/>
+                    <input class="form-control" type="text" name="password" th:value="${mahasiswa.password}"/>
                 </div>
                 <button type="submit" class="w-25 btn btn-primary" name="action" value="add">Submit</button>
             </div>
