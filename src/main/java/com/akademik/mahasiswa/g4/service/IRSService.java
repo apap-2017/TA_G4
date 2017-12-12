@@ -2,6 +2,7 @@ package com.akademik.mahasiswa.g4.service;
 
 import com.akademik.mahasiswa.g4.dao.JadwalDAO;
 import com.akademik.mahasiswa.g4.dao.KurikulumDAO;
+import com.akademik.mahasiswa.g4.dao.PenilaianDAO;
 import com.akademik.mahasiswa.g4.dao.TermDAO;
 import com.akademik.mahasiswa.g4.mapper.KelasMapper;
 import com.akademik.mahasiswa.g4.mapper.MahasiswaMapper;
@@ -10,10 +11,7 @@ import com.akademik.mahasiswa.g4.model.db.MahasiswaDBModel;
 import com.akademik.mahasiswa.g4.model.db.RiwayatPerkuliahanModel;
 import com.akademik.mahasiswa.g4.model.rest.*;
 import com.akademik.mahasiswa.g4.model.view.IRSModel;
-import com.akademik.mahasiswa.g4.utls.IPUtils;
-import com.akademik.mahasiswa.g4.utls.SKSUtils;
-import com.akademik.mahasiswa.g4.utls.TermUtils;
-import com.akademik.mahasiswa.g4.utls.UserUtils;
+import com.akademik.mahasiswa.g4.utls.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +38,8 @@ public class IRSService {
     private KurikulumDAO kurikulumDAO;
     @Autowired
     private KelasService kelasService;
+    @Autowired
+    private PenilaianDAO penilaianDAO;
 
     /**
      * Mendapatkan jadwal sekarang yang digunakan untuk memilih IRS
@@ -181,6 +181,17 @@ public class IRSService {
 
         irs.setTotalSKS(SKSUtils.getJumlahSKS(irs.getRiwayat().getKelases()));
 
+        //get total sks lulus
+        int totalSKSMahasiswa = 0;
+        List<SemuaNilaiResponseModel.NilaiResultModel.NilaiTermModel> nilaiKuliahModels = penilaianDAO.getNilaiMahasiswa(npm);
+        for(SemuaNilaiResponseModel.NilaiResultModel.NilaiTermModel nilaiTermModel : nilaiKuliahModels){
+            for(NilaiKuliahModel nilaiKuliahModel : nilaiTermModel.getNilaiKuliahs()){
+                if(NilaiUtils.isLulus(nilaiKuliahModel.getNilaiHuruf())){
+                    totalSKSMahasiswa += nilaiKuliahModel.getKelas().getMatakuliah().getSks();
+                }
+            }
+        }
+
         //set error
         List<String> erorr = new ArrayList<>();
         if(irs.getSksMaksimum() < irs.getTotalSKS())
@@ -192,10 +203,15 @@ public class IRSService {
                 if(currentKelas == null){//belum mengambil
                     erorr.add("Anda tidak bisa mengambil " + kelas.getNamaMK() + " sebelum mengambil " + prasyaratMatkul.getNama());
                 }else{//
-                    if(55 > currentKelas.getNilaiAkhir()){//tidak lulus
+                    if(NilaiUtils.isLulus(currentKelas.getNilaiHuruf())){//tidak lulus
                         erorr.add("Anda tidak bisa mengambil " + kelas.getNamaMK() + " sebelum lulus " + prasyaratMatkul.getNama());
                     }
                 }
+            }
+            //syarat minimal sks
+            MatakuliahModel matkul = kurikulumDAO.getMataKuliah(kelas.getKodeMK());
+            if(totalSKSMahasiswa < matkul.getSksMinimal()){
+                erorr.add("Anda kurang " + (matkul.getSksMinimal() - totalSKSMahasiswa) + " sks untuk mengambil mata kuliah " + kelas.getNamaMK());
             }
         }
         irs.setError(erorr);
@@ -423,10 +439,5 @@ public class IRSService {
         model.setMatkul(matakuliahModels);
 
         return model;
-    }
-
-
-    public void deleteIRS(String npm, int idKelas) {
-        //TODO
     }
 }

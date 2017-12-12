@@ -2,10 +2,7 @@ package com.akademik.mahasiswa.g4.dao;
 
 import com.akademik.mahasiswa.g4.mapper.MahasiswaMapper;
 import com.akademik.mahasiswa.g4.model.db.MahasiswaDBModel;
-import com.akademik.mahasiswa.g4.model.rest.KurikulumModel;
-import com.akademik.mahasiswa.g4.model.rest.KurikulumResponseModel;
-import com.akademik.mahasiswa.g4.model.rest.MatakuliahModel;
-import com.akademik.mahasiswa.g4.model.rest.PrasyaratMatkulResponseModel;
+import com.akademik.mahasiswa.g4.model.rest.*;
 import com.akademik.mahasiswa.g4.utls.NetworkUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -30,9 +27,6 @@ public class KurikulumDAO {
                 , mahasiswa.getIdProdi()
                 , mahasiswa.getAngkatan());
 
-        System.out.println(">>>>> univ, fakulats, prodi : " + mahasiswa.getIdUniv() + ", " + mahasiswa.getIdFakultas() + ", " + mahasiswa.getIdProdi());
-        System.out.println(">>>>> npm : " + mahasiswa.getNpm());
-        System.out.println(">>>>> kodeKurikulum : " + kurikulum.getKode());
         //return invalid kode kurikulum
         if(kurikulum == null || kurikulum.getKode() == null || kurikulum.getKode().isEmpty()){
             return null;
@@ -62,4 +56,13 @@ public class KurikulumDAO {
         return new ArrayList<>();
     }
 
+    public MatakuliahModel getMataKuliah(String npm) {
+        SpesifikMatakuliahResponseModel response = restTemplateBuilder
+                .build().getForObject(NetworkUtils.BASE_URL_KURIKULUM + "/api/getMataKuliah/" + npm
+                ,SpesifikMatakuliahResponseModel.class);
+        if(response.getStatus() == 200){
+            return response.getResult().getMatakuliahModel();
+        }
+        return null;
+    }
 }

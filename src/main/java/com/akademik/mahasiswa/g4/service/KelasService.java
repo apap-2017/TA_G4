@@ -24,9 +24,17 @@ public class KelasService {
     }
 
     public KelasModel getKelasWithNilai(String npm, String kodeMK) {
-        KelasModel kelas = kelasMapper.getKelasByKodeMK(kodeMK);
-        //TODO get nilai
-//        penilaianDAO.getNilaiMahasiswa(npm, kodeMK);
+        List<NilaiKuliahModel> nilaiKuliahs = penilaianDAO.getNilaiMahasiswa(npm, kodeMK);
+        if(nilaiKuliahs == null || nilaiKuliahs.isEmpty()){
+            return null;
+        }
+        //get nilai tertinggi
+        NilaiKuliahModel nilaiKuliah = nilaiKuliahs.get(1);
+        KelasModel kelas = new KelasModel();
+        kelas.setNilaiHuruf(nilaiKuliah.getNilaiHuruf());
+        kelas.setNilaiAkhir(nilaiKuliah.getNilai());
+        kelas.setKodeMK(nilaiKuliah.getKelas().getMatakuliah().getKodeMK());
+        kelas.setNamaMK(nilaiKuliah.getKelas().getMatakuliah().getNama());
         return kelas;
     }
 

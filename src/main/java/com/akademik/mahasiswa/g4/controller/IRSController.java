@@ -1,20 +1,15 @@
 package com.akademik.mahasiswa.g4.controller;
 
-import com.akademik.mahasiswa.g4.model.rest.BaseResponseModel;
 import com.akademik.mahasiswa.g4.model.rest.JadwalModel;
 import com.akademik.mahasiswa.g4.model.view.IRSModel;
 import com.akademik.mahasiswa.g4.service.IRSService;
-import com.akademik.mahasiswa.g4.utls.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import java.util.Optional;
 
 @Controller
 public class IRSController {
@@ -64,18 +59,5 @@ public class IRSController {
             return "page-not-found-irs";
         }
     }
-
-    @RequestMapping(value = {"/irs/{npm}/{id_kelas}", "/irs**"}, method = RequestMethod.DELETE)
-    public BaseResponseModel hapusIRS(@PathVariable("npm")Optional<String> npm,
-                                      @PathVariable("id_kelas")Optional<Integer> idKelas){
-
-        if(!npm.isPresent() || !idKelas.isPresent())
-            return new BaseResponseModel(HttpStatus.NOT_FOUND.value(), "kurang data npm atau id_kelas", null);
-
-        irsService.deleteIRS(npm.get(), idKelas.get());
-
-        return null;
-    }
-
 
 }

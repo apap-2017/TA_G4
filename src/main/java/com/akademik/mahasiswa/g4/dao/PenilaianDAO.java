@@ -21,12 +21,12 @@ public class PenilaianDAO {
     /**
      * Mendapatkan nilai mahasiswa pada suatu kelas tertentu
      */
-    public NilaiKuliahModel getNilaiMahasiswa(int idKelas, String npm){
+    public List<NilaiKuliahModel> getNilaiMahasiswa(String npm, String kodeMK){
         SpesifikNilaiResponseModel response = restTemplateBuilder
-                .build().getForObject(NetworkUtils.BASE_URL_PENILAIAN + "/api/getNilaiKuliah/" + idKelas + "/" + npm
+                .build().getForObject(NetworkUtils.BASE_URL_PENILAIAN + "/api/getNilaiKuliahByKodeMatkul/" + npm + "/" + kodeMK
                         ,SpesifikNilaiResponseModel.class);
         if(response.getStatus() == 200){
-            return response.getResult().getNilai();
+            return response.getResult().getNilaiKuliahs();
         }
         return null;
     }
