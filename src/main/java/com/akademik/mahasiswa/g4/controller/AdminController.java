@@ -27,7 +27,7 @@ public class AdminController {
     @RequestMapping("/admin")
     public String home(Model model)
     {
-        model.addAttribute("page-title","Home Admin");
+        model.addAttribute("page_title","Home Admin");
         return "home-admin";
     }
 
@@ -36,7 +36,7 @@ public class AdminController {
     {
         List<UnivModel> univs = univService.getAllUniv();
         model.addAttribute("univs", univs);
-        model.addAttribute("page-title","Add Mahasiswa");
+        model.addAttribute("page_title","Add Mahasiswa");
 
         return "add-mahasiswa-form";
     }
@@ -56,7 +56,7 @@ public class AdminController {
         if(mahasiswaService.checkNPM(npm).equals("npm-duplikat")) {
             List<UnivModel> univs = univService.getAllUniv();
             model.addAttribute("univs", univs);
-            model.addAttribute("page-title", "Invalid NPM");
+            model.addAttribute("page_title", "Invalid NPM");
             model.addAttribute("invalidity", "NPM " + npm + " sudah terdaftar");
             return "add-mahasiswa-form";
         }
@@ -68,7 +68,7 @@ public class AdminController {
         if(hasilFakultas.equals("invalid-fakultas")) {
             List<UnivModel> univs = univService.getAllUniv();
             model.addAttribute("univs", univs);
-            model.addAttribute("page-title", "Invalid Fakultas");
+            model.addAttribute("page_title", "Invalid Fakultas");
             model.addAttribute("invalidity", "Fakultas Tidak tersedia pada " + univ);
             return "add-mahasiswa-form";
 
@@ -81,7 +81,7 @@ public class AdminController {
             if(hasilProdi.equals("invalid-prodi")) {
                 List<UnivModel> univs = univService.getAllUniv();
                 model.addAttribute("univs", univs);
-                model.addAttribute("page-title", "Invalid Prodi");
+                model.addAttribute("page_title", "Invalid Prodi");
                 model.addAttribute("invalidity", "Prodi Tidak tersedia pada " + univ + " , " + fakultas);
                 return "add-mahasiswa-form";
 
@@ -101,7 +101,7 @@ public class AdminController {
 
                 mahasiswaService.addUserMahasiswaToDB(newMahasiswa);
 
-                model.addAttribute("page-title","Mahasiswa Added");
+                model.addAttribute("page_title","Mahasiswa Added");
                 model.addAttribute("npm",newMahasiswa.getNpm());
                 return "add-mahasiswa-sukses";
 
@@ -116,11 +116,11 @@ public class AdminController {
         MahasiswaDBModel mahasiswa = mahasiswaService.getMahasiswaWithUniv(npm);
         if(mahasiswa == null) {
             model.addAttribute("invalidity", "Mahasiswa dengan npm "+ npm + " tidak ditemukan");
-            model.addAttribute("page-title","View Mahasiswa");
+            model.addAttribute("page_title","View Mahasiswa");
             return "home-admin";
         }else {
             model.addAttribute("mahasiswa",mahasiswa);
-            model.addAttribute("page-title","View Mahasiswa");
+            model.addAttribute("page_title","View Mahasiswa");
             return "view-mahasiswa";
         }
     }
@@ -130,7 +130,7 @@ public class AdminController {
     {
         List<MahasiswaDBModel> mahasiswas = mahasiswaService.getAllMahasiswa();
         model.addAttribute("mahasiswas",mahasiswas);
-        model.addAttribute("page-title","View All Mahasiswa");
+        model.addAttribute("page_title","View All Mahasiswa");
 
         return "viewall-mahasiswa";
     }
@@ -157,7 +157,7 @@ public class AdminController {
             model.addAttribute("npm", mahasiswaLama.getNpm());
             model.addAttribute ("mahasiswa", mahasiswaLama);
 
-            model.addAttribute("page-title", "Invalid Universitas");
+            model.addAttribute("page_title", "Invalid Universitas");
             model.addAttribute("invalidity", "Universitas Tidak tersedia");
             return "update-mahasiswa-form";
         }else {
@@ -170,7 +170,7 @@ public class AdminController {
                 model.addAttribute("npm", mahasiswaLama.getNpm());
                 model.addAttribute ("mahasiswa", mahasiswaLama);
 
-                model.addAttribute("page-title", "Invalid Fakultas");
+                model.addAttribute("page_title", "Invalid Fakultas");
                 model.addAttribute("invalidity", "Fakultas Tidak tersedia pada " + mahasiswa.getNamaUniv());
                 return "update-mahasiswa-form";
             }else {
@@ -184,7 +184,7 @@ public class AdminController {
                     model.addAttribute("npm", mahasiswaLama.getNpm());
                     model.addAttribute ("mahasiswa", mahasiswaLama);
 
-                    model.addAttribute("page-title", "Invalid Prodi");
+                    model.addAttribute("page_title", "Invalid Prodi");
                     model.addAttribute("invalidity", "Prodi Tidak tersedia pada " + mahasiswa.getNamaUniv()
                             + " , " + mahasiswa.getNamaFakultas());
                     return "update-mahasiswa-form";
@@ -224,7 +224,7 @@ public class AdminController {
 
         List<MahasiswaDBModel> mahasiswas = mahasiswaService.getAllMahasiswa();
         model.addAttribute("mahasiswas",mahasiswas);
-        model.addAttribute("page-title","Mahasiswa Deleted");
+        model.addAttribute("page_title","Mahasiswa Deleted");
 
         return "viewall-mahasiswa";
     }
@@ -235,7 +235,7 @@ public class AdminController {
         MahasiswaDBModel mahasiswa = mahasiswaService.getMahasiswa(npm);
         model.addAttribute("invalidity", "Mahasiswa dengan NPM " + mahasiswa.getNpm() + " berhasil dihapus");
         mahasiswaService.deleteMahasiswaFromDB(mahasiswa);
-        model.addAttribute("page-title","Mahasiswa Deleted");
+        model.addAttribute("page_title","Mahasiswa Deleted");
 
         return "home-admin";
     }
