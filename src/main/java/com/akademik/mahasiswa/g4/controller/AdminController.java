@@ -25,8 +25,9 @@ public class AdminController {
     private UnivService univService;
 
     @RequestMapping("/admin")
-    public String home()
+    public String home(Model model)
     {
+        model.addAttribute("page-title","Home Admin");
         return "home-admin";
     }
 
