@@ -28,7 +28,7 @@ public class IRSController {
             model.addAttribute("jadwal", jadwalModel);
             return "page-set-irs";
         }
-
+        model.addAttribute("page-title", "IRS Not Found");
         return "not-found";
     }
 
