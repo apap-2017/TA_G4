@@ -3,6 +3,7 @@ package com.akademik.mahasiswa.g4.dao;
 import com.akademik.mahasiswa.g4.model.rest.NilaiKuliahModel;
 import com.akademik.mahasiswa.g4.model.rest.SebagianNilaiResponseModel;
 import com.akademik.mahasiswa.g4.model.rest.SemuaNilaiResponseModel;
+import com.akademik.mahasiswa.g4.model.rest.SpesifikNilaiResponseModel;
 import com.akademik.mahasiswa.g4.utls.NetworkUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -17,15 +18,17 @@ public class PenilaianDAO {
     @Autowired
     private RestTemplateBuilder restTemplateBuilder;
 
-    //TODO use it for getting nilai mahasiswa in particular matkul
-    public List<SemuaNilaiResponseModel.NilaiResultModel.NilaiTermModel> getNilaiMahasiswa(String npm, String kodeMK){
-        SemuaNilaiResponseModel response = restTemplateBuilder
-                .build().getForObject(NetworkUtils.BASE_URL_PENILAIAN + "/api/getNilaiKuliah/" + npm + "/" + kodeMK
-                        ,SemuaNilaiResponseModel.class);
+    /**
+     * Mendapatkan nilai mahasiswa pada suatu kelas tertentu
+     */
+    public NilaiKuliahModel getNilaiMahasiswa(int idKelas, String npm){
+        SpesifikNilaiResponseModel response = restTemplateBuilder
+                .build().getForObject(NetworkUtils.BASE_URL_PENILAIAN + "/api/getNilaiKuliah/" + idKelas + "/" + npm
+                        ,SpesifikNilaiResponseModel.class);
         if(response.getStatus() == 200){
-            return response.getResult().getNilaiModels();
+            return response.getResult().getNilai();
         }
-        return new ArrayList<>();
+        return null;
     }
 
     public List<SemuaNilaiResponseModel.NilaiResultModel.NilaiTermModel> getNilaiMahasiswa(String npm){

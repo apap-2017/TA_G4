@@ -18,20 +18,4 @@ public class IPUtils {
             ip = countNilai / countSKS;
         return ip;
     }
-
-    public static double getIPLulus(List<KelasModel> kelases) {
-        double ip = 0;
-        int countSKSLulus = 0;
-        int countNilaiLulus = 0;
-        for(KelasModel kelas : kelases){
-            if(SKSUtils.isLulus(kelas.getNilaiHuruf())){
-                countSKSLulus += kelas.getSks();
-                countNilaiLulus += kelas.getSks() * NilaiUtils.bobotSKS(kelas.getNilaiHuruf());
-            }
-        }
-        if(countSKSLulus > 0){
-            ip = countNilaiLulus / countSKSLulus;
-        }
-        return ip;
-    }
 }

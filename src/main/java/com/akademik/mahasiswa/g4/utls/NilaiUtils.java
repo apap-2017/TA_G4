@@ -1,5 +1,9 @@
 package com.akademik.mahasiswa.g4.utls;
 
+import com.akademik.mahasiswa.g4.model.rest.KelasModel;
+
+import java.util.List;
+
 public class NilaiUtils {
 
 
@@ -29,4 +33,22 @@ public class NilaiUtils {
         }
     }
 
+    public static double totalNilaiLulus(List<KelasModel> kelases) {
+        double totalLulus = 0;
+        for(KelasModel kelas : kelases){
+            if(isLulus(kelas.getNilaiHuruf()))
+                totalLulus += kelas.getSks() * bobotSKS(kelas.getNilaiHuruf());
+        }
+        return totalLulus;
+    }
+
+    public static boolean isLulus(String nilaiHuruf) {
+        return nilaiHuruf != null && (nilaiHuruf.equalsIgnoreCase("A") ||
+                nilaiHuruf.equalsIgnoreCase("A-") ||
+                nilaiHuruf.equalsIgnoreCase("B+") ||
+                nilaiHuruf.equalsIgnoreCase("B") ||
+                nilaiHuruf.equalsIgnoreCase("B-") ||
+                nilaiHuruf.equalsIgnoreCase("C+") ||
+                nilaiHuruf.equalsIgnoreCase("C"));
+    }
 }

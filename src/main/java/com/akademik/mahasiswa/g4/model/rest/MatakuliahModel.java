@@ -25,7 +25,7 @@ public class MatakuliahModel {
     private int sksMinimal;
     @JsonProperty("deskripsi")
     private String deskipsi;
-    @JsonProperty("wajib")
+    @JsonProperty("_wajib")
     private boolean wajib;
     @JsonProperty("kelasList")
     private List<KelasModel> kelas;
