@@ -33,9 +33,10 @@ body {
 
 .footer {
     background-color: #5c5552 !important;
-    bottom: -100px;
-    height: 40px;
-    position: absolute;
+    margin-top: 3em;
+    position: fixed;
+    height: 4em;
+    bottom: 0;
     width: 100%;
 }
 

@@ -19,11 +19,11 @@
                     <a class="nav-link" th:if="${#httpServletRequest.isUserInRole('MAHASISWA')}" href="#">Home</a>
                     <a class="nav-link" th:if="${#httpServletRequest.isUserInRole('SEKRETARIAT')}" href="/admin">Home</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item ml-5">
                     <a class="nav-link" th:if="${#httpServletRequest.isUserInRole('MAHASISWA')}" href="/irs">Isi Irs</a>
                     <a class="nav-link" th:if="${#httpServletRequest.isUserInRole('SEKRETARIAT')}" href="/admin/addmahasiswa">Add Mahasiswa</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item ml-5">
                     <a class="nav-link" th:if="${#httpServletRequest.isUserInRole('SEKRETARIAT')}" href="/admin/viewallmahasiswa">Lihat Daftar Mahasiswa</a>
                 </li>
             </ul>
@@ -40,9 +40,11 @@
 
     <div th:fragment="footer">
         <footer class="footer">
+            <div class="container">
                 <p class="text-center mt-3 mb-3">
                     Copyright @Kelompok G4 - Tugas Akhir APAP
                 </p>
+            </div>
         </footer>
     </div>
 </body>
