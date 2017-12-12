@@ -58,12 +58,10 @@ public class DashboardService {
         }
         dashboard.setStatistikNilais(statistikNilais);
 
-        double totalNilaiLulus = NilaiUtils.totalNilaiLulus(allKelasesYgDiambilMhs);
-        System.out.println(">>>>> totalNilaiLulus : " + totalNilaiLulus +", totalSKSLulus : " + totalSKSLulus);
         //set ipk
         dashboard.setIpk(
                 totalSKSLulus > 0
-                        ? totalNilaiLulus / totalSKSLulus
+                        ? NilaiUtils.totalNilaiLulus(allKelasesYgDiambilMhs) / totalSKSLulus
                         : 0);
 
         //set dashboard mahasiswa
