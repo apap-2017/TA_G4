@@ -37,7 +37,7 @@
             <li><a href="#">Lihat IRS</a></li>
         </ul>
         <br/>
-        
+
         <h2>Dashboard Mahasiswa</h2>
 
     <div>
@@ -77,20 +77,28 @@
         </table>
     </div>
 
-    <div>
-        <div>
-            <h2>Status Akademis: </h2>
+        <div class="row">
+            <div class="col-md">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h4>Status Akademis</h4>
+                    </div>
+                    <div class="panel-body">
+                        <h1 th:text="*{statusAkademik}"></h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h4>IPK</h4>
+                    </div>
+                    <div class="panel-body">
+                        <h1 th:text="*{ipk}"></h1>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div>
-            <span th:text="*{statusAkademik}"></span>
-        </div>
-        <div>
-            <h2>IPK: </h2>
-        </div>
-        <div>
-            <span th:text="*{ipk}"></span>
-        </div>
-    </div>
 
     <div>
         <h3>Statistik Nilai</h3>
