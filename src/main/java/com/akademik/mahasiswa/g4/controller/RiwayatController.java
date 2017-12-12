@@ -16,7 +16,7 @@ public class RiwayatController {
     @Autowired
     private RiwayatService riwayatService;
 
-    @RequestMapping(value = "/riwayat/{npm}")
+    @RequestMapping(value = "/mahasiswa/riwayat/{npm}")
     public String getRiwayatMahasiswa(@PathVariable("npm") String npm, Model model){
         List<RiwayatPerkuliahanModel> riwayats = riwayatService.getAllRiwayatMahasiswa(npm);
         model.addAttribute("page_title", "Lihat Riwayat");
