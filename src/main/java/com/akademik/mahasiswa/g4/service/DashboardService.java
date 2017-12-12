@@ -1,14 +1,22 @@
 package com.akademik.mahasiswa.g4.service;
 
+import com.akademik.mahasiswa.g4.dao.KurikulumDAO;
+import com.akademik.mahasiswa.g4.dao.PenilaianDAO;
+import com.akademik.mahasiswa.g4.dao.SekretariatDAO;
+import com.akademik.mahasiswa.g4.mapper.KelasMapper;
 import com.akademik.mahasiswa.g4.mapper.MahasiswaMapper;
 import com.akademik.mahasiswa.g4.model.db.MahasiswaDBModel;
 import com.akademik.mahasiswa.g4.model.db.RiwayatPerkuliahanModel;
 import com.akademik.mahasiswa.g4.model.rest.KelasModel;
+import com.akademik.mahasiswa.g4.model.rest.KurikulumModel;
+import com.akademik.mahasiswa.g4.model.rest.NilaiKuliahModel;
+import com.akademik.mahasiswa.g4.model.rest.SemuaNilaiResponseModel;
 import com.akademik.mahasiswa.g4.model.view.DashboardModel;
 import com.akademik.mahasiswa.g4.model.view.StatistikNilaiModel;
 import com.akademik.mahasiswa.g4.utls.IPUtils;
 import com.akademik.mahasiswa.g4.utls.NilaiUtils;
 import com.akademik.mahasiswa.g4.utls.SKSUtils;
+import com.akademik.mahasiswa.g4.utls.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +30,10 @@ public class DashboardService {
     private MahasiswaMapper mahasiswaMapper;
     @Autowired
     private RiwayatService riwayatService;
+    @Autowired
+    private KurikulumDAO kurikulumDAO;
+    @Autowired
+    private PenilaianDAO penilaianDAO;
 
     public DashboardModel getDashboardMahasiswa(String npm){
 //        //TODO ganti dengan yg dibawah ini returnnya
@@ -68,6 +80,36 @@ public class DashboardService {
         dashboard.setMahasiswa(mahasiswaMapper.getMahasiswa(npm));
         dashboard.getMahasiswa().setSksLulus(totalSKSLulus);
         dashboard.getMahasiswa().setSksDiperoleh(totalSKSDiperoleh);
+
+        //set yudisium
+        KurikulumModel kurikulumModel = kurikulumDAO.getKurikulum(dashboard.getMahasiswa());
+        int countWajib = 0;
+        int countNotWajib = 0;
+        List<SemuaNilaiResponseModel.NilaiResultModel.NilaiTermModel> nilaiTermModels = penilaianDAO.getNilaiMahasiswa(npm);
+        for(SemuaNilaiResponseModel.NilaiResultModel.NilaiTermModel nilaiTermModel : nilaiTermModels){
+            for(NilaiKuliahModel nilaiKuliahModel : nilaiTermModel.getNilaiKuliahs()){
+                String nilaiHuruf = nilaiKuliahModel.getNilaiHuruf();
+                if(NilaiUtils.isLulus(nilaiHuruf)) {
+                    System.out.println(">>>>>>>> kodeMK : " + nilaiKuliahModel.getKelas().getMatakuliah().getKodeMK() +", isWajib: "
+                            +nilaiKuliahModel.getKelas().getMatakuliah().isWajib());
+                    if (nilaiKuliahModel.getKelas().getMatakuliah().isWajib())
+                        countWajib++;
+                    else
+                        countNotWajib++;
+                }
+            }
+        }
+        System.out.println(">>>>> countwajib : " + countWajib);
+        System.out.println(">>>>> countnonwajib : " + countNotWajib);
+        System.out.println(">>>>> jumlah sks wajib : " + kurikulumModel.getJumlahSKSWajib());
+        System.out.println(">>>>> jumlah sks pilihan : " + kurikulumModel.getJumlahSKSPilihan());
+        System.out.println(">>>>> jumlah sks batas lulus : " + kurikulumModel.getBatasSKSLulus());
+        if(countWajib >= kurikulumModel.getJumlahSKSWajib()
+                && (countNotWajib + countNotWajib) >= kurikulumModel.getBatasSKSLulus()){
+            dashboard.setStatusAkademik("LULUS");
+        }else{
+            dashboard.setStatusAkademik("BELUM LULUS");
+        }
 
         return dashboard;
     }

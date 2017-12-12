@@ -13,7 +13,7 @@ public class SekretariatDAO {
     @Autowired
     private RestTemplateBuilder restTemplateBuilder;
 
-    public KurikulumModel getKurikulumMahasiswa(int idUniv, int idFakultas, int idProdi, int angkatan){
+    public KurikulumModel getKurikulumMahasiswa(int idUniv, int idFakultas, int idProdi, String angkatan){
         KurikulumMahasiswaResponseModel response = restTemplateBuilder
                 .build().getForObject(NetworkUtils.BASE_URL_SEKRETARIAT + "/api/getStudentKurikulum/"+idUniv+"/"+idFakultas+"/"+idProdi+"/" + angkatan
                         ,KurikulumMahasiswaResponseModel.class);
