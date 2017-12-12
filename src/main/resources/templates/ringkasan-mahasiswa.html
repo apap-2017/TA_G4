@@ -2,7 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/fragment :: header-title-fragment">
 </head>
-<body>
+
+<body th:object="${dashboard}">
     <div th:replace="fragments/fragment :: header"></div>
 
     <div id="main-container" class="container mt-6">
@@ -16,12 +17,15 @@
             <div class="container">
                 <div class="row">
                     <div>
-                        <p>Ringkasan Mahasiswa</p>
+                        <h2>Ringkasan Mahasiswa</h2>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+
 
     <div th:replace="fragments/fragment :: footer"></div>
 </body>
