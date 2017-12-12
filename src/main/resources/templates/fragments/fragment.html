@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="header-title-fragment">
-    <title th:text="${page-title}"></title>
+    <title th:text="${page_title}"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
@@ -19,21 +19,21 @@
                     <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:if="${#httpServletRequest.isUserInRole('MAHASISWA')}" href="#">Isi Irs</a>
-                    <a class="nav-link" th:if="${#httpServletRequest.isUserInRole('ADMIN')}" href="#">Add Mahasiswa</a>
+                    <a class="nav-link" th:if="${#httpServletRequest.isUserInRole('MAHASISWA')}" href="/irs">Isi Irs</a>
+                    <a class="nav-link" th:if="${#httpServletRequest.isUserInRole('SEKRETARIAT')}" href="/admin/addmahasiswa">Add Mahasiswa</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:if="${#httpServletRequest.isUserInRole('ADMIN')}" href="#">Daftar Mahasiswa</a>
+                    <a class="nav-link" th:if="${#httpServletRequest.isUserInRole('SEKRETARIAT')}" href="/admin/viewallmahasiswa">Lihat Daftar Mahasiswa</a>
                 </li>
             </ul>
-                <a class="navbar navbar-nav" th:text=" 'Welcome, ' + ${#httpServletRequest.remoteUser}"></a>
-                <form class="navbar-form navbar-right" th:action="@{/logout}" method="post">
-                    <input type="submit" value="logout"/><span class="glyphicon glyphicon-log-out"></span>
-                </form>
-
-
-
-
+            <ul class="nav navbar-nav navbar-right mr-2">
+                <li class="nav-item">
+                    <a class="nav-link" th:text=" 'Welcome, ' + ${#httpServletRequest.remoteUser}"></a>
+                </li>
+            </ul>
+            <form class="navbar-form navbar-right" th:action="@{/logout}" method="post">
+                <input class="btn btn-danger" type="submit" value="logout"/>
+            </form>
         </div>
     </nav>
 
