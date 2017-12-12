@@ -65,9 +65,9 @@ public class RiwayatService {
                 int nilai = nilaiKuliah.getNilai();
                 String nilaiHuruf = nilaiKuliah.getNilaiHuruf();
                 String kodeMK = nilaiKuliah.getKelas().getMatakuliah().getKodeMK();
-                String key = term.getTahunAjar()
+                String key = term.getTahunAjar().trim()
                         + " " + term.getNomor()
-                        + " " + kodeMK;
+                        + " " + kodeMK.trim();
                 //save to holder
                 nilaiHolder.put(key, nilai);
                 nilaiHurufHolder.put(key, nilaiHuruf);
@@ -86,14 +86,11 @@ public class RiwayatService {
             List<KelasModel> kelases = kelasMapper.getKelas(riwayatPerkuliahan.getId());
             for(KelasModel kelas : kelases){
                 //populate nilai from holder
-                String key = riwayatPerkuliahan.getTahunAjar()
+                String key = riwayatPerkuliahan.getTahunAjar().trim()
                         + " " +riwayatPerkuliahan.getTerm()
-                        + " " + kelas.getKodeMK();
-                //TODO cek setelah penilaian ada apinya
-                if(nilaiHolder.containsKey(key))
-                    kelas.setNilaiAkhir(nilaiHolder.get(key));
-                if(nilaiHurufHolder.containsKey(key))
-                    kelas.setNilaiHuruf(nilaiHurufHolder.get(key));
+                        + " " + kelas.getKodeMK().trim();
+                kelas.setNilaiAkhir(nilaiHolder.getOrDefault(key, -1));
+                kelas.setNilaiHuruf(nilaiHurufHolder.getOrDefault(key, "-"));
             }
             riwayatPerkuliahan.setKelases(kelases);
         }
@@ -120,10 +117,8 @@ public class RiwayatService {
             //set nilai kuliah
             for(KelasModel kelas : riwayat.getKelases()){
                 String key = kelas.getKodeMK();
-                if(nilaiHurufHolders.containsKey(key))
-                    kelas.setNilaiHuruf(nilaiHurufHolders.get(key));
-                if(nilaiAkhirHolders.containsKey(key))
-                    kelas.setNilaiAkhir(nilaiAkhirHolders.get(key));
+                kelas.setNilaiHuruf(nilaiHurufHolders.getOrDefault(key, "-"));
+                kelas.setNilaiAkhir(nilaiAkhirHolders.getOrDefault(key,-1));
             }
             return riwayat;
         }
