@@ -1,9 +1,11 @@
 package com.akademik.mahasiswa.g4.dao;
 
+import com.akademik.mahasiswa.g4.mapper.MahasiswaMapper;
 import com.akademik.mahasiswa.g4.model.db.MahasiswaDBModel;
 import com.akademik.mahasiswa.g4.model.rest.TermModel;
 import com.akademik.mahasiswa.g4.model.rest.TermNowResponseModel;
 import com.akademik.mahasiswa.g4.utls.NetworkUtils;
+import com.akademik.mahasiswa.g4.utls.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
@@ -13,14 +15,12 @@ public class TermDAO {
 
     @Autowired
     private RestTemplateBuilder restTemplateBuilder;
+    @Autowired
+    private MahasiswaMapper mahasiswaMapper;
 
     public TermModel getTermNow(){
-        //TODO get mahasiswa yang disimpen di sesion
-        MahasiswaDBModel currentMahasiswa = new MahasiswaDBModel();
-        //TODO remove this below dummy
-        currentMahasiswa.setIdUniv(1);
-        currentMahasiswa.setIdFakultas(1);
-        currentMahasiswa.setIdProdi(1);
+        //get mahasiswa yang login
+        MahasiswaDBModel currentMahasiswa = mahasiswaMapper.getMahasiswaByUsername(UserUtils.getUsername());
 
         TermNowResponseModel response = restTemplateBuilder
                 .build().getForObject(NetworkUtils.BASE_URL_SEKRETARIAT + "/api/getTermNow/"

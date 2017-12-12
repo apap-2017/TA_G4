@@ -2,11 +2,11 @@ package com.akademik.mahasiswa.g4.dao;
 
 import com.akademik.mahasiswa.g4.mapper.KelasMapper;
 import com.akademik.mahasiswa.g4.mapper.MahasiswaMapper;
-import com.akademik.mahasiswa.g4.model.PesertaKuliahModel;
 import com.akademik.mahasiswa.g4.model.db.MahasiswaDBModel;
+import com.akademik.mahasiswa.g4.model.rest.BaseResponseModel;
 import com.akademik.mahasiswa.g4.model.rest.KelasModel;
-import com.akademik.mahasiswa.g4.model.rest.MahasiswaAPIModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,35 +18,34 @@ public class MahasiswaDAO {
     private MahasiswaMapper mahasiswaMapper;
 
 
-    public PesertaKuliahModel getPesertaKuliah(String tahunAjaran, int term, String kodeMK){
+    public BaseResponseModel<KelasModel> getAPIPesertaKuliah(String tahunAjaran, int term, String kodeMK){
 
-        PesertaKuliahModel pesertaKuliahModel = new PesertaKuliahModel(0,"",null);
+        BaseResponseModel<KelasModel> responseModel = new BaseResponseModel<>();
         KelasModel kelasModel = kelasMapper.getKelasByKodeMK(kodeMK);
         if(kelasModel != null) {
             kelasModel.setMahasiswa(mahasiswaMapper.getMahasiswaPadaSuatuMatkul(tahunAjaran, term, kodeMK));
-            pesertaKuliahModel.setStatus(200);
-            pesertaKuliahModel.setMsg("success");
-            pesertaKuliahModel.setResult(kelasModel);
+            responseModel.setStatus(HttpStatus.OK.value());
+            responseModel.setMsg(HttpStatus.OK.getReasonPhrase());
+            responseModel.setResult(kelasModel);
         }else{
-            pesertaKuliahModel.setStatus(404);
-            pesertaKuliahModel.setMsg("kelas not found");
+            responseModel.setStatus(HttpStatus.NOT_FOUND.value());
+            responseModel.setMsg("mata kuliah dengan kode " + kodeMK + " tidak ditemukan");
         }
-        return pesertaKuliahModel;
+        return responseModel;
     }
 
-    public MahasiswaAPIModel getMahasiswa(String npm){
-        MahasiswaAPIModel balikan = new MahasiswaAPIModel(0,"",null);
-        MahasiswaDBModel result = mahasiswaMapper.getMahasiswa(npm);
-
-        if(result != null) {
-            balikan.setStatus(200);
-            balikan.setMsg("success");
-            balikan.setResult(result);
+    public BaseResponseModel<MahasiswaDBModel> getAPIMahasiswa(String npm){
+        BaseResponseModel<MahasiswaDBModel> responseModel = new BaseResponseModel<>();
+        MahasiswaDBModel mahasiswa = mahasiswaMapper.getMahasiswa(npm);
+        if(mahasiswa != null) {
+            responseModel.setStatus(HttpStatus.OK.value());
+            responseModel.setMsg(HttpStatus.OK.getReasonPhrase());
+            responseModel.setResult(mahasiswa);
         } else {
-            balikan.setStatus(404);
-            balikan.setMsg("Mahasiswa not found");
+            responseModel.setStatus(HttpStatus.NOT_FOUND.value());
+            responseModel.setMsg("mahasiswa dengan npm " + npm + " tidak ditemukan");
         }
-        return balikan;
+        return responseModel;
     }
 
 }

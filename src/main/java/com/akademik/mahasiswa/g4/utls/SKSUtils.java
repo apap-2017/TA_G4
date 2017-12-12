@@ -39,7 +39,7 @@ public class SKSUtils {
     }
 
     public static boolean isLulus(String nilaiHuruf) {
-        return (nilaiHuruf.equalsIgnoreCase("A") ||
+        return nilaiHuruf != null && (nilaiHuruf.equalsIgnoreCase("A") ||
                 nilaiHuruf.equalsIgnoreCase("A-") ||
                 nilaiHuruf.equalsIgnoreCase("B+") ||
                 nilaiHuruf.equalsIgnoreCase("B") ||

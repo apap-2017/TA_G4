@@ -1,37 +1,39 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="fragments/fragment :: header-title-fragment">
+
     <title>ISI IRS</title>
-    <script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
-    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-
-    <script>
-        $(document).ready(function(){
-            $("input[type=radio]").click(function () {
-                var checked = $(this).attr('checked');
-                if(checked){
-                    $(this).attr('checked', false);
-                }else{
-                    $(this).attr('checked', true);
-                }
-            });
-        });
-    </script>
-
+   s
 </head>
-<body  th:object="${jadwal}">
+<script>
+    $(document).ready(function(){
+        $("input[type=radio]").click(function () {
+            var checked = $(this).attr('checked');
+            if(checked){
+                $(this).attr('checked', false);
+            }else{
+                $(this).attr('checked', true);
+            }
+        });
+    });
+</script>
 
+<body  th:object="${jadwal}">
+<div th:replace="fragments/fragment :: header"></div>
+<div id="main-container" class="container mt-6">
+<div id="content-container" class="container col-md-9 bg-white">
+    <div class="container mt-3">
     <h1 th:text="|Daftar Mata Kuliah yang Ditawarkan Periode ${jadwal.term.tahunAjar} term ${jadwal.term.nomor}|"></h1>
 
-    <form action="#" th:action="@{/irs}" th:method="post">
 
+    <form action="#" th:action="@{/irs}" th:method="post">
         <div th:object="${jadwal.term}" style="display:none;">
             <input th:type="text" th:field="*{tahunAjar}" th:value="*{tahunAjar}"></input>
             <input th:type="text" th:field="*{nomor}" th:value="*{nomor}"></input>
         </div>
 
-        <table>
+        <table class="table table-hover">
             <thead>
             <tr>
                 <th></th>
@@ -45,7 +47,7 @@
             </thead>
 
             <tbody>
-
+            <div class="container col-md-12">
                 <div th:each="mataKuliah, stat : *{matkul}" th:object="${mataKuliah}">
 
                     <tr>
@@ -100,10 +102,16 @@
                     </tr>
 
                 </div>
+            </div>
             </tbody>
         </table>
-        <button type="submit">Save</button>
+        <div class="container">
+            <center> <button type="submit" class="btn-primary">Save</button></center>
+        </div>
     </form>
-
+    </div>
+</div>
+</div>
+<div th:replace="fragments/fragment :: footer"></div>
 </body>
 </html>

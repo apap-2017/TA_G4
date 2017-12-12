@@ -1,9 +1,11 @@
 package com.akademik.mahasiswa.g4.controller;
 
 import com.akademik.mahasiswa.g4.dao.MahasiswaDAO;
-import com.akademik.mahasiswa.g4.model.PesertaKuliahModel;
-import com.akademik.mahasiswa.g4.model.rest.MahasiswaAPIModel;
+import com.akademik.mahasiswa.g4.model.db.MahasiswaDBModel;
+import com.akademik.mahasiswa.g4.model.rest.BaseResponseModel;
+import com.akademik.mahasiswa.g4.model.rest.KelasModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,18 +19,39 @@ public class APIController {
     @Autowired
     private MahasiswaDAO mahasiswaDAO;
 
-    @RequestMapping("/getPesertaKuliah/{term}/{tahunAjar}/{kodeMK}")
-    public PesertaKuliahModel getPeserta(@PathVariable("tahunAjar") Optional<String> tahunAjar,
-                                         @PathVariable("term") Optional<Integer> term,
-                                         @PathVariable("kodeMK") Optional<String> kodeMK){
+    @RequestMapping(value = {"**"})
+    public BaseResponseModel index(){
+        return new BaseResponseModel(HttpStatus.NOT_FOUND.value()
+                , "API tidak ditemukan", null);
+    }
 
-        return mahasiswaDAO.getPesertaKuliah(tahunAjar.get(), term.get(), kodeMK.get());
+    @RequestMapping(value = {"/peserta-kuliah/{term}/{tahunAjar}/{kodeMK}"
+            ,"/peserta-kuliah/**"
+            ,"/peserta-kuliah"})
+    public BaseResponseModel<KelasModel> getPeserta(@PathVariable("tahunAjar") Optional<String> tahunAjar,
+                                        @PathVariable("term") Optional<Integer> term,
+                                        @PathVariable("kodeMK") Optional<String> kodeMK){
+
+        if(!tahunAjar.isPresent() || !term.isPresent() || !kodeMK.isPresent()){
+            return new BaseResponseModel<>(HttpStatus.NOT_FOUND.value()
+                    ,"kurang data tahun ajar, term, atau kode mata kuliah pada url path"
+                    ,null);
+        }
+
+        return mahasiswaDAO.getAPIPesertaKuliah(tahunAjar.get(), term.get(), kodeMK.get());
 
     }
 
-    @RequestMapping("/getMahasiswa/{npm}")
-    public MahasiswaAPIModel get(@PathVariable("npm") String npm){
-        return mahasiswaDAO.getMahasiswa(npm);
+    @RequestMapping(value = {"/mahasiswa/{npm}", "/mahasiswa**"})
+    public BaseResponseModel<MahasiswaDBModel> get(@PathVariable("npm") Optional<String> npm){
+
+        if(!npm.isPresent()){
+            return new BaseResponseModel<>(HttpStatus.NOT_FOUND.value()
+                    , "kurang data npm pada url path"
+                    , null);
+        }
+
+        return mahasiswaDAO.getAPIMahasiswa(npm.get());
 
     }
 }

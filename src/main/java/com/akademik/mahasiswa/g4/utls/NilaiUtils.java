@@ -4,7 +4,9 @@ public class NilaiUtils {
 
 
     public static double bobotSKS(String nilaiHuruf){
-        if(nilaiHuruf.equalsIgnoreCase("A")){
+        if(nilaiHuruf == null || nilaiHuruf.equalsIgnoreCase("I")){
+            return 0;
+        }else if(nilaiHuruf.equalsIgnoreCase("A")){
             return 4;
         }else if(nilaiHuruf.equalsIgnoreCase("A-")){
             return 3.7;
