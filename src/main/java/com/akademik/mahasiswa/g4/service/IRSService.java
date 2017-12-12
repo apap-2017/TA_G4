@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class IRSService {
@@ -46,9 +47,9 @@ public class IRSService {
      */
     public JadwalModel getJadwalSekarang(){
 
-        //TODO delete dummy
-        if(true)
-            return getJadwalDummy();
+//        //TODO delete dummy
+//        if(true)
+//            return getJadwalDummy();
 
         MahasiswaDBModel mahasiswa = mahasiswaMapper.getMahasiswaByUsername(UserUtils.getUsername());
         JadwalModel jadwalModel = jadwalDAO.getJadwalNow(mahasiswa.getIdUniv(),
@@ -130,9 +131,9 @@ public class IRSService {
     }
 
     public IRSModel getIRS(String npm) {
-        //TODO delete dummy
-        if(true)
-            return getIrsDummy();
+//        //TODO delete dummy
+//        if(true)
+//            return getIrsDummy();
 
         //jika mahasiswa yang mengakses irs orang lain maka tidak boleh
         if(UserUtils.userRoleIs(UserUtils.ROLE_MAHASISWA) &&
@@ -155,7 +156,8 @@ public class IRSService {
 
         //get ip terakhir dan sks maksimum
         TermModel prevTerm = TermUtils.getPrevTermOf(termNow);
-        List<KelasModel> prevKelases = kelasMapper.getKelasYangDiambilMahasiswa(prevTerm.getTahunAjar(), prevTerm.getNomor(), npm);
+        List<KelasModel> prevKelases = kelasService.getKelasYgDiambilMahasiswa(prevTerm.getTahunAjar(), prevTerm.getNomor(), npm);
+        //kelasMapper.getKelasYangDiambilMahasiswa(prevTerm.getTahunAjar(), prevTerm.getNomor(), npm);
 
         int angkatanMahasiswa = Integer.parseInt(mahasiswa.getAngkatan());
         boolean isGoBack = true;
@@ -167,11 +169,12 @@ public class IRSService {
             } else {
                 prevTerm = TermUtils.getPrevTermOf(prevTerm);
                 if(angkatanMahasiswa > TermUtils.getYear1FromTahunAjar(prevTerm)){
+                    //angkatan awal
                     irs.setIpTerakhir(0);
                     irs.setSksMaksimum(20);
                     isGoBack = false;
                 }else{
-                    prevKelases = kelasMapper.getKelasYangDiambilMahasiswa(prevTerm.getTahunAjar(), prevTerm.getNomor(), npm);
+                    prevKelases = kelasService.getKelasYgDiambilMahasiswa(prevTerm.getTahunAjar(), prevTerm.getNomor(), npm);
                 }
             }
         }
@@ -225,6 +228,7 @@ public class IRSService {
         List<KelasModel> kelases = new ArrayList<>();
 
         KelasModel kelas1 = new KelasModel();
+        kelas1.setIdKelas(11);
         kelas1.setSks(4);
         kelas1.setNamaMK("APAP");
         kelas1.setKodeMK("SI-32");
@@ -233,6 +237,7 @@ public class IRSService {
         kelases.add(kelas1);
 
         KelasModel kelas2 = new KelasModel();
+        kelas2.setIdKelas(12);
         kelas2.setSks(3);
         kelas2.setNamaMK("Adbis");
         kelas2.setKodeMK("SI-31");
@@ -241,6 +246,7 @@ public class IRSService {
         kelases.add(kelas2);
 
         KelasModel kelas3 = new KelasModel();
+        kelas3.setIdKelas(13);
         kelas3.setSks(2);
         kelas3.setNamaMK("Basdat");
         kelas3.setKodeMK("IK-11");
@@ -249,6 +255,7 @@ public class IRSService {
         kelases.add(kelas3);
 
         KelasModel kelas4 = new KelasModel();
+        kelas4.setIdKelas(14);
         kelas4.setSks(6);
         kelas4.setNamaMK("Propensi");
         kelas4.setKodeMK("SI-111");
@@ -419,4 +426,7 @@ public class IRSService {
     }
 
 
+    public void deleteIRS(String npm, int idKelas) {
+        //TODO
+    }
 }
