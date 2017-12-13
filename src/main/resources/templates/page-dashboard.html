@@ -40,7 +40,8 @@
 
         <h2>Dashboard Mahasiswa</h2>
 
-    <div>
+    <div align="center" class="row">
+    <div class="col-md-8">
         <table th:object="${dashboard.mahasiswa}" class="table table-hover">
             <tr>
                 <td>NPM</td>
@@ -77,8 +78,8 @@
         </table>
     </div>
 
-        <div class="row">
-            <div class="col-md">
+
+            <div class="col-md-4">
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <h4>Status Akademis</h4>
@@ -87,8 +88,7 @@
                         <h1 th:text="*{statusAkademik}"></h1>
                     </div>
                 </div>
-            </div>
-            <div class="col-md">
+
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <h4>IPK</h4>
@@ -98,8 +98,8 @@
                     </div>
                 </div>
             </div>
-        </div>
 
+        </div>
     <div>
         <h3>Statistik Nilai</h3>
         <table class="table table-hover">
