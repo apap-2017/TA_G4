@@ -28,6 +28,10 @@ public class DashboardService {
 
     @Autowired
     private MahasiswaMapper mahasiswaMapper;
+
+    @Autowired
+    private UnivService univService;
+
     @Autowired
     private RiwayatService riwayatService;
     @Autowired
@@ -81,6 +85,14 @@ public class DashboardService {
         dashboard.getMahasiswa().setSksLulus(totalSKSLulus);
         dashboard.getMahasiswa().setSksDiperoleh(totalSKSDiperoleh);
 
+        String idUniv = Integer.toString(dashboard.getMahasiswa().getIdUniv());
+        String idFakultas = Integer.toString(dashboard.getMahasiswa().getIdFakultas());
+        String idProdi = Integer.toString(dashboard.getMahasiswa().getIdProdi());
+
+        dashboard.getMahasiswa().setNamaUniv(univService.convertUniv(idUniv));
+        dashboard.getMahasiswa().setNamaFakultas(univService.convertFakultas(idUniv, idFakultas));
+        dashboard.getMahasiswa().setNamaProdi(univService.convertProdi(idUniv, idFakultas, idProdi));
+
         //set yudisium
         KurikulumModel kurikulumModel = kurikulumDAO.getKurikulum(dashboard.getMahasiswa());
         int countWajib = 0;
@@ -110,6 +122,8 @@ public class DashboardService {
         }else{
             dashboard.setStatusAkademik("BELUM LULUS");
         }
+
+
 
         return dashboard;
     }
