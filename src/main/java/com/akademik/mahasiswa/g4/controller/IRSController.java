@@ -24,16 +24,22 @@ public class IRSController {
     @RequestMapping(value = "/irs", method = RequestMethod.GET)
     public String setIRS(Model model){
 
-        JadwalModel jadwalModel = irsService.getJadwalSekarang();
         String npm = mahasiswaService.getNPMMahasiswa(UserUtils.getUsername());
-        if(jadwalModel != null) {
-            model.addAttribute("npm",npm);
-            model.addAttribute("page_title", "Set IRS");
-            model.addAttribute("jadwal", jadwalModel);
-            return "page-set-irs";
+        model.addAttribute("npm", npm);
+
+        boolean isWaktuIRS = irsService.isWaktuIRS(npm);
+        if(isWaktuIRS) {
+            JadwalModel jadwalModel = irsService.getJadwalSekarang();
+            if (jadwalModel != null) {
+                model.addAttribute("page_title", "Set IRS");
+                model.addAttribute("jadwal", jadwalModel);
+                return "page-set-irs";
+            }
+            model.addAttribute("page_title", "IRS Not Found");
+            return "not-found";
+        }else{
+            return "irs-gagal";
         }
-        model.addAttribute("page_title", "IRS Not Found");
-        return "not-found";
     }
 
     @RequestMapping(value = "/irs", method = RequestMethod.POST)

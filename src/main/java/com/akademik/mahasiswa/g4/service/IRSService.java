@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -217,6 +218,14 @@ public class IRSService {
         irs.setError(erorr);
 
         return irs;
+    }
+
+    public boolean isWaktuIRS(String npm) {
+        TermModel termModel = termDAO.getTermNow(npm);
+        Date startIsi = termModel.getStartIsi();
+        Date akhirIsi = termModel.getAkhirIsi();
+        Date today = new Date();
+        return today.after(startIsi) && today.before(akhirIsi);
     }
 
     //TODO remove this id back end already
