@@ -31,7 +31,7 @@
                 </div>
                 <div class="form-group">
                     <label>Universitas: </label>
-                    <select class="form-control" type="text" name="univ">
+                    <select class="form-control custom-select" type="text" name="univ">
                         <div th:each="univ,iterationStatus: ${univs}">
                             <option th:value="${univ.namaUniv}" th:text="${univ.namaUniv}">
                             </option>
