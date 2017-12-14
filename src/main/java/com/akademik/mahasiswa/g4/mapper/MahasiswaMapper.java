@@ -36,6 +36,9 @@ public interface MahasiswaMapper {
             "where m.npm = #{npm};")
     MahasiswaDBModel getMahasiswa(@Param("npm") String npm);
 
+    @Select("select username from user where username = #{username}")
+    String getUsername(@Param("username") String username);
+
     @Select("select password from user where username = #{username}")
     String getPassword(@Param("username") String username);
 

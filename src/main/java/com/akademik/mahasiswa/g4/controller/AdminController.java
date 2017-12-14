@@ -61,6 +61,14 @@ public class AdminController {
             return "add-mahasiswa-form";
         }
 
+        if(mahasiswaService.checkUsername(username).equalsIgnoreCase("username-duplikat")) {
+            List<UnivModel> univs = univService.getAllUniv();
+            model.addAttribute("univs", univs);
+            model.addAttribute("page_title", "Invalid Username");
+            model.addAttribute("invalidity", "Username " + username + " sudah terdaftar");
+            return "add-mahasiswa-form";
+        }
+
         int idUniv = univService.convertUniv(univ);
 
         String hasilFakultas = univService.checkFakultas(idUniv, fakultas);
@@ -149,6 +157,14 @@ public class AdminController {
     @RequestMapping(value = "/admin/update/submit/{npm}", method = RequestMethod.POST)
     public String updateSubmit(@PathVariable(value = "npm") String npm, MahasiswaDBModel mahasiswa, Model model)
     {
+        if(mahasiswaService.checkNPM(mahasiswa.getNpm()).equals("npm-duplikat") && !npm.equals(mahasiswa.getNpm())) {
+            MahasiswaDBModel  mahasiswaLama = mahasiswaService.getMahasiswaAllData(npm);
+            model.addAttribute("npm", npm);
+            model.addAttribute ("mahasiswa", mahasiswaLama);
+            model.addAttribute("page_title", "Invalid NPM");
+            model.addAttribute("invalidity", "NPM " + mahasiswa.getNpm() + " sudah terdaftar");
+            return "update-mahasiswa-form";
+        }
 
         String hasilUniv = univService.checkUniv(mahasiswa.getNamaUniv());
 
