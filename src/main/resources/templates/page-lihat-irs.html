@@ -12,6 +12,14 @@
 
 <div id="main-container" class="container mt-6">
 <div id="content-container" class="container col-md-9 bg-white">
+
+    <ul class="nav nav-tabs">
+        <li><a th:href="'/mahasiswa/ringkasan/' + ${npm}">Ringkasan</a></li>
+        <li><a th:href="'/mahasiswa/riwayat/' + ${npm}">Riwayat</a></li>
+        <li class="active"><a href="#">Lihat IRS</a></li>
+    </ul>
+    <br/>
+
     <h2 th:text="|(*{mahasiswa.npm}) *{mahasiswa.nama}, Priode *{riwayat.tahunAjar} term *{riwayat.term}|"></h2>
 
     <h2>Mata Kuliah yang Dipilih</h2>
