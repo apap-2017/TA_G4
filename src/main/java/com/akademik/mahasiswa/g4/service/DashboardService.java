@@ -42,9 +42,6 @@ public class DashboardService {
     private PenilaianDAO penilaianDAO;
 
     public DashboardModel getDashboardMahasiswa(String npm){
-//        //TODO ganti dengan yg dibawah ini returnnya
-//        if(true)
-//            return getDashboardDummy();
 
         DashboardModel dashboard = new DashboardModel();
 

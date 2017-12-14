@@ -48,10 +48,6 @@ public class IRSService {
      */
     public JadwalModel getJadwalSekarang(){
 
-//        //TODO delete dummy
-//        if(true)
-//            return getJadwalDummy();
-
         MahasiswaDBModel mahasiswa = mahasiswaMapper.getMahasiswaByUsername(UserUtils.getUsername());
         JadwalModel jadwalModel = jadwalDAO.getJadwalNow(mahasiswa.getIdUniv(),
                 mahasiswa.getIdFakultas(),
@@ -132,9 +128,6 @@ public class IRSService {
     }
 
     public IRSModel getIRS(String npm) {
-//        //TODO delete dummy
-//        if(true)
-//            return getIrsDummy();
 
         //jika mahasiswa yang mengakses irs orang lain maka tidak boleh
         if(UserUtils.userRoleIs(UserUtils.ROLE_MAHASISWA) &&
