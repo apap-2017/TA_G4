@@ -3,6 +3,8 @@ package com.akademik.mahasiswa.g4.controller;
 import com.akademik.mahasiswa.g4.model.rest.JadwalModel;
 import com.akademik.mahasiswa.g4.model.view.IRSModel;
 import com.akademik.mahasiswa.g4.service.IRSService;
+import com.akademik.mahasiswa.g4.service.MahasiswaService;
+import com.akademik.mahasiswa.g4.utls.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,13 +18,16 @@ public class IRSController {
 
     @Autowired
     private IRSService irsService;
+    @Autowired
+    private MahasiswaService mahasiswaService;
 
     @RequestMapping(value = "/irs", method = RequestMethod.GET)
     public String setIRS(Model model){
 
         JadwalModel jadwalModel = irsService.getJadwalSekarang();
-
+        String npm = mahasiswaService.getNPMMahasiswa(UserUtils.getUsername());
         if(jadwalModel != null) {
+            model.addAttribute("npm",npm);
             model.addAttribute("page_title", "Set IRS");
             model.addAttribute("jadwal", jadwalModel);
             return "page-set-irs";
@@ -37,7 +42,9 @@ public class IRSController {
         irsService.submitIRS(jadwalModel);
         //show irs
         IRSModel irs = irsService.getIRS();
+        String npm = mahasiswaService.getNPMMahasiswa(UserUtils.getUsername());
         if(irs != null) {
+            model.addAttribute("npm",npm);
             model.addAttribute("irs", irs);
             model.addAttribute("page_title", "Lihat IRS");
             return "page-lihat-irs";
@@ -53,6 +60,7 @@ public class IRSController {
         model.addAttribute("npm", npm);
 
         if(irs != null) {
+            model.addAttribute("npm",npm);
             model.addAttribute("page_title", "Lihat IRS");
             model.addAttribute("irs", irs);
             return "page-lihat-irs";
