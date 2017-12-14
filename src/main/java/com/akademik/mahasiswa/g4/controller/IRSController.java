@@ -47,7 +47,7 @@ public class IRSController {
         }
     }
 
-    @RequestMapping(value = "/irs/{npm}", method = RequestMethod.GET)
+    @RequestMapping(value = "/mahasiswa/irs/{npm}", method = RequestMethod.GET)
     public String lihatIRS(Model model, @PathVariable("npm") String npm){
         IRSModel irs = irsService.getIRS(npm);
         if(irs != null) {

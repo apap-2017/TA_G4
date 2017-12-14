@@ -31,9 +31,9 @@
 <div id="main-container" class="container mt-6">
     <div align="center" id="content-container" class="container col-md-9 bg-white">
         <ul class="nav nav-tabs">
-            <li><a href="/mahasiswa/ringkasan/{npm}">Ringkasan</a></li>
+            <li><a th:href="'/mahasiswa/ringkasan/' + ${npm}">Ringkasan</a></li>
             <li class="active"><a href="#">Riwayat</a></li>
-            <li><a href="/mahasiswa/lihatirs/{npm}">Lihat IRS</a></li>
+            <li><a th:href="'/mahasiswa/irs/' + ${npm}">Lihat IRS</a></li>
         </ul>
         <br/>
 

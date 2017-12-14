@@ -5,26 +5,6 @@
 
 
 </head>
-<script>
-    $(document).ready(function(){
-        $("button").click(function () {
-            var idKelas = $(this).attr("id");
-
-            $.ajax({
-                url: "test.html",
-                context: document.body
-            }).done(function() {
-                //update total SKS and remove table row
-                var sks = $(this).parent().parent().children().eq(5).text();
-                var totalSKS = $("#totalSKS").text();
-                var remainsSKS = totalSKS - sks;
-                $("#totalSKS").html(remainsSKS);
-                $(this).parent().parent().remove();
-            });
-        });
-
-    });
-</script>
 
 <body th:object="${dashboard}">
 <div th:replace="fragments/fragment :: header"></div>
@@ -33,8 +13,8 @@
     <div align="center" id="content-container" class="container col-md-9 bg-white">
         <ul class="nav nav-tabs">
             <li class="active"><a href="#">Ringkasan</a></li>
-            <li><a href="/mahasiswa/riwayat/{npm}">Riwayat</a></li>
-            <li><a href="/mahasiswa/lihatirs/{npm}">Lihat IRS</a></li>
+            <li><a th:href="'/mahasiswa/riwayat/' + ${dashboard.mahasiswa.npm}">Riwayat</a></li>
+            <li><a th:href="'/mahasiswa/irs/' + ${dashboard.mahasiswa.npm}">Lihat IRS</a></li>
         </ul>
         <br/>
 
