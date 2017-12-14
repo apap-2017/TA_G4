@@ -1,5 +1,6 @@
 package com.akademik.mahasiswa.g4;
 
+import com.akademik.mahasiswa.g4.utls.UserUtils;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -7,6 +8,15 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.function.Predicate;
 
 
 @Configuration
@@ -26,6 +36,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
+                .successHandler((req, res, auth) -> {
+                    boolean isMahasiswa = auth.getAuthorities().stream()
+                            .anyMatch((Predicate<GrantedAuthority>) grantedAuthority -> grantedAuthority.getAuthority()
+                                    .equals(UserUtils.ROLE_MAHASISWA));
+                    if(isMahasiswa){
+                        res.sendRedirect("/mahasiswa/ringkasan");
+                    }else{
+                        res.sendRedirect("/admin");
+                    }
+                })
                 .loginPage("/login")
                 .permitAll()
                 .and()

@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -120,5 +121,7 @@ public class MahasiswaService {
     }
 
 
-
+    public String getNPMMahasiswa(String username) {
+        return mahasiswaMapper.getMahasiswaNPM(username);
+    }
 }
