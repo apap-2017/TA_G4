@@ -45,7 +45,8 @@ public class MahasiswaService {
 
     public String checkUsername(String username)
     {
-        if(mahasiswaMapper.getUsername(username).equalsIgnoreCase(username)) {
+        String other = mahasiswaMapper.getUsername(username);
+        if(other != null && other.equalsIgnoreCase(username)) {
             return "username-duplikat";
         }else {
             return "username-available";
