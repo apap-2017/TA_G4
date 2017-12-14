@@ -50,8 +50,7 @@ public class MahasiswaService {
             return mahasiswa;
         }
 
-        String idUniv = Integer.toString(mahasiswa.getIdUniv());
-        UnivResponseModel univ = univDAO.getUniv(idUniv);
+        UnivResponseModel univ = univDAO.getUniv(mahasiswa.getIdUniv());
         mahasiswa.setNamaUniv(univ.getResult().getUniversitas().getNamaUniv());
 
         return mahasiswa;
@@ -63,9 +62,9 @@ public class MahasiswaService {
         String password = mahasiswaMapper.getPassword(mahasiswa.getUsername());
         mahasiswa.setPassword(password);
 
-        String idUniv = Integer.toString(mahasiswa.getIdUniv());
-        String idFakultas = Integer.toString(mahasiswa.getIdFakultas());
-        String idProdi = Integer.toString(mahasiswa.getIdProdi());
+        int idUniv = (mahasiswa.getIdUniv());
+        int idFakultas = (mahasiswa.getIdFakultas());
+        int idProdi = (mahasiswa.getIdProdi());
 
         UnivResponseModel univ = univDAO.getUniv(idUniv);
         FakultasResponseModel fakultas = univDAO.getFakultas(idUniv, idFakultas);
@@ -83,8 +82,7 @@ public class MahasiswaService {
         List<MahasiswaDBModel> mahasiswas = mahasiswaMapper.getAllMahasiswa();
 
         for(int i = 0; i< mahasiswas.size(); i++) {
-            String idUniv = Integer.toString(mahasiswas.get(i).getIdUniv());
-            UnivResponseModel univ = univDAO.getUniv(idUniv);
+            UnivResponseModel univ = univDAO.getUniv(mahasiswas.get(i).getIdUniv());
             mahasiswas.get(i).setNamaUniv(univ.getResult().getUniversitas().getNamaUniv());
         }
 

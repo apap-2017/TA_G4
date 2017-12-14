@@ -3,14 +3,12 @@ package com.akademik.mahasiswa.g4.service;
 import com.akademik.mahasiswa.g4.dao.KurikulumDAO;
 import com.akademik.mahasiswa.g4.dao.PenilaianDAO;
 import com.akademik.mahasiswa.g4.dao.SekretariatDAO;
+import com.akademik.mahasiswa.g4.dao.UnivDAO;
 import com.akademik.mahasiswa.g4.mapper.KelasMapper;
 import com.akademik.mahasiswa.g4.mapper.MahasiswaMapper;
 import com.akademik.mahasiswa.g4.model.db.MahasiswaDBModel;
 import com.akademik.mahasiswa.g4.model.db.RiwayatPerkuliahanModel;
-import com.akademik.mahasiswa.g4.model.rest.KelasModel;
-import com.akademik.mahasiswa.g4.model.rest.KurikulumModel;
-import com.akademik.mahasiswa.g4.model.rest.NilaiKuliahModel;
-import com.akademik.mahasiswa.g4.model.rest.SemuaNilaiResponseModel;
+import com.akademik.mahasiswa.g4.model.rest.*;
 import com.akademik.mahasiswa.g4.model.view.DashboardModel;
 import com.akademik.mahasiswa.g4.model.view.StatistikNilaiModel;
 import com.akademik.mahasiswa.g4.utls.IPUtils;
@@ -28,17 +26,25 @@ public class DashboardService {
 
     @Autowired
     private MahasiswaMapper mahasiswaMapper;
+
+    @Autowired
+    private UnivService univService;
+
     @Autowired
     private RiwayatService riwayatService;
     @Autowired
     private KurikulumDAO kurikulumDAO;
+
+    @Autowired
+    private UnivDAO univDAO;
+
     @Autowired
     private PenilaianDAO penilaianDAO;
 
     public DashboardModel getDashboardMahasiswa(String npm){
-        //TODO ganti dengan yg dibawah ini returnnya
-        if(true)
-            return getDashboardDummy();
+//        //TODO ganti dengan yg dibawah ini returnnya
+//        if(true)
+//            return getDashboardDummy();
 
         DashboardModel dashboard = new DashboardModel();
 
@@ -81,6 +87,23 @@ public class DashboardService {
         dashboard.getMahasiswa().setSksLulus(totalSKSLulus);
         dashboard.getMahasiswa().setSksDiperoleh(totalSKSDiperoleh);
 
+        UnivResponseModel univ = univDAO.getUniv(dashboard.getMahasiswa().getIdUniv());
+        String namaUniv = univ.getResult().getUniversitas().getNamaUniv();
+
+        FakultasResponseModel fakultas = univDAO.getFakultas(dashboard.getMahasiswa().getIdUniv(),
+                dashboard.getMahasiswa().getIdFakultas());
+        String namaFakultas = fakultas.getResult().getFakultas().getNamaFakultas();
+
+        ProdiResponseModel prodi = univDAO.getProdi(dashboard.getMahasiswa().getIdUniv(),
+                dashboard.getMahasiswa().getIdFakultas(),
+                dashboard.getMahasiswa().getIdProdi());
+        String namaProdi = prodi.getResult().getProdi().getNamaProdi();
+
+
+        dashboard.getMahasiswa().setNamaUniv(namaUniv);
+        dashboard.getMahasiswa().setNamaFakultas(namaFakultas);
+        dashboard.getMahasiswa().setNamaProdi(namaProdi);
+
         //set yudisium
         KurikulumModel kurikulumModel = kurikulumDAO.getKurikulum(dashboard.getMahasiswa());
         int countWajib = 0;
@@ -110,6 +133,8 @@ public class DashboardService {
         }else{
             dashboard.setStatusAkademik("BELUM LULUS");
         }
+
+
 
         return dashboard;
     }

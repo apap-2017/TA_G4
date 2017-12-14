@@ -18,9 +18,9 @@ public class TermDAO {
     @Autowired
     private MahasiswaMapper mahasiswaMapper;
 
-    public TermModel getTermNow(){
+    public TermModel getTermNow(String npm){
         //get mahasiswa yang login
-        MahasiswaDBModel currentMahasiswa = mahasiswaMapper.getMahasiswaByUsername(UserUtils.getUsername());
+        MahasiswaDBModel currentMahasiswa = mahasiswaMapper.getMahasiswa(npm);
 
         TermNowResponseModel response = restTemplateBuilder
                 .build().getForObject(NetworkUtils.BASE_URL_SEKRETARIAT + "/api/getTermNow/"

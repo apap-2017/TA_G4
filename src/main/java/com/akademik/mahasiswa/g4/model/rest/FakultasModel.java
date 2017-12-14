@@ -11,10 +11,10 @@ import lombok.*;
 public class FakultasModel {
 
     @JsonProperty("univ")
-    private String idUniv;
+    private int idUniv;
 
     @JsonProperty("id_fakultas")
-    private String idFakultas;
+    private int idFakultas;
 
     @JsonProperty("nama_fakultas")
     private String namaFakultas;

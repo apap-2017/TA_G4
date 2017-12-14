@@ -11,13 +11,13 @@ import lombok.*;
 public class ProdiModel {
 
     @JsonProperty("id_univ")
-    private String idUniv;
+    private int idUniv;
 
     @JsonProperty("id_fakultas")
-    private String idFakultas;
+    private int idFakultas;
 
     @JsonProperty("id_prodi")
-    private String idProdi;
+    private int idProdi;
 
     @JsonProperty("nama_prodi")
     private String namaProdi;

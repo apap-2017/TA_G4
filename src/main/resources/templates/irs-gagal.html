@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragment :: header-title-fragment">
+</head>
+<body>
+    <div th:replace="fragments/fragment :: header"></div>
+    <div id="main-container" class="container mt-6">
+        <div id="content-container" class="container col-md-5 bg-white">
+            <div class="container">
+                <h3 class="text-center font-weight-bold"><strong>Isi IRS Gagal</strong></h3>
+                <hr/>
+                <br/>
+            </div>
+
+            <div class="container align-center">
+                <p>Anda tidak dapat mengisi IRS karena periode registrasi akademik belum dimulai atau sudah berakhir.</p>
+                <br/>
+                <p>Registrasi akademik dimulai pada pukul 09.00 waktu server SIAK-FG pada tanggal mulai registrasi akademik dan berakhir setelah lewat pukul 23.59
+                    waktu server SIAK-FG pada tanggal berakhir registrasi akademik.</p>
+                <br/>
+                <p class="font-weight-bold">Solusi</p>
+                <br/>
+                <p>Hubungi bagian akademik di program studi/fakultas Anda.</p>
+                <br/>
+                <p>Anda tidak dapat mengubah IRS karena statusnya telah disetujui.</p>
+                <br/>
+                <p class="font-weight-bold">Solusi</p>
+                <br/>
+                <p>- Hubungi pembimbing akademik Anda untuk mengubah status IRS</p>
+                <p>- Mengubah IRS Anda pada periode add/drop</p>
+                <p>- Hubungi bagian akademik di program stusi/fakultas anda</p>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="fragments/fragment :: footer"></div>
+</body>
+</html>

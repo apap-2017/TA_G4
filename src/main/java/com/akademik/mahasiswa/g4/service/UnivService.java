@@ -41,7 +41,7 @@ public class UnivService {
     }
 
 
-    public String convertUniv(String univ)
+    public int convertUniv(String univ)
     {
         List<UnivModel> univs = univDAO.getAllUniv().getResult().getListUniv();
 
@@ -53,10 +53,10 @@ public class UnivService {
                 i++;
             }
         }
-        return "cant convert";
+        return -1;
     }
 
-    public String checkFakultas(String idUniv, String fakultas)
+    public String checkFakultas(int idUniv, String fakultas)
     {
         List<FakultasModel> fakults = univDAO.getAllFakultasUniv(idUniv).getResult().getListFakultas();
 
@@ -71,7 +71,7 @@ public class UnivService {
         return "invalid-fakultas";
     }
 
-    public String convertFakultas(String idUniv, String fakultas)
+    public int convertFakultas(int idUniv, String fakultas)
     {
         List<FakultasModel> fakults = univDAO.getAllFakultasUniv(idUniv).getResult().getListFakultas();
 
@@ -83,10 +83,10 @@ public class UnivService {
                 i++;
             }
         }
-        return "cant convert";
+        return -1;
     }
 
-    public String checkProdi(String idUniv, String idFakultas, String prodi)
+    public String checkProdi(int idUniv, int idFakultas, String prodi)
     {
         List<ProdiModel> prodis = univDAO.getAllProdiFakultas(idUniv, idFakultas).getResult().getListProdi();
 
@@ -101,7 +101,7 @@ public class UnivService {
         return "invalid-prodi";
     }
 
-    public String convertProdi(String idUniv, String idFakultas, String prodi)
+    public int convertProdi(int idUniv, int idFakultas, String prodi)
     {
         List<ProdiModel> prodis = univDAO.getAllProdiFakultas(idUniv, idFakultas).getResult().getListProdi();
 
@@ -113,6 +113,6 @@ public class UnivService {
                 i++;
             }
         }
-        return "cant convert";
+        return -1;
     }
 }
