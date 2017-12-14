@@ -26,6 +26,16 @@ public class DasboardController {
     @Autowired
     private MahasiswaService mahasiswaService;
 
+    @GetMapping("/")
+    public String index(){
+        boolean isMahasiswa = UserUtils.userRoleIs(UserUtils.ROLE_MAHASISWA);
+        if(isMahasiswa){
+            return "redirect:/mahasiswa/ringkasan";
+        }else{
+            return "redirect:/admin";
+        }
+    }
+
     @RequestMapping(value = {"/mahasiswa/ringkasan/{npm}","/mahasiswa/ringkasan"}, method = RequestMethod.GET)
     public String displayDashboardMahasiswa(@PathVariable("npm") Optional<String> npm, Model model){
         String realNPM = null;
