@@ -19,8 +19,4 @@ public class UnivResponseModel extends BaseResponseModel<UnivResponseModel.UnivR
         @JsonProperty("universitas")
         private UnivModel universitas;
     }
-
-
-
-
 }
