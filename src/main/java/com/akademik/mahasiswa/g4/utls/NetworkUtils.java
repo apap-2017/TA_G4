@@ -5,4 +5,5 @@ public class NetworkUtils {
     public static final String BASE_URL_PENILAIAN = "http://localhost:8003";
     public static final String BASE_URL_UNIVERSITAS = "https://apap2017-univ-apps.herokuapp.com";
     public static final String BASE_URL_KURIKULUM = "http://localhost:8001";
+    public static final String BASE_URL = "http://localhost:8004";
 }
