@@ -43,6 +43,15 @@ public class MahasiswaService {
         return "npm-available";
     }
 
+    public String checkUsername(String username)
+    {
+        if(mahasiswaMapper.getUsername(username).equalsIgnoreCase(username)) {
+            return "username-duplikat";
+        }else {
+            return "username-available";
+        }
+    }
+
     public MahasiswaDBModel getMahasiswaWithUniv(String npm)
     {
         MahasiswaDBModel mahasiswa = mahasiswaMapper.getMahasiswa(npm);
