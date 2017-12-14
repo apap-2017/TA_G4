@@ -73,4 +73,17 @@ public class APIController {
         return mahasiswaDAO.getMahasiswaBerdasarkanAngkatan(angkatan.get());
     }
 
+    @RequestMapping(value = "/mahasiswa/univ/{idUniv}")
+    public BaseResponseModel<List<MahasiswaDBModel>> getMahasiswaBerdasarkanUniv(@PathVariable("idUniv") Optional<Integer> idUniv){
+
+        if(!idUniv.isPresent()){
+            return new BaseResponseModel<>(HttpStatus.NOT_FOUND.value()
+                    , "kurang data ID Univ pada url path"
+                    , null);
+        }
+
+        return mahasiswaDAO.getMahasiswaBerdasarkanUniv(idUniv.get());
+    }
+
+
 }
