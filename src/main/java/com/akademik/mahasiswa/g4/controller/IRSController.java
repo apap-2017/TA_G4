@@ -50,6 +50,8 @@ public class IRSController {
     @RequestMapping(value = "/mahasiswa/irs/{npm}", method = RequestMethod.GET)
     public String lihatIRS(Model model, @PathVariable("npm") String npm){
         IRSModel irs = irsService.getIRS(npm);
+        model.addAttribute("npm", npm);
+
         if(irs != null) {
             model.addAttribute("page_title", "Lihat IRS");
             model.addAttribute("irs", irs);
@@ -58,6 +60,7 @@ public class IRSController {
             model.addAttribute("page_title", "IRS Not Found");
             return "page-not-found-irs";
         }
+
     }
 
 }
