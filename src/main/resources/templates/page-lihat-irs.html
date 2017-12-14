@@ -43,8 +43,8 @@
     <h2 th:text="|(*{mahasiswa.npm}) *{mahasiswa.nama}, Priode *{riwayat.tahunAjar} term *{riwayat.term}|"></h2>
 
     <h2>Mata Kuliah yang Dipilih</h2>
-
-    <div class="col-md-12">
+    <div class="row">
+    <div class="col-md-8">
         <table class="table table-hover">
             <thead>
             <tr>
@@ -73,27 +73,27 @@
             </tr>
             </tbody>
         </table>
-        <div class="row">
-            <div class="col-md">
+    </div>
+            <div class="col-md-4">
+
             <div class="panel panel-info">
                 <div class="panel-heading">
-                <h4>SKS Maksimum:</h4>
+                <h5>SKS Maksimum:</h5>
                 </div>
                 <div class="panel-body">
-                <h1 th:text="*{sksMaksimum}"></h1>
+                <h5 th:text="*{sksMaksimum}"></h5>
                 </div>
             </div>
-            </div>
-            <div class="col-md">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                <h4>IP Terakhir:</h4>
+                <h5>IP Terakhir:</h5>
                 </div>
                 <div class="panel-body">
-                <h1 th:text="*{ipTerakhir}"></h1>
+                <h5 th:text="*{ipTerakhir}"></h5>
                 </div>
             </div>
             </div>
+
         </div>
 
         <div class="panel panel-warning">
@@ -101,10 +101,10 @@
             <h4>Pengecekan IRS</h4>
             </div>
             <div class="panel-body" th:each="currentError : *{error}" th:object="${currentError}">
-                <h4 th:text="${currentError}"></h4>
+                <h5 th:text="${currentError}"></h5>
             </div>
         </div>
-    </div>
+
 </div>
 </div>
 
