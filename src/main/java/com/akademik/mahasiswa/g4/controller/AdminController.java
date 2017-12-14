@@ -61,7 +61,7 @@ public class AdminController {
             return "add-mahasiswa-form";
         }
 
-        String idUniv = univService.convertUniv(univ);
+        int idUniv = univService.convertUniv(univ);
 
         String hasilFakultas = univService.checkFakultas(idUniv, fakultas);
 
@@ -74,7 +74,7 @@ public class AdminController {
 
         }else {
 
-            String idFakultas = univService.convertFakultas(idUniv, fakultas);
+            int idFakultas = univService.convertFakultas(idUniv, fakultas);
 
             String hasilProdi = univService.checkProdi(idUniv, idFakultas, prodi);
 
@@ -87,16 +87,16 @@ public class AdminController {
 
             }else {
 
-                String idProdi = univService.convertProdi(idUniv, idFakultas, prodi);
+                int idProdi = univService.convertProdi(idUniv, idFakultas, prodi);
 
                 MahasiswaDBModel newMahasiswa = new MahasiswaDBModel();
                 newMahasiswa.setNama(nama);
                 newMahasiswa.setNpm(npm);
                 newMahasiswa.setUsername(username);
                 newMahasiswa.setPassword(password);
-                newMahasiswa.setIdUniv(Integer.parseInt(idUniv));
-                newMahasiswa.setIdFakultas(Integer.parseInt(idFakultas));
-                newMahasiswa.setIdProdi(Integer.parseInt(idProdi));
+                newMahasiswa.setIdUniv(idUniv);
+                newMahasiswa.setIdFakultas(idFakultas);
+                newMahasiswa.setIdProdi(idProdi);
                 newMahasiswa.setAngkatan(angkatan);
 
                 mahasiswaService.addUserMahasiswaToDB(newMahasiswa);
@@ -161,7 +161,7 @@ public class AdminController {
             model.addAttribute("invalidity", "Universitas Tidak tersedia");
             return "update-mahasiswa-form";
         }else {
-            String idUniv = univService.convertUniv(mahasiswa.getNamaUniv());
+            int idUniv = univService.convertUniv(mahasiswa.getNamaUniv());
 
             String hasilFakultas = univService.checkFakultas(idUniv, mahasiswa.getNamaFakultas());
 
@@ -175,7 +175,7 @@ public class AdminController {
                 return "update-mahasiswa-form";
             }else {
 
-                String idFakultas = univService.convertFakultas(idUniv, mahasiswa.getNamaFakultas());
+                int idFakultas = univService.convertFakultas(idUniv, mahasiswa.getNamaFakultas());
 
                 String hasilProdi = univService.checkProdi(idUniv, idFakultas, mahasiswa.getNamaProdi());
 
@@ -191,16 +191,16 @@ public class AdminController {
 
                 }else {
 
-                    String idProdi = univService.convertProdi(idUniv, idFakultas, mahasiswa.getNamaProdi());
+                    int idProdi = univService.convertProdi(idUniv, idFakultas, mahasiswa.getNamaProdi());
 
                     MahasiswaDBModel newMahasiswa = new MahasiswaDBModel();
                     newMahasiswa.setNama(mahasiswa.getNama());
                     newMahasiswa.setNpm(mahasiswa.getNpm());
                     newMahasiswa.setUsername(mahasiswa.getUsername());
                     newMahasiswa.setPassword(mahasiswa.getPassword());
-                    newMahasiswa.setIdUniv(Integer.parseInt(idUniv));
-                    newMahasiswa.setIdFakultas(Integer.parseInt(idFakultas));
-                    newMahasiswa.setIdProdi(Integer.parseInt(idProdi));
+                    newMahasiswa.setIdUniv(idUniv);
+                    newMahasiswa.setIdFakultas(idFakultas);
+                    newMahasiswa.setIdProdi(idProdi);
                     newMahasiswa.setAngkatan(mahasiswa.getAngkatan());
 
                     mahasiswaService.updateUserMahasiswaToDB(newMahasiswa);

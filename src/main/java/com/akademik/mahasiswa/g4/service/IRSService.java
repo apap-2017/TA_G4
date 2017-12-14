@@ -131,9 +131,9 @@ public class IRSService {
     }
 
     public IRSModel getIRS(String npm) {
-        //TODO delete dummy
-        if(true)
-            return getIrsDummy();
+//        //TODO delete dummy
+//        if(true)
+//            return getIrsDummy();
 
         //jika mahasiswa yang mengakses irs orang lain maka tidak boleh
         if(UserUtils.userRoleIs(UserUtils.ROLE_MAHASISWA) &&

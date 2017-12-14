@@ -11,7 +11,7 @@ import lombok.*;
 public class UnivModel {
 
     @JsonProperty("id_univ")
-    private String idUniv;
+    private int idUniv;
 
     @JsonProperty("nama_univ")
     private String namaUniv;
