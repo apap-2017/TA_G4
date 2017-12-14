@@ -22,8 +22,14 @@ public interface MahasiswaMapper {
                                                        @Param("term") int term,
                                                        @Param("kodeMK") String kodeMK);
 
-    @Select("select nama, npm, angkatan, id_universitas as idUniv from mahasiswa")
+    @Select("select nama, npm, angkatan, username, id_universitas as idUniv from mahasiswa")
     List<MahasiswaDBModel> getAllMahasiswa();
+
+    @Select("select nama, npm, angkatan, username, id_fakultas as idFakultas, id_prodi as idProdi, id_universitas as idUniv from mahasiswa where angkatan = #{angkatan}")
+    List<MahasiswaDBModel> getMahasiswaBerdasarkanAngkatan(@Param("angkatan") String angkatan);
+
+    @Select("select nama, npm, angkatan, username, id_fakultas as idFakultas, id_prodi as idProdi, id_universitas as idUniv from mahasiswa where id_universitas = #{idUniv}")
+    List<MahasiswaDBModel> getMahasiswaBerdasarkanUniv(@Param("idUniv") int idUniv);
 
     @Select("select m.npm, m.nama, m.username, m.id_universitas as idUniv, m.id_fakultas as idFakultas, m.id_prodi as idProdi, m.angkatan " +
             "from mahasiswa m " +

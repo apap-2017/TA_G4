@@ -17,8 +17,8 @@
     <div id="form-login" class="container col-md-12">
         <div class="form float-left">
             <h4 id="text" class="text-center">Login</h4>
-            <div align="center" th:if="${param.error}">
-                Invalid username and password.
+            <div class="text-danger" align="center" th:if="${param.error}">
+                Invalid Username and Password.
             </div>
             <form th:action="@{/login}" method="post" class="login-form" align="left">
                 <input type="text" name="username" placeholder="username"/>
