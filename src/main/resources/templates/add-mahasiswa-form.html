@@ -3,6 +3,81 @@
 <head th:replace="fragments/fragment :: header-title-fragment">
 </head>
 <body>
+
+
+<script>
+
+    $(document).ready(function(){
+
+        var idUniv;
+        var idFakultas;
+        var idProdi;
+
+        $( "#select-univ" ).change(function() {
+            idUniv = $(this).find('option:selected').attr('id');
+            if (idUniv != -1) {
+                var urlFakultas = "http://localhost:8004/api/getListFakultas/" + idUniv;
+                $.get(urlFakultas, function (data) {
+                    $("#select-fakultas").empty();
+                    $("#select-fakultas").append('<option id="-1">Pilih Fakultas</option>');
+                    $.each(data, function (i, fakultas) {
+                        var attribute = '<option id="' + fakultas.id_fakultas + '" value="' + fakultas.nama_fakultas + '" text="' + fakultas.nama_fakultas + '">' + fakultas.nama_fakultas + '</option>';
+                        $("#select-fakultas").append(attribute);
+                    });
+                    $("#select-fakultas").parent().css({'visibility': 'visible'});
+                    $("#select-prodi").parent().css({'visibility': 'collapse'});
+                    $("#select-angkatan").parent().css({'visibility': 'collapse'});
+                });
+            }else{
+                $("#select-fakultas").parent().css({'visibility': 'collapse'});
+                $("#select-prodi").parent().css({'visibility': 'collapse'});
+                $("#select-angkatan").parent().css({'visibility': 'collapse'});
+            }
+        });
+
+        $( "#select-fakultas" ).change(function() {
+            idFakultas = $(this).find('option:selected').attr('id');
+            if(idFakultas != -1) {
+                var urlProdi = "http://localhost:8004/api/getListProdi/" + idUniv + "/" + idFakultas;
+                $.get(urlProdi, function (data) {
+                    $("#select-prodi").empty();
+                    $("#select-prodi").append('<option id="-1">Pilih Prodi</option>');
+                    $.each(data, function (i, prodi) {
+                        var attribute = '<option id="' + prodi.id_prodi + '" value="' + prodi.nama_prodi + '" text="' + prodi.nama_prodi + '">' + prodi.nama_prodi + '</option>';
+                        $("#select-prodi").append(attribute);
+                    });
+                    $("#select-prodi").parent().css({'visibility': 'visible'});
+                    $("#select-angkatan").parent().css({'visibility': 'collapse'});
+                });
+            }else{
+                $("#select-prodi").parent().css({'visibility': 'collapse'});
+                $("#select-angkatan").parent().css({'visibility': 'collapse'});
+            }
+        });
+
+        $( "#select-prodi" ).change(function() {
+            idProdi = $(this).find('option:selected').attr('id');
+            if(idProdi != -1) {
+                var urlProdi = "http://localhost:8004/api/getAngkatan/" + idUniv + "/" + idFakultas + "/" + idProdi;
+                $.get(urlProdi, function (data) {
+                    $("#select-angkatan").empty();
+                    $("#select-angkatan").append('<option id="-1">Pilih Program Angkatan</option>');
+                    $.each(data, function (i, angkatan) {
+                        var attribute = '<option value="' + angkatan.angkatan + '" text="' + angkatan.angkatan + '">' + angkatan.angkatan + '</option>';
+                        $("#select-angkatan").append(attribute);
+                    });
+                    $("#select-angkatan").parent().css({'visibility': 'visible'});
+                });
+            }else{
+                $("#select-angkatan").parent().css({'visibility': 'collapse'});
+            }
+        });
+
+    });
+
+</script>
+
+
 <div th:replace="fragments/fragment :: header"></div>
 
 <div id="main-container" class="container mt-6">
@@ -26,28 +101,38 @@
                     <input class="form-control" type="text" name="npm"/>
                 </div>
                 <div class="form-group">
-                    <label>Angkatan: </label>
-                    <input class="form-control" type="text" name="angkatan"/>
-                </div>
-                <div class="form-group">
                     <label>Universitas: </label>
-                    <select class="form-control custom-select" type="text" name="univ">
+                    <select class="form-control custom-select" type="text" name="univ" id="select-univ">
+                        <option id="-1">Pilih Universitas</option>
                         <div th:each="univ,iterationStatus: ${univs}">
-                            <option th:value="${univ.namaUniv}" th:text="${univ.namaUniv}">
+                            <option th:value="${univ.namaUniv}" th:text="${univ.namaUniv}" th:id="${univ.idUniv}">
                             </option>
                         </div>
                     </select>
                 </div>
-                <div class="form-group">
+
+                <div class="form-group" style="visibility: collapse">
                     <label>Fakultas: </label>
-                    <input class="form-control" type="text" name="fakultas"/>
+                    <select class="form-control custom-select" type="text" name="fakultas" id="select-fakultas">
+                    </select>
                 </div>
+
+                <div class="form-group" style="visibility: collapse">
+                    <label>Program Studi: </label>
+                    <select class="form-control custom-select" type="text" name="prodi" id="select-prodi">
+                        <option id="-1">Pilih Program Studi</option>
+                    </select>
+                </div>
+
+                <div class="form-group" style="visibility: collapse">
+                    <label>Angkatan: </label>
+                    <select class="form-control custom-select" type="text" name="angkatan" id="select-angkatan">
+                        <option id="-1">Pilih Angkatan</option>
+                    </select>
+                </div>
+
             </div>
             <div class="container col-md-6">
-                <div class="form-group">
-                    <label>Program Studi: </label>
-                    <input class="form-control" type="text" name="prodi"/>
-                </div>
                 <div class="form-group">
                     <label>Username: </label>
                     <input class="form-control" type="text" name="username"/>
