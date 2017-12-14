@@ -30,6 +30,7 @@ public class DasboardController {
             realNPM = npm.get();
         }
         DashboardModel dashboard = dashboardService.getDashboardMahasiswa(realNPM);
+        model.addAttribute("npm",realNPM);
         model.addAttribute("page_title", "Dashboard Mahasiswa");
         model.addAttribute("dashboard", dashboard);
         return "page-dashboard";
