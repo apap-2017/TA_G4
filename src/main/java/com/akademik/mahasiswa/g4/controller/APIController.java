@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -54,4 +55,22 @@ public class APIController {
         return mahasiswaDAO.getAPIMahasiswa(npm.get());
 
     }
+
+    @RequestMapping(value = "/mahasiswa/list")
+    public BaseResponseModel<List<MahasiswaDBModel>> getAllMahasiswa(){
+        return mahasiswaDAO.getAPIMahasiswaAll();
+    }
+
+    @RequestMapping(value = {"/mahasiswa/list/angkatan/{angkatan}", "/mahasiswa/list/angkatan/**"})
+    public BaseResponseModel<List<MahasiswaDBModel>> getMahasiswaBerdasarkanAngkatan(@PathVariable("angkatan") Optional<String> angkatan){
+
+        if(!angkatan.isPresent()){
+            return new BaseResponseModel<>(HttpStatus.NOT_FOUND.value()
+                    , "kurang data angkatan pada url path"
+                    , null);
+        }
+
+        return mahasiswaDAO.getMahasiswaBerdasarkanAngkatan(angkatan.get());
+    }
+
 }

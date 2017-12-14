@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MahasiswaDAO {
 
@@ -48,4 +50,31 @@ public class MahasiswaDAO {
         return responseModel;
     }
 
+    public BaseResponseModel<List<MahasiswaDBModel>> getAPIMahasiswaAll(){
+        BaseResponseModel<List<MahasiswaDBModel>> responseModel = new BaseResponseModel<>();
+        List<MahasiswaDBModel> allMahasiswa = mahasiswaMapper.getAllMahasiswa();
+        if(allMahasiswa != null) {
+            responseModel.setStatus(HttpStatus.OK.value());
+            responseModel.setMsg(HttpStatus.OK.getReasonPhrase());
+            responseModel.setResult(allMahasiswa);
+        } else {
+            responseModel.setStatus(HttpStatus.NOT_FOUND.value());
+            responseModel.setMsg("tidak ada mahasiswa yang terdaftar");
+        }
+        return responseModel;
+    }
+
+    public BaseResponseModel<List<MahasiswaDBModel>> getMahasiswaBerdasarkanAngkatan(String angkatan){
+        BaseResponseModel<List<MahasiswaDBModel>> responseModel = new BaseResponseModel<>();
+        List<MahasiswaDBModel> allMahasiswa = mahasiswaMapper.getMahasiswaBerdasarkanAngkatan(angkatan);
+        if(allMahasiswa != null) {
+            responseModel.setStatus(HttpStatus.OK.value());
+            responseModel.setMsg(HttpStatus.OK.getReasonPhrase());
+            responseModel.setResult(allMahasiswa);
+        } else {
+            responseModel.setStatus(HttpStatus.NOT_FOUND.value());
+            responseModel.setMsg("tidak ada mahasiswa yang terdaftar");
+        }
+        return responseModel;
+    }
 }
