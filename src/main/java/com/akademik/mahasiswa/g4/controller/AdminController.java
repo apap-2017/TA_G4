@@ -147,6 +147,7 @@ public class AdminController {
     public String update (@PathVariable(value = "npm") String npm, Model model)
     {
         MahasiswaDBModel  mahasiswa = mahasiswaService.getMahasiswaAllData(npm);
+        mahasiswa.setUsernameLama(mahasiswa.getUsername());
         model.addAttribute("npm", mahasiswa.getNpm());
         model.addAttribute ("mahasiswa", mahasiswa);
 
@@ -157,6 +158,19 @@ public class AdminController {
     @RequestMapping(value = "/admin/update/submit/{npm}", method = RequestMethod.POST)
     public String updateSubmit(@PathVariable(value = "npm") String npm, MahasiswaDBModel mahasiswa, Model model)
     {
+        String usernameLama = mahasiswa.getUsernameLama();
+
+        if(!usernameLama.equals(mahasiswa.getUsername())
+                &&mahasiswaService.checkUsername(mahasiswa.getUsername()).equals("username-duplikat"))
+        {
+            MahasiswaDBModel  mahasiswaLama = mahasiswaService.getMahasiswaAllData(npm);
+            model.addAttribute("npm", npm);
+            model.addAttribute ("mahasiswa", mahasiswaLama);
+            model.addAttribute("page_title", "Invalid Username");
+            model.addAttribute("invalidity", "Username " + mahasiswa.getUsername() + " sudah terdaftar");
+            return "update-mahasiswa-form";
+        }
+
         if(mahasiswaService.checkNPM(mahasiswa.getNpm()).equals("npm-duplikat") && !npm.equals(mahasiswa.getNpm())) {
             MahasiswaDBModel  mahasiswaLama = mahasiswaService.getMahasiswaAllData(npm);
             model.addAttribute("npm", npm);
@@ -166,69 +180,71 @@ public class AdminController {
             return "update-mahasiswa-form";
         }
 
-        String hasilUniv = univService.checkUniv(mahasiswa.getNamaUniv());
+//        String hasilUniv = univService.checkUniv(mahasiswa.getNamaUniv());
+//
+//        if(hasilUniv.equals("invalid-univ")) {
+//            MahasiswaDBModel  mahasiswaLama = mahasiswaService.getMahasiswaAllData(npm);
+//            model.addAttribute("npm", mahasiswaLama.getNpm());
+//            model.addAttribute ("mahasiswa", mahasiswaLama);
+//
+//            model.addAttribute("page_title", "Invalid Universitas");
+//            model.addAttribute("invalidity", "Universitas Tidak tersedia");
+//            return "update-mahasiswa-form";
+//        }else {
+//            int idUniv = univService.convertUniv(mahasiswa.getNamaUniv());
+//
+//            String hasilFakultas = univService.checkFakultas(idUniv, mahasiswa.getNamaFakultas());
+//
+//            if(hasilFakultas.equals("invalid-fakultas")) {
+//                MahasiswaDBModel  mahasiswaLama = mahasiswaService.getMahasiswaAllData(npm);
+//                model.addAttribute("npm", mahasiswaLama.getNpm());
+//                model.addAttribute ("mahasiswa", mahasiswaLama);
+//
+//                model.addAttribute("page_title", "Invalid Fakultas");
+//                model.addAttribute("invalidity", "Fakultas Tidak tersedia pada " + mahasiswa.getNamaUniv());
+//                return "update-mahasiswa-form";
+//            }else {
+//
+//                int idFakultas = univService.convertFakultas(idUniv, mahasiswa.getNamaFakultas());
+//
+//                String hasilProdi = univService.checkProdi(idUniv, idFakultas, mahasiswa.getNamaProdi());
+//
+//                if(hasilProdi.equals("invalid-prodi")) {
+//                    MahasiswaDBModel  mahasiswaLama = mahasiswaService.getMahasiswaAllData(npm);
+//                    model.addAttribute("npm", mahasiswaLama.getNpm());
+//                    model.addAttribute ("mahasiswa", mahasiswaLama);
+//
+//                    model.addAttribute("page_title", "Invalid Prodi");
+//                    model.addAttribute("invalidity", "Prodi Tidak tersedia pada " + mahasiswa.getNamaUniv()
+//                            + " , " + mahasiswa.getNamaFakultas());
+//                    return "update-mahasiswa-form";
+//
+//                }else {
+//
+//                    int idProdi = univService.convertProdi(idUniv, idFakultas, mahasiswa.getNamaProdi());
+//
+//                    MahasiswaDBModel newMahasiswa = new MahasiswaDBModel();
+//                    newMahasiswa.setNama(mahasiswa.getNama());
+//                    newMahasiswa.setNpm(mahasiswa.getNpm());
+//                    newMahasiswa.setUsername(mahasiswa.getUsername());
+//                    newMahasiswa.setPassword(mahasiswa.getPassword());
+//                    newMahasiswa.setIdUniv(idUniv);
+//                    newMahasiswa.setIdFakultas(idFakultas);
+//                    newMahasiswa.setIdProdi(idProdi);
+//                    newMahasiswa.setAngkatan(mahasiswa.getAngkatan());
+//
+//                }
+//
+//            }
+//        }
 
-        if(hasilUniv.equals("invalid-univ")) {
-            MahasiswaDBModel  mahasiswaLama = mahasiswaService.getMahasiswaAllData(npm);
-            model.addAttribute("npm", mahasiswaLama.getNpm());
-            model.addAttribute ("mahasiswa", mahasiswaLama);
+        mahasiswaService.updateUserMahasiswaToDB(mahasiswa);
 
-            model.addAttribute("page_title", "Invalid Universitas");
-            model.addAttribute("invalidity", "Universitas Tidak tersedia");
-            return "update-mahasiswa-form";
-        }else {
-            int idUniv = univService.convertUniv(mahasiswa.getNamaUniv());
+        model.addAttribute("page_title", "Mahasiswa Updated");
+        model.addAttribute("npmLama", npm);
+        model.addAttribute("npmBaru", mahasiswa.getNpm());
+        return "update-mahasiswa-sukses";
 
-            String hasilFakultas = univService.checkFakultas(idUniv, mahasiswa.getNamaFakultas());
-
-            if(hasilFakultas.equals("invalid-fakultas")) {
-                MahasiswaDBModel  mahasiswaLama = mahasiswaService.getMahasiswaAllData(npm);
-                model.addAttribute("npm", mahasiswaLama.getNpm());
-                model.addAttribute ("mahasiswa", mahasiswaLama);
-
-                model.addAttribute("page_title", "Invalid Fakultas");
-                model.addAttribute("invalidity", "Fakultas Tidak tersedia pada " + mahasiswa.getNamaUniv());
-                return "update-mahasiswa-form";
-            }else {
-
-                int idFakultas = univService.convertFakultas(idUniv, mahasiswa.getNamaFakultas());
-
-                String hasilProdi = univService.checkProdi(idUniv, idFakultas, mahasiswa.getNamaProdi());
-
-                if(hasilProdi.equals("invalid-prodi")) {
-                    MahasiswaDBModel  mahasiswaLama = mahasiswaService.getMahasiswaAllData(npm);
-                    model.addAttribute("npm", mahasiswaLama.getNpm());
-                    model.addAttribute ("mahasiswa", mahasiswaLama);
-
-                    model.addAttribute("page_title", "Invalid Prodi");
-                    model.addAttribute("invalidity", "Prodi Tidak tersedia pada " + mahasiswa.getNamaUniv()
-                            + " , " + mahasiswa.getNamaFakultas());
-                    return "update-mahasiswa-form";
-
-                }else {
-
-                    int idProdi = univService.convertProdi(idUniv, idFakultas, mahasiswa.getNamaProdi());
-
-                    MahasiswaDBModel newMahasiswa = new MahasiswaDBModel();
-                    newMahasiswa.setNama(mahasiswa.getNama());
-                    newMahasiswa.setNpm(mahasiswa.getNpm());
-                    newMahasiswa.setUsername(mahasiswa.getUsername());
-                    newMahasiswa.setPassword(mahasiswa.getPassword());
-                    newMahasiswa.setIdUniv(idUniv);
-                    newMahasiswa.setIdFakultas(idFakultas);
-                    newMahasiswa.setIdProdi(idProdi);
-                    newMahasiswa.setAngkatan(mahasiswa.getAngkatan());
-
-                    mahasiswaService.updateUserMahasiswaToDB(newMahasiswa);
-
-                    model.addAttribute("page_title", "Mahasiswa Updated");
-                    model.addAttribute("npmLama", npm);
-                    model.addAttribute("npmBaru", newMahasiswa.getNpm());
-                    return "update-mahasiswa-sukses";
-
-                }
-            }
-        }
     }
 
     @RequestMapping("/admin/viewallmahasiswa/delete/{npm}")
