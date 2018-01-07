@@ -19,7 +19,7 @@
                 var urlFakultas = "http://localhost:8004/api/getListFakultas/" + idUniv;
                 $.get(urlFakultas, function (data) {
                     $("#select-fakultas").empty();
-                    $("#select-fakultas").append('<option id="-1">Pilih Fakultas</option>');
+                    $("#select-fakultas").append('<option id="-1" value="">Pilih Fakultas</option>');
                     $.each(data, function (i, fakultas) {
                         var attribute = '<option id="' + fakultas.id_fakultas + '" value="' + fakultas.nama_fakultas + '" text="' + fakultas.nama_fakultas + '">' + fakultas.nama_fakultas + '</option>';
                         $("#select-fakultas").append(attribute);
@@ -41,7 +41,7 @@
                 var urlProdi = "http://localhost:8004/api/getListProdi/" + idUniv + "/" + idFakultas;
                 $.get(urlProdi, function (data) {
                     $("#select-prodi").empty();
-                    $("#select-prodi").append('<option id="-1">Pilih Prodi</option>');
+                    $("#select-prodi").append('<option id="-1" value="">Pilih Prodi</option>');
                     $.each(data, function (i, prodi) {
                         var attribute = '<option id="' + prodi.id_prodi + '" value="' + prodi.nama_prodi + '" text="' + prodi.nama_prodi + '">' + prodi.nama_prodi + '</option>';
                         $("#select-prodi").append(attribute);
@@ -61,7 +61,7 @@
                 var urlProdi = "http://localhost:8004/api/getAngkatan/" + idUniv + "/" + idFakultas + "/" + idProdi;
                 $.get(urlProdi, function (data) {
                     $("#select-angkatan").empty();
-                    $("#select-angkatan").append('<option id="-1">Pilih Program Angkatan</option>');
+                    $("#select-angkatan").append('<option id="-1" value="">Pilih Program Angkatan</option>');
                     $.each(data, function (i, angkatan) {
                         var attribute = '<option value="' + angkatan.angkatan + '" text="' + angkatan.angkatan + '">' + angkatan.angkatan + '</option>';
                         $("#select-angkatan").append(attribute);
@@ -102,8 +102,8 @@
                 </div>
                 <div class="form-group">
                     <label>Universitas: </label>
-                    <select class="form-control custom-select" type="text" name="univ" id="select-univ">
-                        <option id="-1">Pilih Universitas</option>
+                    <select class="form-control custom-select" type="text" name="univ" id="select-univ" th:required="true">
+                        <option id="-1" value="">Pilih Universitas</option>
                         <div th:each="univ,iterationStatus: ${univs}">
                             <option th:value="${univ.namaUniv}" th:text="${univ.namaUniv}" th:id="${univ.idUniv}">
                             </option>
@@ -113,20 +113,20 @@
 
                 <div class="form-group" style="visibility: collapse">
                     <label>Fakultas: </label>
-                    <select class="form-control custom-select" type="text" name="fakultas" id="select-fakultas">
+                    <select class="form-control custom-select" type="text" name="fakultas" id="select-fakultas" th:required="true">
                     </select>
                 </div>
 
                 <div class="form-group" style="visibility: collapse">
                     <label>Program Studi: </label>
-                    <select class="form-control custom-select" type="text" name="prodi" id="select-prodi">
+                    <select class="form-control custom-select" type="text" name="prodi" id="select-prodi" th:required="true">
                         <option id="-1">Pilih Program Studi</option>
                     </select>
                 </div>
 
                 <div class="form-group" style="visibility: collapse">
                     <label>Angkatan: </label>
-                    <select class="form-control custom-select" type="text" name="angkatan" id="select-angkatan">
+                    <select class="form-control custom-select" type="text" name="angkatan" id="select-angkatan" th:required="true">
                         <option id="-1">Pilih Angkatan</option>
                     </select>
                 </div>

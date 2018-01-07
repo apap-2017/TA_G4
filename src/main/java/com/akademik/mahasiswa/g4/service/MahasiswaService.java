@@ -124,7 +124,6 @@ public class MahasiswaService {
     public void updateUserMahasiswaToDB(MahasiswaDBModel newMahasiswa)
     {
         mahasiswaMapper.updateUser(newMahasiswa);
-        mahasiswaMapper.updateUserRole(newMahasiswa);
         mahasiswaMapper.updateMahasiswa(newMahasiswa);
     }
 

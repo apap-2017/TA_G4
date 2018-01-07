@@ -13,6 +13,7 @@ public class MahasiswaDBModel {
     private String npm;
     private String nama;
     private String username;
+    private String usernameLama;
     @JsonIgnore
     private String password;
     @JsonIgnore

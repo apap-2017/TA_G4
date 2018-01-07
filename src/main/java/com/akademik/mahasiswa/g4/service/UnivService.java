@@ -88,6 +88,9 @@ public class UnivService {
 
     public String checkProdi(int idUniv, int idFakultas, String prodi)
     {
+        if(prodi == null)
+            return "invalid-prodi";
+
         List<ProdiModel> prodis = univDAO.getAllProdiFakultas(idUniv, idFakultas).getResult().getListProdi();
 
         int i = 0;
